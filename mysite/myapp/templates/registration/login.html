@@ -1,11 +1,17 @@
 {% extends 'index.html' %}
 {% block content %}
-  <h2>Secure Log-in</h2>
-  <form method="post">
-    <div class="log-in">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-    </div>
-  </form>
+    <p style="padding-bottom: 10px;font-size: 24px;">Secure Log-in</p>
+    <form method="post">
+        <div class="log-in" style="height: 100px;">
+            {% csrf_token %}
+            {{ form.username }}
+            {{ form.password }}
+            <button type="submit" style="margin-bottom:15px;">Login</button>
+            <div  style="height:20px">
+                <span style="float: right; font-size: 14px; color: #18ba60;">Save Info</span>
+                <input type="checkbox" checked>
+                {{ form.error }}
+            </div>
+        </div>
+    </form>
 {% endblock %}

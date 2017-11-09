@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
+from django.contrib import auth
 
 
 def home(request):
@@ -35,7 +36,7 @@ from django.contrib.auth import (
     logout as auth_logout, update_session_auth_hash,
 )
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import (
+from forms import (
     AuthenticationForm, PasswordChangeForm, PasswordResetForm, SetPasswordForm,
 )
 from django.contrib.auth.tokens import default_token_generator
@@ -59,7 +60,6 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
 UserModel = get_user_model()
-
 
 def deprecate_current_app(func):
     """
