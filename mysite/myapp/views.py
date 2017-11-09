@@ -144,7 +144,8 @@ class LoginView(SuccessURLAllowedHostsMixin, FormView):
     def form_valid(self, form):
         """Security check complete. Log the user in."""
         auth_login(self.request, form.get_user())
-        return HttpResponseRedirect(self.get_success_url())
+        #return HttpResponseRedirect(self.get_success_url())
+        return render(self.request, "account.html", {'username': form.get_user()})
 
     def get_context_data(self, **kwargs):
         context = super(LoginView, self).get_context_data(**kwargs)
