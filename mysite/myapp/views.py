@@ -12,6 +12,9 @@ def home(request):
 def account(request):
     return render(request, "account.html", {})
 
+def logout_result(request):
+    return render(request, "logged_out.html", {})
+
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
