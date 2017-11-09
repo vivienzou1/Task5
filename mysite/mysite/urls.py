@@ -1,6 +1,7 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from myapp import views
 from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
     url(r'^$', views.home),
@@ -9,4 +10,5 @@ urlpatterns = [
     url(r'^logged_out/$', views.logout_result, name='logged_out'),
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^accounts/profile/$', views.account, name='account'),
+    url(r'^account/' , include('account.urls'))
 ]
