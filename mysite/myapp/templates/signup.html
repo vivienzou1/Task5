@@ -4,7 +4,15 @@
   <h2>Sign up</h2>
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+{#    {{ form.as_p }}#}
+      <label>account</label>
+      {{ form.username }}
+      <label>SSN</label>
+      {{ form.SSN }}
+      <label>password</label>
+      {{ form.password1 }}
+      <label>confirm password</label>
+      {{ form.password2 }}
     <button type="submit">Sign up</button>
   </form>
 {% endblock %}

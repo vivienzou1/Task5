@@ -146,8 +146,14 @@
                 </div><!-- /.row -->
             </div><!-- /.container -->
         </header><!-- /header -->
-       {% block content %}
-                                {% endblock %}
+        <section>
+            <div class="container">
+                <div class="col-lg-3">
+                {% block content %}
+                {% endblock %}
+                </div>
+            </div>
+        </section>
         <footer id="footer">
             <div class="footer-widgets">
                 <div class="container">
