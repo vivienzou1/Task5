@@ -175,7 +175,17 @@
                             <br>
                             <div class="widget widget-brochure services" style="height: 200px; margin-bottom: 0px;">
                             {% if user.is_authenticated %}
-                                <a href="/logout/" style="padding-right: 20px;">log out</a>
+                                <p style="padding-bottom: 10px;font-size: 24px;">Hello, {{ user.username }}</p>
+                                <p style="padding-bottom: 10px;">
+                                <span>check your balance</span>
+                                <a href="#"><span style="float: right; color: #18ba60;">my account</span></a>
+                                </p>
+                                <p style="padding-bottom: 10px;">
+                                <span>Looking for competitive interest rates? Look no further -- You've found them</span><a href="#"><span style="float: right; color: #18ba60;">view detail</span></a>
+                                </p>
+                                <p>
+                                <a href="/logout/" style="font-size:14px;color: #18ba60;">log out</a>
+                                </p>
                             {% else %}
 
                                 {% block content %}
