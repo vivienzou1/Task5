@@ -7,7 +7,10 @@ from django.contrib import auth
 
 
 def home(request):
-    return render(request, "index.html", {})
+    if request.user.is_authenticated():
+        return render(request, 'index.html')
+    else:
+        return HttpResponseRedirect('/login/')
 
 def account(request):
     return render(request, "account.html", {})

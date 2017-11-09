@@ -173,11 +173,17 @@
                     <div class="col-md-4">
                         <div class="sidebar left">
                             <br>
-                            <div class="widget widget-brochure services" style="margin-bottom: 0px;">
+                            <div class="widget widget-brochure services" style="height: 200px; margin-bottom: 0px;">
+                            {% if user.is_authenticated %}
+                                <a href="/logout/" style="padding-right: 20px;">log out</a>
+                            {% else %}
+
                                 {% block content %}
                                 {% endblock %}
                                 <a href="#"><span style="font-size:14px;color: #18ba60;">Forgot ID </span></a><span style="font-size:14px;"> | </span><a href="#"><span style="font-size:14px;color: #18ba60;"> Password</span></a>
                                 <a href="#"><span style="float: right;font-size:14px;color: #18ba60;"> Eroll</span></a>
+
+                            {% endif %}
                             </div>
                             <div class="widget widget-brochure services" style="border:none; background-color: #f7f7f7;">
                                 <h3>Sign on to another service: </h3>
