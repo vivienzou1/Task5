@@ -12,7 +12,7 @@ class TimeStampedModel(models.Model):
         abstract = True
 
 
-class Log(TimeStampedModel):
+class LogOtherPeople(TimeStampedModel):
     LOG_CHOICES = (
         ('T', 'Transfer'),
         ('D', 'Deposit'),
