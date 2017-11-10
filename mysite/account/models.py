@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 
 from django.db import models
-
 # User class for built-in authentication module
 from django.contrib.auth.models import User
 
@@ -15,8 +14,8 @@ class TimeStampedModel(models.Model):
         abstract = True
 
 class Account(TimeStampedModel):
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
-    account_number = models.CharField(max_length = 100, unique=True)
+    user = models.OneToOneField(User, on_delete = models.CASCADE)
+    account_number = models.BigIntegerField(unique=True)
     account_status = models.CharField(max_length= 100, default="active")
 
 
@@ -25,6 +24,7 @@ class Account(TimeStampedModel):
 
 class Saving_Account(models.Model):
     balance = models.PositiveIntegerField(default = 0)
+    account_number = models.BigIntegerField(unique=True)
     account = models.OneToOneField(Account,
                                    on_delete=models.CASCADE,
                                    unique=True,
@@ -32,6 +32,7 @@ class Saving_Account(models.Model):
 
 class Checking_Account(models.Model):
     balance = models.PositiveIntegerField(default = 0)
+    account_number = models.BigIntegerField(unique=True)
     account = models.OneToOneField(Account,
                                    on_delete=models.CASCADE,
                                    unique=True,
