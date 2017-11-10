@@ -5,6 +5,5 @@ from registration import views
 urlpatterns = [
     url(r'^$', views.home),
     url(r'^', include('registration.urls')),
-    url(r'^log/', include('log.urls')),
-    #url(r'^account/' , include('account.urls'))
+    #url(r'^account/', include('account.urls'))
 ]

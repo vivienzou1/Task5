@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from djmoney.models.fields import MoneyField
+from account.models import Checking_Account
 
 
 class TimeStampedModel(models.Model):
@@ -24,10 +25,8 @@ class Log(TimeStampedModel):
         default_currency='USD',
         max_digits=11,
     )
-    user_1 = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_1')
-    account_1
-    user_2 = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_2')
-    account_2
+    account_1 = models.OneToOneField(Checking_Account, on_delete=models.CASCADE, related_name='account_1', blank=False, null=False)
+    account_2 = models.OneToOneField(Checking_Account, on_delete=models.CASCADE, related_name='account_2', blank=True, null=True)
 
     def __unicode__(self):
         return 'Log(id=' + str(self.id) + ')'
