@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
-from myapp import views
+import views
 
 urlpatterns = [
-    url(r'^$', ),
+    url(r'^transfer$', views.transfer, name="transfer"),
 ]
