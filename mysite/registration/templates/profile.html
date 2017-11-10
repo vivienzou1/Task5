@@ -5,8 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-        {% for i in message %}
-            {{i}}
-        {% endfor %}
+{% block content %}
+
+{{ profile }}
+
+{% endblock %}
 </body>
 </html>

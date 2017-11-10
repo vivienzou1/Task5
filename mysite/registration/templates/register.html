@@ -5,8 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-        {% for i in message %}
-            {{i}}
-        {% endfor %}
+<form action = "" method = "post">
+    {% csrf_token %}
+{{ form.as_p }}
+<button type="submit" >register</button>
+</form>
 </body>
 </html>
