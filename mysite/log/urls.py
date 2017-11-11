@@ -3,5 +3,6 @@ from log import views
 
 
 urlpatterns = [
-    url(r'^test/$', views.test, name="test"),
+    url(r'^test_external/$', views.test_external, name="test_external"),
+    url(r'^test_internal/$', views.test_internal, name="test_internal"),
 ]
