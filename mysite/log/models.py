@@ -19,8 +19,8 @@ class LogExternal(TimeStampedModel):
         default_currency='USD',
         max_digits=11,
     )
-    account_1 = models.OneToOneField(Checking_Account, on_delete=models.CASCADE, related_name='external_account_1', blank=False, null=False)
-    account_2 = models.OneToOneField(Checking_Account, on_delete=models.CASCADE, related_name='external_account_2', blank=True, null=True)
+    account_1 = models.ForeignKey(Checking_Account, related_name='external_account_1', blank=False, null=False)
+    account_2 = models.ForeignKey(Checking_Account, related_name='external_account_2', blank=True, null=True)
 
     def __unicode__(self):
         return 'LogExternal(id=' + str(self.id) + ')'
