@@ -6,10 +6,10 @@ from django.http import HttpResponse
 from forms import *
 
 
-# def test(request):
-#     # form = ExternalLogForm()
-#     form = InternalLogForm()
-#     return render(request, 'test.html', {'form': form})
+def test(request):
+    form1 = ExternalLogForm()
+    form2 = InternalLogForm()
+    return render(request, 'test.html', {'form': form1})
 
 
 @login_required
