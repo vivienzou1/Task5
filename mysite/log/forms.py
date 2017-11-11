@@ -4,7 +4,7 @@ from models import *
 
 class LogForm(forms.ModelForm):
     class Meta:
-        model = LogOtherPeople
+        model = LogExternal
         fields = ['type',
                   'amount']
 
