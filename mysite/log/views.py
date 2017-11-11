@@ -28,6 +28,10 @@ def test_external(request):
     return render(request, 'test.html', {'result': result})
 
 
+def show_logs(request):
+    return render(request, 'log.html', {})
+
+
 def test_internal(request):
     context = {}
     if request.method == 'GET':
@@ -49,20 +53,25 @@ def test_internal(request):
 
 
 @login_required
-def get_log_external(request, user_name, type):
-    user = get_object_or_404(User, username=user_name)
-    account = Account.objects.get(user=user)
-    checking_account = Checking_Account.objects.get(user=user)
-    logs = LogExternal.objects.filter(account_1=checking_account) | LogExternal.objects.filter(account_2=checking_account)
-    if type is "transfer":
-        logs = logs.filter(type="T")
-    if type is "deposit":
-        logs = logs.filter(type="D")
-    if type is "withdraw":
-        logs = logs.filter(type="W")
-    r = construct_json_external(request, logs)
-    r = r.replace('\n', ' ').replace('\r', '')
-    return HttpResponse(r, content_type='application/json')
+def get_log_external(request, user_name):
+    type = 'all'
+    if request.method == "GET":
+        return render(request, 'log.html', {})
+    else:
+        user = get_object_or_404(User, username=user_name)
+        account = Account.objects.get(user=user)
+        checking_account = Checking_Account.objects.get(user=user)
+        logs = LogExternal.objects.filter(account_1=checking_account) | LogExternal.objects.filter(
+            account_2=checking_account)
+        if type is "transfer":
+            logs = logs.filter(type="T")
+        if type is "deposit":
+            logs = logs.filter(type="D")
+        if type is "withdraw":
+            logs = logs.filter(type="W")
+        r = construct_json_external(request, logs)
+        r = r.replace('\n', ' ').replace('\r', '')
+        return HttpResponse(r, content_type='application/json')
 
 
 @login_required
@@ -110,6 +119,40 @@ def add_log_internal(request, type, amount, user_name):
         errors.append("Object does not exist.")
         success = False
         pass
+    context['success'] = success
+    context['errors'] = errors
+    return context
+
+
+def delete_log_external(request, log_id):
+    context = {}
+    errors = []
+    if request.method == 'POST':
+        try:
+            log_to_delete = LogExternal.objects.get(id=log_id)
+            log_to_delete.delete()
+            success = True
+        except ObjectDoesNotExist:
+            errors.append("Object does not exist.")
+            success = False
+            pass
+    context['success'] = success
+    context['errors'] = errors
+    return context
+
+
+def delete_log_internal(request, log_id):
+    context = {}
+    errors = []
+    if request.method == 'POST':
+        try:
+            log_to_delete = LogInternal.objects.get(id=log_id)
+            log_to_delete.delete()
+            success = True
+        except ObjectDoesNotExist:
+            errors.append("Object does not exist.")
+            success = False
+            pass
     context['success'] = success
     context['errors'] = errors
     return context
