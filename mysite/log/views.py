@@ -55,32 +55,54 @@ def test_internal(request):
 @login_required
 def get_log_external(request, user_name):
     type = 'all'
-    if request.method == "GET":
-        return render(request, 'log.html', {})
-    else:
-        user = get_object_or_404(User, username=user_name)
-        account = Account.objects.get(user=user)
-        checking_account = Checking_Account.objects.get(user=user)
-        logs = LogExternal.objects.filter(account_1=checking_account) | LogExternal.objects.filter(
-            account_2=checking_account)
-        if type is "transfer":
-            logs = logs.filter(type="T")
-        if type is "deposit":
-            logs = logs.filter(type="D")
-        if type is "withdraw":
-            logs = logs.filter(type="W")
-        r = construct_json_external(request, logs)
-        r = r.replace('\n', ' ').replace('\r', '')
-        return HttpResponse(r, content_type='application/json')
+    context = {}
+    errors = []
+    if request.method == "POST":
+        try:
+            user = get_object_or_404(User, username=user_name)
+            account = Account.objects.get(user=user)
+            checking_account = Checking_Account.objects.get(user=user)
+            logs = LogExternal.objects.filter(account_1=checking_account) | LogExternal.objects.filter(
+                account_2=checking_account)
+            if type is "transfer":
+                logs = logs.filter(type="T")
+            if type is "deposit":
+                logs = logs.filter(type="D")
+            if type is "withdraw":
+                logs = logs.filter(type="W")
+            r = construct_json_external(request, logs)
+            r = r.replace('\n', ' ').replace('\r', '')
+            return HttpResponse(r, content_type='application/json')
+        except:
+            errors.append("error")
+            context['errors'] = errors
+            pass
+
+    return HttpResponse(context, content_type='application/json')
 
 
 @login_required
 def get_log_internal(request, user_name):
-    user = get_object_or_404(User, username=user_name)
-    logs = LogInternal.objects.filter(user=user)
-    r = construct_json_internal(request, logs)
-    r = r.replace('\n', ' ').replace('\r', '')
-    return HttpResponse(r, content_type='application/json')
+    type = 'all'
+    context = {}
+    errors = []
+    if request.method == "POST":
+        try:
+            user = get_object_or_404(User, username=user_name)
+            logs = LogInternal.objects.filter(user=user)
+            if type is "toChecking":
+                logs = logs.filter(type="C")
+            if type is "toSaving":
+                logs = logs.filter(type="S")
+            r = construct_json_internal(request, logs)
+            r = r.replace('\n', ' ').replace('\r', '')
+            return HttpResponse(r, content_type='application/json')
+        except:
+            errors.append("error")
+            context['errors'] = errors
+            pass
+
+    return HttpResponse(context, content_type='application/json')
 
 
 def add_log_external(request, type, amount, account_number_1, account_number_2):
