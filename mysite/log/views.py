@@ -5,6 +5,8 @@ from models import *
 from account.models import Account, Checking_Account
 from django.http import HttpResponse
 from forms import *
+from account import views as account_views
+from account.forms import *
 
 
 def test_external(request):
@@ -51,6 +53,37 @@ def test_internal(request):
         context['result'] = result
     return render(request, 'test.html', {'result': result})
 
+
+class AccountForm(forms.ModelForm):
+    class Meta:
+        model = Account
+        fields = ['account_number']
+
+
+def test_create(request):
+    form = AccountForm
+    if request.method == 'GET':
+        return render(request, 'create.html', {'form': form})
+    else:
+        request.account_number = request.POST['account_number']
+        return account_views.createAccount(request)
+
+
+def test_transfer(request):
+    form = TransferForm
+    if request.method == 'GET':
+        return render(request, 'test_transfer.html', {'form': form})
+    else:
+        type = 'transfer'
+        amount = request.POST['balance']
+        user = request.user
+        account = Account.objects.get(user=user)
+        account_1 = Checking_Account.objects.get(account=account)
+        account_number_1 = account_1.account_number
+        account_number_2 = request.POST['target_account']
+        add_log_external(request, type, amount, account_number_1, account_number_2)
+        context = add_log_external(request, type, amount, account_number_1, account_number_2)
+        return render(request, 'test_transfer.html', {'context': context})
 
 @login_required
 def get_log_external(request, user_name):
