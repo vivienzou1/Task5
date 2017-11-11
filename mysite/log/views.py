@@ -78,6 +78,33 @@ def test_check_to_saving(request):
         return render(request, 'test_transfer.html', {'context': context})
 
 
+# simulate deleting log
+class DeleteForm(forms.Form):
+    id = forms.IntegerField()
+
+
+def test_delete_external(request):
+    form = DeleteForm
+    if request.method == 'GET':
+        return render(request, 'delete_external.html', {'form': form})
+    else:
+        print "post"
+        print request.POST['id']
+        context = delete_log_external(request, request.POST['id'])
+        print context
+        return render(request, 'delete_external.html', context)
+
+
+def test_delete_internal(request):
+    form = DeleteForm
+    if request.method == 'GET':
+        return render(request, 'delete_external.html', {'form': form})
+    else:
+        context = delete_log_internal(request, request.POST['id'])
+        return render(request, 'delete_external.html', context)
+
+
+
 # get external log (transfer to others)
 @login_required
 def get_log_external(request, user_name):
@@ -179,9 +206,10 @@ def add_log_internal(request, type, amount, user_name):
 def delete_log_external(request, log_id):
     context = {}
     errors = []
+    print log_id
     if request.method == 'POST':
         try:
-            log_to_delete = LogExternal.objects.get(id=log_id)
+            log_to_delete = LogExternal.objects.get(pk=log_id)
             log_to_delete.delete()
             success = True
         except ObjectDoesNotExist:

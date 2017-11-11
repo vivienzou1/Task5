@@ -9,6 +9,8 @@ urlpatterns = [
     url(r'^toSaving/$', views.test_check_to_saving, name="show_accounts"),
     url(r'^external/(?P<user_name>.*)', views.get_log_external, name="get_log_external"),
     url(r'^internal/(?P<user_name>.*)', views.get_log_internal, name="get_log_internal"),
+    url(r'^delete_external/', views.test_delete_external, name="delete_external"),
+    url(r'^delete_internal/', views.test_delete_internal, name="delete_internal"),
     url(r'^show/$', views.show_logs, name="show_logs"),
     url(r'^show_accounts/$', views.show_accounts, name="show_accounts"),
 ]
