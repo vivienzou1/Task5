@@ -113,3 +113,40 @@ def check_to_saving(request):
             return render(request, 'account/suceed.html', context)
 
 
+def saving_to_check(request):
+    err_message = []
+    message = []
+    context = {}
+    if request.method == 'GET':
+        context = {'message': message, 'err_message': err_message, 'User': request.user}
+        return render(request, 'account/saving_to_check.html', context)
+    else:
+        profile = Profile.objects.get(user=request.user)
+        account = Account.objects.get(profile=profile)
+        owner_check = Checking_Account.objects.get(account=account)
+        owner_saving = Saving_Account.objects.get(account=account)
+        if owner_saving.balance < request.POST['amount']:
+            err_message.append("you don't have enough money")
+            context = {'message': message, 'err_message': err_message, 'User': request.user}
+            return render(request, 'account/saving_to_check.html', context)
+        else:
+            owner_check.balance = owner_check.balance + request.POST['amount']
+            owner_saving.balance = owner_saving.balance - request.POST['amount']
+            owner_saving.save()
+            owner_check.save()
+            message.append("you successfully transfer money from saving to check account")
+            context = {'message': message, 'err_message': err_message, 'User': request.user}
+            return render(request, 'account/suceed.html', context)
+
+
+def freeze_account(request, user_id):
+    if request.method == 'POST':
+        user = User.objects.get(user_id = user_id)
+        profile = Profile.objects.get(user = user)
+        account = Account.objects.get(profile = profile)
+        account.account_status = 'frozen'
+        message = []
+        message.append('user ' + user.username + ' has already been frozen')
+        err_message = []
+        context = {'message': message, 'err_message': err_message, 'User': request.user}
+        return render (request, 'account/suceed.html', context)
