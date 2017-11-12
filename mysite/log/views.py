@@ -9,18 +9,6 @@ from account import views as account_views
 from account.forms import *
 
 
-# show the user's account numbers (account, checking, saving)
-def get_accounts(user):
-    context = {}
-    account = Account.objects.get(user=user)
-    checking_account = Checking_Account.objects.get(account=account)
-    saving_account = Saving_Account.objects.get(account=account)
-    context['account'] = account.account_number
-    context['checking_account'] = checking_account.account_number
-    context['saving_account'] = saving_account.account_number
-    return context
-
-
 def show_logs(request):
     return render(request, 'log.html', {})
 
@@ -40,6 +28,18 @@ def test_create(request):
     else:
         request.account_number = request.POST['account_number']
         return account_views.createAccount(request)
+
+
+# get the user's account numbers (account, checking, saving)
+def get_accounts(user):
+    context = {}
+    account = Account.objects.get(user=user)
+    checking_account = Checking_Account.objects.get(account=account)
+    saving_account = Saving_Account.objects.get(account=account)
+    context['account'] = account.account_number
+    context['checking_account'] = checking_account.account_number
+    context['saving_account'] = saving_account.account_number
+    return context
 
 
 # simulate transferring to others
@@ -87,7 +87,7 @@ def test_delete_external(request):
     if request.method == 'GET':
         return render(request, 'delete_external.html', {'form': form})
     else:
-        context = delete_log_external(request, request.POST['id'])
+        context = delete_log_external(request.POST['id'])
         return render(request, 'delete_external.html', context)
 
 
@@ -96,7 +96,7 @@ def test_delete_internal(request):
     if request.method == 'GET':
         return render(request, 'delete_internal.html', {'form': form})
     else:
-        context = delete_log_internal(request, request.POST['id'])
+        context = delete_log_internal(request.POST['id'])
         return render(request, 'delete_internal.html', context)
 
 
@@ -198,37 +198,35 @@ def add_log_internal(type, amount, user_name):
 
 
 # delete external log
-def delete_log_external(request, log_id):
+def delete_log_external(log_id):
     context = {}
     errors = []
     print log_id
-    if request.method == 'POST':
-        try:
-            log_to_delete = LogExternal.objects.get(pk=log_id)
-            log_to_delete.delete()
-            success = True
-        except ObjectDoesNotExist:
-            errors.append("Object does not exist.")
-            success = False
-            pass
+    try:
+        log_to_delete = LogExternal.objects.get(pk=log_id)
+        log_to_delete.delete()
+        success = True
+    except ObjectDoesNotExist:
+        errors.append("Object does not exist.")
+        success = False
+        pass
     context['success'] = success
     context['errors'] = errors
     return context
 
 
 # delete internal log
-def delete_log_internal(request, log_id):
+def delete_log_internal(log_id):
     context = {}
     errors = []
-    if request.method == 'POST':
-        try:
-            log_to_delete = LogInternal.objects.get(id=log_id)
-            log_to_delete.delete()
-            success = True
-        except ObjectDoesNotExist:
-            errors.append("Object does not exist.")
-            success = False
-            pass
+    try:
+        log_to_delete = LogInternal.objects.get(id=log_id)
+        log_to_delete.delete()
+        success = True
+    except ObjectDoesNotExist:
+        errors.append("Object does not exist.")
+        success = False
+        pass
     context['success'] = success
     context['errors'] = errors
     return context
