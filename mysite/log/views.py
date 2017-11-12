@@ -10,16 +10,15 @@ from account.forms import *
 
 
 # show the user's account numbers (account, checking, saving)
-def show_accounts(request):
+def get_accounts(user):
     context = {}
-    user = request.user
     account = Account.objects.get(user=user)
     checking_account = Checking_Account.objects.get(account=account)
     saving_account = Saving_Account.objects.get(account=account)
     context['account'] = account.account_number
     context['checking_account'] = checking_account.account_number
     context['saving_account'] = saving_account.account_number
-    return render(request, 'show_accounts.html', context)
+    return context
 
 
 def show_logs(request):
@@ -88,21 +87,17 @@ def test_delete_external(request):
     if request.method == 'GET':
         return render(request, 'delete_external.html', {'form': form})
     else:
-        print "post"
-        print request.POST['id']
         context = delete_log_external(request, request.POST['id'])
-        print context
         return render(request, 'delete_external.html', context)
 
 
 def test_delete_internal(request):
     form = DeleteForm
     if request.method == 'GET':
-        return render(request, 'delete_external.html', {'form': form})
+        return render(request, 'delete_internal.html', {'form': form})
     else:
         context = delete_log_internal(request, request.POST['id'])
-        return render(request, 'delete_external.html', context)
-
+        return render(request, 'delete_internal.html', context)
 
 
 # get external log (transfer to others)

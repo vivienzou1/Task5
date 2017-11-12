@@ -12,5 +12,4 @@ urlpatterns = [
     url(r'^delete_external/', views.test_delete_external, name="delete_external"),
     url(r'^delete_internal/', views.test_delete_internal, name="delete_internal"),
     url(r'^show/$', views.show_logs, name="show_logs"),
-    url(r'^show_accounts/$', views.show_accounts, name="show_accounts"),
 ]
