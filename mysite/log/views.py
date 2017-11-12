@@ -55,7 +55,7 @@ def test_transfer(request):
         account_1 = Checking_Account.objects.get(account=account)
         account_number_1 = account_1.account_number
         account_number_2 = request.POST['target_account']
-        context = add_log_external(request, type, amount, account_number_1, account_number_2)
+        context = add_log_external(type, amount, account_number_1, account_number_2)
         return render(request, 'test_transfer.html', context)
 
 
@@ -73,7 +73,7 @@ def test_check_to_saving(request):
         type = 'toSaving'
         amount = request.POST['amount']
         user = request.user
-        context = add_log_internal(request, type, amount, user.username)
+        context = add_log_internal(type, amount, user.username)
         return render(request, 'test_transfer.html', {'context': context})
 
 
@@ -155,7 +155,7 @@ def get_log_internal(request, user_name):
 
 
 # add external log
-def add_log_external(request, type, amount, account_number_1, account_number_2):
+def add_log_external(type, amount, account_number_1, account_number_2):
     context = {}
     errors = []
     try:
@@ -178,7 +178,7 @@ def add_log_external(request, type, amount, account_number_1, account_number_2):
 
 
 # add internal log
-def add_log_internal(request, type, amount, user_name):
+def add_log_internal(type, amount, user_name):
     context = {}
     errors = []
     try:

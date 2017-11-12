@@ -39,7 +39,7 @@ class LogInternal(TimeStampedModel):
         default_currency='USD',
         max_digits=11,
     )
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='external_user', blank=False, null=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='external_user', blank=False, null=False)
 
     def __unicode__(self):
         return 'LogInternal(id=' + str(self.id) + ')'
