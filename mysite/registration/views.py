@@ -38,7 +38,7 @@ def user_login(request):
 
     context['errors'] = errors
 
-    return render(request, 'login.html', {'context': context})
+    return render(request, 'login.html', context)
 
 
 @transaction.atomic

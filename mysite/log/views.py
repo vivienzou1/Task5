@@ -1,12 +1,15 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from registration.models import Profile
+
 from models import *
 from account.models import Account, Checking_Account, Saving_Account
 from django.http import HttpResponse
 from forms import *
 from account import views as account_views
 from account.forms import *
+from account.models import *
 
 
 def show_logs(request):
@@ -33,7 +36,8 @@ def test_create(request):
 # get the user's account numbers (account, checking, saving)
 def get_accounts(user):
     context = {}
-    account = Account.objects.get(user=user)
+    profile = Profile.objects.get(user=user)
+    account = Account.objects.get(profile=profile)
     checking_account = Checking_Account.objects.get(account=account)
     saving_account = Saving_Account.objects.get(account=account)
     context['account'] = account.account_number
@@ -109,7 +113,8 @@ def get_log_external(request, user_name):
     if request.method == "POST":
         try:
             user = get_object_or_404(User, username=user_name)
-            account = Account.objects.get(user=user)
+            profile = Profile.objects.get(user=user)
+            account = Account.objects.get(profile=profile)
             checking_account = Checking_Account.objects.get(account=account)
             logs = LogExternal.objects.filter(account_1=checking_account) | LogExternal.objects.filter(account_2=checking_account)
             if type is "transfer":

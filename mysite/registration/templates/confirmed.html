@@ -1,18 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
 {% if user.is_authenticated %}
-    hi, {{ user.username }}
+    <h1>hi, {{ user.username }}</h1>
 {% else %}
 please login.
 {% endif %}
 <form class="form" action="{% url 'profile' user.username %}" method="post">
     {% csrf_token %}
-    <button type="submit">profile</button>
+    <button type="submit">view your profile</button>
 </form>
-</body>
-</html>
+{% endblock %}
