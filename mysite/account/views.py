@@ -3,7 +3,49 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from forms import *
 import random
+from log.views import *
 
+
+# add external log
+def add_log_external(type, amount, account_number_1, account_number_2):
+    context = {}
+    errors = []
+    try:
+        account_1 = Checking_Account.objects.get(account_number=account_number_1)
+        account_2 = Checking_Account.objects.get(account_number=account_number_2)
+        new_log_external = LogExternal(type=type,
+                                       amount=amount,
+                                       account_1=account_1,
+                                       account_2=account_2,
+                                       )
+        new_log_external.save()
+        success = True
+    except ObjectDoesNotExist:
+        errors.append("Object does not exist.")
+        success = False
+        pass
+    context['success'] = success
+    context['errors'] = errors
+    return context
+
+# add internal log
+def add_log_internal(type, amount, user_name):
+    context = {}
+    errors = []
+    try:
+        user = User.objects.get(username=user_name)
+        new_log_internal = LogInternal(type=type,
+                                       amount=amount,
+                                       user=user)
+        new_log_internal.save()
+        success = True
+    except ObjectDoesNotExist:
+        errors.append("Object does not exist.")
+        success = False
+        pass
+    context['success'] = success
+    context['errors'] = errors
+    return context
 
 @login_required
 def createAccount(request):
@@ -101,6 +143,10 @@ def transfer(request):
 
 
             getter.save()
+            add_log_external(type='T',
+                             amount=form.cleaned_data['balance'],
+                             account_number_1=owner.account_number,
+                             account_number_2=getter.account_number)
             message.append("you successfully transfer money to " + str(form.cleaned_data['target_account']))
             context = {'message': message, 'err_message': err_message, 'User': request.user}
             return render(request, 'account/suceed.html', context)
@@ -119,7 +165,7 @@ def check_to_saving(request):
         if request.user.profile.account.account_status == 'frozen':
             err_message.append("your account has already been frozen, plz connect us to deal with this")
             context = {'message': message, 'err_message': err_message, 'User': request.user, 'form': form}
-            return render(request, 'account/transfer.html', context)
+            return render(request, 'account/check_to_saving.html', context)
         context['form'] = form
         context['User'] = request.user
         if not form.is_valid():
@@ -138,6 +184,9 @@ def check_to_saving(request):
             owner_saving.balance = owner_saving.balance + amount
             owner_saving.save()
             owner_check.save()
+            add_log_internal(type='S',
+                             amount=amount,
+                             user_name=request.user.username)
             message.append("you successfully transfer money from check to saving account")
             context = {'message': message, 'err_message': err_message, 'User': request.user}
             return render(request, 'account/suceed.html', context)
@@ -156,7 +205,7 @@ def saving_to_check(request):
         if request.user.profile.account.account_status == 'frozen':
             err_message.append("your account has already been frozen, plz connect us to deal with this")
             context = {'message': message, 'err_message': err_message, 'User': request.user, 'form': form}
-            return render(request, 'account/transfer.html', context)
+            return render(request, 'account/saving_to_check.html', context)
         context['form'] = form
         context['User'] = request.user
         if not form.is_valid():
@@ -175,6 +224,9 @@ def saving_to_check(request):
             owner_saving.balance = owner_saving.balance - amount
             owner_saving.save()
             owner_check.save()
+            add_log_internal(type='C',
+                                       amount=amount,
+                                       user_name=request.user.username)
             message.append("you successfully transfer money from saving to check account")
             context = {'message': message, 'err_message': err_message, 'User': request.user}
             return render(request, 'account/suceed.html', context)
