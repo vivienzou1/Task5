@@ -5,10 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-{% block content %}
-
-{{ account }}
-
-{% endblock %}
+<form action = "" method = "post">
+    {% csrf_token %}
+{{ form.as_p }}
+<button type="submit" >create</button>
 </body>
 </html>

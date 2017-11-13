@@ -8,6 +8,8 @@ from forms import *
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 
+from log import views as log_views
+
 
 def home(request):
     return render(request, 'index.html', {})
@@ -129,6 +131,7 @@ def profile(request, user_name):
         errors.append('No such profile')
 
     context['message'] = errors
+    context['account'] = log_views.get_accounts(user)
 
     return render(request, 'profile.html', context)
 
