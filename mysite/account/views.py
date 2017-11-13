@@ -57,17 +57,13 @@ def createAccount(request):
         context = {'message': message, 'err_message': err_message, 'User': request.user}
         return render(request, 'account/err.html', context)
     if request.method == 'POST':
-        if request.POST['account_number']:
-            if Account.objects.filter(account_number=request.POST['account_number']):
-                err_message.append("account has already been used")
-                context = {'message': message, 'err_message': err_message, 'User': request.user}
-                return render(request, 'account/create_account.html', context)
-            if Account.objects.filter(profile = get_object_or_404(Profile, user = request.user)):
-                err_message.append("user has already get an account")
-                context = {'message': message, 'err_message': err_message, 'User': request.user}
-                return render(request, 'account/create_account.html', context)
-
-            new_account = Account(profile = get_object_or_404(Profile, user = request.user),
+        form = createForm(request.POST)
+        context['form'] = form
+        context['User'] = request.user
+        if not form.is_valid():
+            return render(request, 'account/create_account.html', context)
+        else:
+            new_account = Account(profile = get_object_or_404(User, username = form.cleaned_data['username']).profile,
                                   account_number = request.POST['account_number'],
                                   account_status = 'active')
             new_account.save()
@@ -93,12 +89,10 @@ def createAccount(request):
             message.append("create " + request.POST['account_number'] + " successfully!" )
             context = {'message': message, 'err_message': err_message, 'User': request.user}
             return render(request, 'account/home.html', context)
-        else:
-            err_message.append("plz enter account number to create an account")
-            context = {'message': message, 'err_message': err_message, 'User': request.user }
-            return render(request, 'account/create_account.html', context)
+
     else:
-        context = {'message': message, 'err_message': err_message, 'User': request.user}
+        form = createForm()
+        context = {'message': message, 'err_message': err_message, 'User': request.user, 'form': form}
         return render(request, 'account/create_account.html', context)
 
 @login_required
