@@ -154,47 +154,7 @@ def get_log_internal(request, user_name):
     return render(request, 'log.html', {'context': r})
 
 
-# add external log
-def add_log_external(type, amount, account_number_1, account_number_2):
-    context = {}
-    errors = []
-    try:
-        account_1 = Checking_Account.objects.get(account_number=account_number_1)
-        account_2 = Checking_Account.objects.get(account_number=account_number_2)
-        new_log_external = LogExternal(type=type,
-                                       amount=amount,
-                                       account_1=account_1,
-                                       account_2=account_2,
-                                       )
-        new_log_external.save()
-        success = True
-    except ObjectDoesNotExist:
-        errors.append("Object does not exist.")
-        success = False
-        pass
-    context['success'] = success
-    context['errors'] = errors
-    return context
 
-
-# add internal log
-def add_log_internal(type, amount, user_name):
-    context = {}
-    errors = []
-    try:
-        user = User.objects.get(username=user_name)
-        new_log_internal = LogInternal(type=type,
-                                       amount=amount,
-                                       user=user)
-        new_log_internal.save()
-        success = True
-    except ObjectDoesNotExist:
-        errors.append("Object does not exist.")
-        success = False
-        pass
-    context['success'] = success
-    context['errors'] = errors
-    return context
 
 
 # delete external log
