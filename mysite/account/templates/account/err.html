@@ -8,5 +8,10 @@
         {% for i in err_message %}
             {{ i }}
         {% endfor %}
+
+        <form action="/account/freeze_account/24" method="post">
+            <button type="submit">click</button>
+            {% csrf_token %}
+        </form>
 </body>
 </html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for i in err_message %}
+        {{ i }}
+    {% endfor %}
+
+    <form action="{% url 'transfer' %}" method="POST">
+        {{ form }}
+        <button type="submit">transfer</button>
+    {% csrf_token %}
+    </form>
+</body>
+</html>
