@@ -53,13 +53,13 @@ def test_transfer(request):
         return render(request, 'test_transfer.html', {'form': form})
     else:
         type = 'transfer'
-        amount = request.POST['balance']
+        amount = request.POST['balance_0']
         user = request.user
-        account = Account.objects.get(user=user)
+        account = Account.objects.get(profile=user.profile)
         account_1 = Checking_Account.objects.get(account=account)
         account_number_1 = account_1.account_number
         account_number_2 = request.POST['target_account']
-        context = add_log_external(type, amount, account_number_1, account_number_2)
+        context = account_views.add_log_external(type, amount, account_number_1, account_number_2)
         return render(request, 'test_transfer.html', context)
 
 
@@ -77,7 +77,7 @@ def test_check_to_saving(request):
         type = 'toSaving'
         amount = request.POST['amount']
         user = request.user
-        context = add_log_internal(type, amount, user.username)
+        context = account_views.add_log_internal(type, amount, user.username)
         return render(request, 'test_transfer.html', {'context': context})
 
 
@@ -106,13 +106,13 @@ def test_delete_internal(request):
 
 # get external log (transfer to others)
 @login_required
-def get_log_external(request, user_name):
+def get_log_external(request):
     type = 'all'
     context = {}
     errors = []
     if request.method == "POST":
         try:
-            user = get_object_or_404(User, username=user_name)
+            user = request.user
             profile = Profile.objects.get(user=user)
             account = Account.objects.get(profile=profile)
             checking_account = Checking_Account.objects.get(account=account)
@@ -131,18 +131,18 @@ def get_log_external(request, user_name):
             context['errors'] = errors
             pass
 
-    return render(request, 'log.html', {'context': r})
+    return render(request, 'log.html', {'context': errors})
 
 
 # get internal log (transfer between accounts)
 @login_required
-def get_log_internal(request, user_name):
+def get_log_internal(request):
     type = 'all'
     context = {}
     errors = []
     if request.method == "POST":
         try:
-            user = get_object_or_404(User, username=user_name)
+            user = request.user
             logs = LogInternal.objects.filter(user=user)
             if type is "toChecking":
                 logs = logs.filter(type="C")
@@ -156,7 +156,7 @@ def get_log_internal(request, user_name):
             context['errors'] = errors
             pass
 
-    return render(request, 'log.html', {'context': r})
+    return render(request, 'log.html', {'context': errors})
 
 
 

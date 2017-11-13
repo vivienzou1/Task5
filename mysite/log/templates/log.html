@@ -5,11 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-<form action="{% url 'get_log_external' user.username %}" method="post">
+<form action="{% url 'get_log_external' %}" method="post">
     {% csrf_token %}
     <button type="submit">log_external</button>
 </form>
-<form action="{% url 'get_log_internal' user.username %}" method="post">
+<form action="{% url 'get_log_internal' %}" method="post">
     {% csrf_token %}
     <button type="submit">log_internal</button>
 </form>
