@@ -21,7 +21,7 @@ class Account(TimeStampedModel):
 
 
     def __unicode__(self):
-        return 'id = ' + self.id + " user = " + self.user
+        return 'id = ' + str(self.id) + " user = " + str(self.profile.user.username)
 
 class Saving_Account(models.Model):
     balance = MoneyField(
@@ -35,6 +35,8 @@ class Saving_Account(models.Model):
                                    on_delete=models.CASCADE,
                                    unique=True,
                                    related_name="saving_account")
+    def __unicode__(self):
+        return str(self.account.profile.user.username) + "'s saving account"
 
 class Checking_Account(models.Model):
     balance = MoneyField(
@@ -48,3 +50,5 @@ class Checking_Account(models.Model):
                                    on_delete=models.CASCADE,
                                    unique=True,
                                    related_name="checking_account")
+    def __unicode__(self):
+        return str(self.account.profile.user.username) + "'s check account"

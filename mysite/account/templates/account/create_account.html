@@ -8,5 +8,10 @@
         {% for i in err_message %}
             {{i}}
         {% endfor %}
+        <form action="{% url 'create_account' %}" method="post">
+            <input name = 'account_number' placeholder="type in your account number" aria-label="Account Number">
+            <button type="submit">create</button>
+            {% csrf_token %}
+        </form>
 </body>
 </html>
