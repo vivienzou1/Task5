@@ -6,7 +6,7 @@
 {% else %}
 please login.
 {% endif %}
-<form class="form" action="{% url 'profile' user.username %}" method="post">
+<form class="form" action="{% url 'profile'%}" method="post">
     {% csrf_token %}
     <button type="submit">view your profile</button>
 </form>

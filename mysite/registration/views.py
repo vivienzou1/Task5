@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib.auth.tokens import default_token_generator
 from forms import *
+from account.models import *
 
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
@@ -118,11 +119,11 @@ def get_profile(request, user_name):
 
 
 @login_required
-def profile(request, user_name):
+def profile(request):
     errors = []
     context = {}
 
-    user = get_object_or_404(User, username=user_name)
+    user = request.user
 
     try:
         user_profile = Profile.objects.get(user=user)
@@ -131,6 +132,15 @@ def profile(request, user_name):
         errors.append('No such profile')
 
     context['message'] = errors
+    profile = user.profile
+    context['first_name'] = profile.first_name
+    context['last_name'] = profile.last_name
+    context['middle_name'] = profile.middle_name
+    context['email'] = profile.email
+    context['address'] = profile.address
+    context['dob'] = profile.date_of_birth
+    context['gender'] = profile.gender
+    context['ssn'] = profile.ssn
     context['account'] = log_views.get_accounts(user)
 
     return render(request, 'profile.html', context)

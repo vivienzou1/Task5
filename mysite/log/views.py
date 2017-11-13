@@ -36,7 +36,7 @@ def test_create(request):
 # get the user's account numbers (account, checking, saving)
 def get_accounts(user):
     context = {}
-    profile = Profile.objects.get(user=user)
+    profile = user.profile
     account = Account.objects.get(profile=profile)
     checking_account = Checking_Account.objects.get(account=account)
     saving_account = Saving_Account.objects.get(account=account)

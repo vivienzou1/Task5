@@ -8,5 +8,5 @@ urlpatterns = [
     url(r'^login/$', views.user_login, name='login'),
     url(r'^logout/$', auth_views.logout_then_login, name="logout"),
     url(r'^confirmed/$', views.confirmed, name='confirmed'),
-    url(r'^profile/(?P<user_name>.*)', views.profile, name="profile"),
+    url(r'^profile/$', views.profile, name="profile"),
 ]

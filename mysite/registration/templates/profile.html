@@ -1,14 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% block content %}
+{% extends 'base.html' %}
 
-{{ account }}
+{% block content %}
+    {{ form }}
+<div style="font-size: 20px;">
+    <li>First Name: {{ first_name }}</li>
+    <li>Last Name: {{ last_name }}</li>
+    <li>Middle Name: {{ middle_name }}</li>
+    <li>E-mail: {{ email }}</li>
+    <li>Address: {{ address }}</li>
+    <li>DOB: {{ dob }}</li>
+    <li>Gender: {{ gender }}</li>
+    <li>SSN: {{ ssn }}</li>
+    <li>Account : {{ account.account }}</li>
+    <li>Saving Account: {{ account.saving_account }}</li>
+    <li>Checking Account: {{ account.checking_account }}</li>
+</div>
 
 {% endblock %}
-</body>
-</html>
