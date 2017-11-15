@@ -16,6 +16,7 @@ class Profile(TimeStampedModel):
     first_name = models.CharField(max_length=20, blank=False)
     middle_name = models.CharField(max_length=20, blank=True, null=True)
     email = models.EmailField(max_length=32, blank=False)
+    phone = models.CharField(max_length=32, blank=False)
     address = models.CharField(max_length=150, blank=False)
     date_of_birth = models.DateField(blank=False)
     GENDER_CHOICES = (

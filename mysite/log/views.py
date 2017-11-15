@@ -110,28 +110,52 @@ def get_log_external(request):
     type = 'all'
     context = {}
     errors = []
-    if request.method == "POST":
-        try:
-            user = request.user
-            profile = Profile.objects.get(user=user)
-            account = Account.objects.get(profile=profile)
-            checking_account = Checking_Account.objects.get(account=account)
-            logs = LogExternal.objects.filter(account_1=checking_account) | LogExternal.objects.filter(account_2=checking_account)
-            if type is "transfer":
-                logs = logs.filter(type="T")
-            if type is "deposit":
-                logs = logs.filter(type="D")
-            if type is "withdraw":
-                logs = logs.filter(type="W")
-            r = construct_json_external(request, logs)
-            r = r.replace('\n', ' ').replace('\r', '')
-            return render(request, 'log.html', {'context': r})
-        except:
-            errors.append("error")
-            context['errors'] = errors
-            pass
-
-    return render(request, 'log.html', {'context': errors})
+    r = []
+    try:
+        user = request.user
+        profile = Profile.objects.get(user=user)
+        account = Account.objects.get(profile=profile)
+        checking_account = Checking_Account.objects.get(account=account)
+        logs_1 = LogExternal.objects.filter(account_1=checking_account)
+        logs_2 = LogExternal.objects.filter(account_2=checking_account)
+        # if type is "transfer":
+        #     logs = logs.filter(type="T")
+        # if type is "deposit":
+        #     logs = logs.filter(type="D")
+        # if type is "withdraw":
+        #     logs = logs.filter(type="W")
+        for log in logs_1:
+            print log
+            l = {}
+            l['pk'] = log.id
+            l['type'] = log.type
+            l['amount'] = log.amount
+            l['account_1'] = log.account_1
+            l['account_2'] = log.account_2
+            l['time'] = log.created.strftime("%Y-%m-%d")
+            l['withdraw'] = log.amount
+            l['deposit'] = ""
+            l['category'] = "pay"
+            r.append(l)
+        for log in logs_2:
+            l = {}
+            l['pk'] = log.id
+            l['type'] = log.type
+            l['amount'] = log.amount
+            l['account_1'] = log.account_1
+            l['account_2'] = log.account_2
+            l['time'] = log.created.strftime("%Y-%m-%d")
+            l['withdraw'] = ""
+            l['deposit'] = log.amount
+            l['category'] = "receive"
+            r.append(l)
+        print len(r)
+        return r
+    except:
+        errors.append("error")
+        context['errors'] = errors
+        pass
+    return ""
 
 
 # get internal log (transfer between accounts)
@@ -140,23 +164,35 @@ def get_log_internal(request):
     type = 'all'
     context = {}
     errors = []
-    if request.method == "POST":
-        try:
-            user = request.user
-            logs = LogInternal.objects.filter(user=user)
-            if type is "toChecking":
-                logs = logs.filter(type="C")
-            if type is "toSaving":
-                logs = logs.filter(type="S")
-            r = construct_json_internal(request, logs)
-            r = r.replace('\n', ' ').replace('\r', '')
-            return render(request, 'log.html', {'context': r})
-        except:
-            errors.append("error")
-            context['errors'] = errors
-            pass
-
-    return render(request, 'log.html', {'context': errors})
+    r = []
+    try:
+        user = request.user
+        logs = LogInternal.objects.filter(user=user)
+        if type is "toChecking":
+            logs = logs.filter(type="C")
+        if type is "toSaving":
+            logs = logs.filter(type="S")
+        for log in logs:
+            l = {}
+            l['pk'] = log.id
+            l['type'] = log.type
+            l['amount'] = log.amount
+            l['time'] = log.created.strftime("%Y-%m-%d")
+            l['category'] = "transfer"
+            if log.type == "C":
+                l['withdraw'] = ""
+                l['deposit'] = log.amount
+            if log.type == "S":
+                l['withdraw'] = log.amount
+                l['deposit'] = ""
+            r.append(l)
+        print r
+        return r
+    except:
+        errors.append("error")
+        context['errors'] = errors
+        pass
+    return ""
 
 
 
@@ -196,33 +232,34 @@ def delete_log_internal(log_id):
     return context
 
 
-# construct external logs to json
-def construct_json_external(request, logs):
-    r = '['
-    for log in logs:
-        r = r + '{"pk": ' + str(log.id) + ', '
-        r = r + '"type": "' + log.type + '", '
-        r = r + '"amount": ' + str(log.amount) + ', '
-        r = r + '"account_1": ' + str(log.account_1.account_number) + ', '
-        r = r + '"account_2": ' + str(log.account_2.account_number) + ', '
-        r = r + '}, '
-    if len(logs) != 0:
-        r = r[0:len(r) - 2]
-    r = r + ']'
-    r = r[0: len(r) - 1] + ',{"username":"' + request.user.username + '"}]'
-    return r
-
-
-# construct internal logs to json
-def construct_json_internal(request, logs):
-    r = '['
-    for log in logs:
-        r = r + '{"pk": ' + str(log.id) + ', '
-        r = r + '"type": "' + log.type + '", '
-        r = r + '"amount": ' + str(log.amount) + ', '
-        r = r + '}, '
-    if len(logs) != 0:
-        r = r[0:len(r) - 2]
-    r = r + ']'
-    r = r[0: len(r) - 1] + ',{"username":"' + request.user.username + '"}]'
-    return r
+# # construct external logs to json
+# def construct_json_external(request, logs):
+#     r = '['
+#     for log in logs:
+#         r = r + '{"pk": ' + str(log.id) + ', '
+#         r = r + '"type": "' + log.type + '", '
+#         r = r + '"amount": ' + str(log.amount) + ', '
+#         r = r + '"account_1": ' + str(log.account_1.account_number) + ', '
+#         r = r + '"account_2": ' + str(log.account_2.account_number) + ', '
+#         r = r + '}, '
+#     if len(logs) != 0:
+#         r = r[0:len(r) - 2]
+#     r = r + ']'
+#     r = r[0: len(r) - 1] + ',{"username":"' + request.user.username + '"}]'
+#     return r
+#
+#
+# # construct internal logs to json
+# def construct_json_internal(request, logs):
+#     r = '['
+#     for log in logs:
+#         # r = r + '{"pk": ' + str(log.id) + ', '
+#         # r = r + '"type": "' + log.type + '", '
+#         # r = r + '"amount": ' + str(log.amount) + ', '
+#         # r = r + '}, '
+#         r= r+str("sdfg")+', '
+#     if len(logs) != 0:
+#         r = r[0:len(r) - 2]
+#     r = r + ']'
+#     #r = r[0: len(r) - 1] + ',{"username":"' + request.user.username + '"}]'
+#     return r

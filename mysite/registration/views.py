@@ -9,6 +9,9 @@ from account.models import *
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 
+from account.forms import *
+from log.views import *
+
 from log import views as log_views
 
 
@@ -92,6 +95,7 @@ def confirm_registration(request, form, token):
                           first_name=user.last_name,
                           user=user,
                           email=user.email,
+                          phone=form.cleaned_data['phone'],
                           middle_name=form.cleaned_data['middle_name'],
                           address=form.cleaned_data['address'],
                           date_of_birth=form.cleaned_data['date_of_birth'],
@@ -101,12 +105,38 @@ def confirm_registration(request, form, token):
                           )
     new_profile.save()
 
-    return render(request, 'confirmed.html', {})
+    return render(request, 'account.html', {})
 
 
 @login_required
 def confirmed(request):
-    return render(request, 'confirmed.html', {})
+    context = {}
+    logs_in = get_log_internal(request)
+    print logs_in
+    logs_ex = get_log_external(request)
+    print logs_ex
+    profile = request.user.profile
+    account = Account.objects.get(profile=profile)
+    checking = account.checking_account.balance
+    saving = account.saving_account.balance
+    logs = logs_in + logs_ex
+    description = []
+    print logs
+    for log in logs:
+        print log
+        if log['type'] == 'C':
+            log['description'] = "Saving to Checking"
+        if log['type'] == 'S':
+            log['description'] = "Checking to Saving"
+        if log['type'] == 'T':
+            log['description'] = log['account_2']
+
+    context['checking_logs'] = logs
+    context['saving_logs'] = logs_in
+    context['checking'] = checking
+    context['saving'] = saving
+    context['description'] = description
+    return render(request, 'account.html', context)
 
 
 @login_required
@@ -137,11 +167,12 @@ def profile(request):
     context['last_name'] = profile.last_name
     context['middle_name'] = profile.middle_name
     context['email'] = profile.email
+    context['phone'] = profile.phone
     context['address'] = profile.address
     context['dob'] = profile.date_of_birth
     context['gender'] = profile.gender
     context['ssn'] = profile.ssn
-    context['account'] = log_views.get_accounts(user)
+    #context['account'] = log_views.get_accounts(user)
 
     return render(request, 'profile.html', context)
 

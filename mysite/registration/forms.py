@@ -11,6 +11,7 @@ class RegistrationForm(forms.ModelForm):
                   'first_name',
                   'middle_name',
                   'email',
+                  'phone',
                   'address',
                   'date_of_birth',
                   'gender',

@@ -1,0 +1,149 @@
+{#{% extends 'base.html' %}#}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Parallax Template - Materialize</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="/static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="/static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+  <style>
+      table {
+        table-layout:fixed;
+          display: block;
+      }
+      th:nth-child(1), td:nth-child(1) {
+        word-wrap: break-word;
+        width: 150px;
+      }
+      th:nth-child(2), td:nth-child(2) {
+        word-wrap: break-word;
+        width: 250px;
+      }
+      th:nth-child(3), td:nth-child(3) {
+        text-align: right;
+        word-wrap: break-word;
+        width: 150px;
+          padding-right: 40px;
+      }
+      th:nth-child(4), td:nth-child(4) {
+        text-align: right;
+        word-wrap: break-word;
+        width: 150px;
+          padding-right: 50px;
+      }
+      th:nth-child(5), td:nth-child(5) {
+        word-wrap: break-word;
+        width: 100px;
+      }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="section">
+      <span style="padding-right: 30px;font-size: 40px;">Hello, {{ user.username }}</span><a href="#">Update Profile</a> | <a href="#">Security Center</a>
+  </div>
+  <div class="section">
+    <form class="row">
+      <div class="col s3">
+      <p>Check your account activity</p>
+      <button><span style="font-size: 20px">Online Statements</span></button>
+      <br>
+      <br>
+          <h5>Transfer Founds</h5>
+          <select class="browser-default" name="" onchange="self.location.href=options[selectedIndex].value" >
+              <option value="#">Transfer Options</option>
+              <option value="/account/saving_to_check">Saving to Checking</option>
+              <option value="/account/check_to_saving">Checking to Saving</option>
+          </select>
+      </div>
+      <div class="col s9" style="background-color: #f2f2f2;">
+      <h4>Personal accounts</h4>
+      <ul class="collapsible" data-collapsible="accordion" style="background-color: #fff;">
+        <li>
+            <div class="collapsible-header"><i class="material-icons">filter_drama</i>Checking<span style="width: 80%;text-align: right;">{{ checking }}</span></div>
+          <div class="collapsible-body">
+            <table class="striped responsive-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Withdraw</th>
+                  <th>Deposit</th>
+                  <th>Category</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for log in checking_logs %}
+                  <tr>
+                      <td>{{ log.time }}</td>
+                      <td>{{ log.description }}</td>
+                      <td>{{ log.withdraw }}</td>
+                      <td>{{ log.deposit}}</td>
+                      <td>{{ log.category }}</td>
+                  </tr>
+
+
+                {% endfor %}
+
+              </tbody>
+            </table>
+          <br>
+            <hr>
+              <p>Transactions older than Aug 22 are located in <a>Online Statements</a></p>
+          </div>
+        </li>
+        <li>
+        <div class="collapsible-header"><i class="material-icons">place</i>Saving&nbsp;&nbsp;&nbsp;&nbsp;<span style="width: 80%;text-align: right;">{{ saving }}</span></div>
+        <div class="collapsible-body">
+            <table class="striped responsive-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Withdraw</th>
+                  <th>Deposit</th>
+                  <th>Category</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for log in saving_logs %}
+                  <tr>
+                      <td>{{ log.time }}</td>
+                      <td>{{ log.description }}</td>
+                      <td>{{ log.deposit }}</td>
+                      <td>{{ log.withdraw }}</td>
+                      <td>{{ log.category }}</td>
+                  </tr>
+
+
+                {% endfor %}
+              </tbody>
+            </table>
+          <br>
+            <hr>
+            <p>Transactions older than Aug 22 are located in <a>Online Statements</a></p>
+          </div>
+        </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="/static/js/materialize.js"></script>
+  <script src="/static/js/init.js"></script>
+
+  </body>
+</html>
+{% endblock %}
