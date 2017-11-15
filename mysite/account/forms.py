@@ -45,7 +45,28 @@ class csForm(forms.ModelForm):
             'balance': 'Amount'
         }
 
+class createForm(forms.Form):
+    username = forms.CharField(max_length=100, label='Username')
+    first_name = forms.CharField(max_length=100, label="First Name")
+    middle_name = forms.CharField(max_length=100, label="Middle Name", required=False)
+    last_name = forms.CharField(max_length=100, label="Last Name")
+    account_number = forms.IntegerField(label='Account number',
+                                        widget=forms.TextInput())
+    def clean(self):
+        cleaned_data = super(createForm,self).clean()
+        users = User.objects.filter(username = cleaned_data.get('username'))
+        if len(users) == 0:
+            raise forms.ValidationError("Username is wrong")
+        else:
+            user = users[0]
+            if user.first_name.lower() != cleaned_data.get('first_name') or user.last_name != cleaned_data.get('last_name') or user.profile.middle_name != cleaned_data.get('middle_name'):
+                raise forms.ValidationError('name is wrong')
+            if Account.objects.filter(account_number=cleaned_data.get('account_number')):
+                raise forms.ValidationError('account number has already been occupied')
+            if Account.objects.filter(profile=user.profile):
+                raise forms.ValidationError('user has already get an account')
 
+        return cleaned_data
 
 
 
