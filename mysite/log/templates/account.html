@@ -94,7 +94,7 @@
 }
 /* The navigation bar */
 .navbar {
-    overflow: hidden;
+{#    overflow: hidden;#}
     background-color: #333;
     position: fixed; /* Set the navbar to fixed position */
     top: 0; /* Position the navbar at the top of the page */
@@ -118,8 +118,8 @@
 {
     background-color: rgba(255, 255, 255, 1);
     border-bottom: 1px solid #f1f1f1;
-    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.01), 0 1px 5px 0 rgba(0, 0, 0, 0.01), 0 3px 1px -2px rgba(0, 0, 0, 0.01);
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.01), 0 1px 5px 0 rgba(0, 0, 0, 0.01), 0 3px 1px -2px rgba(0, 0, 0, 0.01);
 
   border-radius: 2px;
   background-color: #fff;
@@ -146,16 +146,37 @@ button:hover {
         .footer-link a {
             color: #f7c20a;
         }
-        #nav-mobile li a:hover {
-            background-color: #f7c20a;
-            color: #f7c20a;
+
+ .nav-wrapper li a {
+     background-color: transparent;
+     color: #333333;
+     position: relative;
+     z-index: 0;
+ }
+      .nav-wrapper li a:hover {
+          background-color: transparent;
+          position: relative;
+          z-index: 0;
+      }
+          .nav-wrapper li a .menu:hover {
+    background-color: transparent;
+    color:#f7c20a;
+    position: relative;
+    z-index:0;
+}
+      #dropdown1 li:hover {
+            background-color: transparent;
+        }
+        #dropdown1 li a:hover {
+            background-color: transparent;
+            color:#f7c20a;
         }
   </style>
 </head>
 <body>
     <div class="navbar" style="height: 130px; padding-top:0px;">
         <nav style="height: 50px;background-color: #333333;">
-            <div class="container" style="width:100%;color: #f7c20a;font-size:12px;vertical-align:top">
+            <div class="container" style="color: #f7c20a;font-size:12px;vertical-align:top">
                 <i class="fa fa-phone" style="line-height:50px;vertical-align:top;" aria-hidden="true"></i>&nbsp;
                 <span style="line-height:50px;vertical-align:top;color:#bfbfbf">Call us: +61 3 8376 6284</span>
                 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -170,23 +191,29 @@ button:hover {
                     </span>
             </div>
         </nav>
+        <ul id="dropdown1" class="dropdown-content" style="; margin-top:80px;position: fixed;z-index: 10;">
+  <li class="divider" style="height:3px; background-color: #f7c20a;"></li>
+  <li><a href="/account/saving_to_check" style="font-size:14px;">Saving to Checking</a></li>
+  <li class="divider"></li>
+  <li><a href="/account/check_to_saving" style="font-size:14px;">Checking to Saving</a></li>
+</ul>
         <nav class="boxshadow" style = "height:80px;">
-            <div class="container nav-wrapper" style="width:100%;line-height:55px;vertical-align:middle;">
-                <a href="#" class="brand-logo" style="color: #f7c20a;">Devenshire</a><a href="#" class="brand-logo" style="color: #666666; padding-left:180px;">Lending</a>
-                <ul id="nav-mobile" class="right" >
-                    <li><a href="#" style="color:#333333;">Accounts</a></li>
-                    <li><a href="#" style="color:#333333;">Bill Pay</a></li>
-                    <li><a href="#" style="color:#333333;">Transfer</a></li>
-                    <li><a href="#" style="color:#333333;">Loan</a></li>
-                    <li><a href="#" style="color:#333333;">Help & Support</a></li>
-                    <li><a href="#" style="color:#333333;"><i class="fa fa-search" aria-hidden="true" style="line-height:55px;vertical-align: middle;"></i></a></li>
+            <div class="container nav-wrapper" style="line-height:55px;vertical-align:middle;">
+                <a href="#" class="brand-logo" style="color: #f7c20a;padding-left:0px;"><i class="fa fa-university" aria-hidden="true" style="line-height:50px; vertical-align: middle; font-size:24px;"></i></a><a href="#" class="brand-logo" style="color: #666666; padding-left:40px; font-size:20px;">Devenshire</a>
+                <ul style="margin-left:500px;position: fixed;z-index:2;">
+                    <li><a href="/accounts" style="height:80px;color:#333333;"><span class="menu">Accounts</span></a></li>
+                    <li><a href="/account/transfer" style="height:80px;color:#333333;"><span class="menu">Bill Pay</span></a></li>
+                    <li><a class="dropdown-button" href="#" data-activates="dropdown1" data-constrainwidth="false" style="height:80px;color:#333333;"><span class="menu">Transfer</span></a></li>
+                    <li><a href="#" style="color:#333333;height:80px;"><span class="menu">Loan</span></a></li>
+                    <li><a href="#" style="color:#333333;height:80px;"><span class="menu">Help & Support</span></a></li>
+                    <li><a href="#" style="float:right;color:#333333;height:80px;"><span class="menu"><i class="fa fa-search" aria-hidden="true" style="line-height:55px;vertical-align: middle;"></i></span></a></li>
                 </ul>
             </div>
         </nav>
     </div>
 
 
-<div class="page-title"  style="height: 100px; margin-top: 130px;margin-bottom: 20px;">
+<div class="page-title"  style="height: 100px; margin-top: 131px;margin-bottom: 20px;">
                 <div class="container">
                     <div class="page-title-heading">
                         <h1 class="title" style="color: #595959;padding-top:0px; line-height:0px; font-size:36px;">Hello, {{ user.profile.last_name }}    <span style="margin-left:20px;font-size: 16px; color:#808080;"> <a href="#" style="color:#f7c20a;font-weight: 500;">Update Profile</a> <span style="font-weight: 500;">|</span> <a href="#" style="color:#f7c20a;font-weight: 400;">Security Center</a></span></h1>
