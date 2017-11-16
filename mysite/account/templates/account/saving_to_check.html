@@ -49,6 +49,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         width:100%;
         margin:0;
     }
+    .w3ls_main_grid_right_grid_form label {
+    color:#f7c20a;
+}
 
 </style>
 <body>
@@ -62,7 +65,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<h3>{{ User.profile.account.checking_account.balance }} <span>USD</span></h3>
 					<p>transfer money to others please view/edit your recurring transfers.</p>
 				</div>
-				<div class="agileinfo_main_grid_left_grid">
+				<div class="agileinfo_main_grid_left_grid"  style="background-color: #666666;">
 					<h3>personal accounts</h3>
 					<p>enrolled since July 2010</p>
 					<ul>
@@ -79,7 +82,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 			<div class="agileits_w3layouts_main_grid_right">
 				<div class="wthree_main_grid_right_grid">
-					<h3>Between my accounts at Devoshire Lending</h3>
+					<h3 style="color: #f7c20a;" >Between my accounts at Devoshire Lending</h3>
                 <div style="color: red;">
                     {% for i in err_message %}
                         {{ i }}
