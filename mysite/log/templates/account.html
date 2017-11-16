@@ -44,7 +44,8 @@
       .page-title {
 	position: relative;
 	padding: 55px 0;
-	background-color: #f7f7f7;
+	background-color: rgba(217, 217, 217,0.8);
+{#          #f7f7f7#}
 }
       .breadcrumbs ul {
 	padding-top: 0;
@@ -118,8 +119,8 @@
 {
     background-color: rgba(255, 255, 255, 1);
     border-bottom: 1px solid #f1f1f1;
-    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.01), 0 1px 5px 0 rgba(0, 0, 0, 0.01), 0 3px 1px -2px rgba(0, 0, 0, 0.01);
-          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.01), 0 1px 5px 0 rgba(0, 0, 0, 0.01), 0 3px 1px -2px rgba(0, 0, 0, 0.01);
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0 rgba(0, 0, 0, 0.1), 0 3px 1px -2px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 5px 0 rgba(0, 0, 0, 0.1), 0 3px 1px -2px rgba(0, 0, 0, 0.1);
 
   border-radius: 2px;
   background-color: #fff;
@@ -227,17 +228,17 @@ button:hover {
 <div class="section">
     <div class="row">
       <div class="col s3">
-          <div style="margin-top:20px;background-color: #f2f2f2; width:200px;height:235px;margin-bottom: 20px;">
+          <div style="margin-top:20px;background-color: rgba(217, 217, 217,1); width:200px;height:235px;margin-bottom: 20px;">
               <div style="color: #595959; font-size: 16px; text-align:center; line-height:40px;vertical-align: middle;"><strong>INFO CENTER</strong></div>
 
     <div class="row" style="margin-left:10px;">
       <div class="col s5" style="margin-left:1px;background-color: #fff; height:80px;box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);">
-          <div style="text-align: center; line-height: 40px;padding-top: 15px;vertical-align: bottom;padding-bottom: 0px;"><i class="fa fa-bell" aria-hidden="true" style="font-size:32px;color:#999999;"></i>
+          <div style="text-align: center; line-height: 40px;padding-top: 15px;vertical-align: bottom;padding-bottom: 0px;"><i class="fa fa-bell" aria-hidden="true" style="font-size:32px;color:#595959;"></i>
           </div>
           <div style="line-height: 10px;vertical-align:top;text-align: center;color:#595959;">Alerts</div>
       </div>
       <div class="col s5" style="margin-left:1px;margin-left:10px;background-color: #fff; height:80px;box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);">
-          <div style="text-align: center; line-height: 40px;padding-top: 15px;vertical-align: bottom;padding-bottom: 0px;"><i class="fa fa-commenting" aria-hidden="true" style="font-size:32px;color:#999999;"></i>
+          <div style="text-align: center; line-height: 40px;padding-top: 15px;vertical-align: bottom;padding-bottom: 0px;"><i class="fa fa-commenting" aria-hidden="true" style="font-size:32px;color:#595959;"></i>
           </div>
           <div style="line-height: 10px;vertical-align:top;text-align: center;color:#595959;">Messages</div>
       </div>
@@ -245,12 +246,12 @@ button:hover {
 
               <div class="row" style="margin-left:10px;">
       <div class="col s5" style="margin-left:1px;background-color: #fff; height:80px;box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);">
-          <div style="text-align: center; line-height: 40px;padding-top: 15px;vertical-align: bottom;padding-bottom: 0px;"><i class="fa fa-gift" aria-hidden="true" style="font-size:32px;color:#999999;"></i>
+          <div style="text-align: center; line-height: 40px;padding-top: 15px;vertical-align: bottom;padding-bottom: 0px;"><i class="fa fa-gift" aria-hidden="true" style="font-size:32px;color:#595959;"></i>
           </div>
           <div style="line-height: 10px;vertical-align:top;text-align: center;color:#595959;">Offers</div>
       </div>
       <div class="col s5" style="margin-left:1px;margin-left:10px;background-color: #fff; height:80px;box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);">
-          <div style="text-align: center; line-height: 40px;padding-top: 15px;vertical-align: bottom;padding-bottom: 0px;"><i class="fa fa-pie-chart" aria-hidden="true" style="font-size:32px;color:#999999;"></i>
+          <div style="text-align: center; line-height: 40px;padding-top: 15px;vertical-align: bottom;padding-bottom: 0px;"><i class="fa fa-pie-chart" aria-hidden="true" style="font-size:32px;color:#595959;"></i>
           </div>
           <div style="line-height: 10px;vertical-align:top;text-align: center;color:#595959;">Spending</div>
       </div>
@@ -265,7 +266,7 @@ button:hover {
       <br>
           <div>
           <h5 style="color: #595959; font-size:20px;margin-top:20px;">Transfer Founds</h5>
-          <select class="browser-default" style="width:200px; border-color: #d9d9d9; border-width:2px; color:#999999;" name="" onchange="self.location.href=options[selectedIndex].value" >
+          <select class="browser-default" style="width:200px; border-color: #999999; border-width:2px; color:#999999;" name="" onchange="self.location.href=options[selectedIndex].value" >
               <option value="#">Transfer Options</option>
               <option value="/account/saving_to_check">Saving to Checking</option>
               <option value="/account/check_to_saving">Checking to Saving</option>
@@ -275,9 +276,9 @@ button:hover {
       <div class="col s9" style="background-color:  #fff;">
       <h4 style="color:#595959;font-size: 28px;margin-top:20px;">Personal accounts</h4>
           <div class="divider" style="background-color:#f7c20a;height:3px;margin-bottom: 0px;padding-bottom: 0px;"></div>
-      <ul class="collapsible" data-collapsible="accordion" style="background-color: #fff;margin-top:0px;padding-top:0px;">
+      <ul class="collapsible" data-collapsible="accordion" style="border:solid;border-color:#dddddd;background-color: #fff;margin-top:0px;padding-top:0px;">
         <li>
-            <div class="collapsible-header" style="font-size: 20px;"><i class="fa fa-money" aria-hidden="true" style="font-size:20px;line-height:28px; vertical-align:middle;color:#999999;"></i>Checking<span style="width: 80%;text-align: right;">{{ checking }}</span></div>
+            <div class="collapsible-header" style="font-size: 20px;border:solid;border-color:#dddddd;"><i class="fa fa-money" aria-hidden="true" style="font-size:20px;line-height:28px; vertical-align:middle;color:#595959;"></i>Checking<span style="width: 80%;text-align: right;">{{ checking }}</span></div>
           <div class="collapsible-body">
             <table class="striped responsive-table">
               <thead>
@@ -310,7 +311,7 @@ button:hover {
           </div>
         </li>
         <li>
-        <div class="collapsible-header" style="font-size: 20px;"><i class="fa fa-archive" aria-hidden="true" style="font-size:20px;line-height:28px; vertical-align:middle;color:#999999;"></i>Saving&nbsp;&nbsp;&nbsp;&nbsp;<span style="width: 80%;text-align: right;">{{ saving }}</span></div>
+        <div class="collapsible-header" style="font-size: 20px;border:solid;border-color:#dddddd;"><i class="fa fa-archive" aria-hidden="true" style="font-size:20px;line-height:28px; vertical-align:middle;color:#595959;"></i>Saving&nbsp;&nbsp;&nbsp;&nbsp;<span style="width: 80%;text-align: right;">{{ saving }}</span></div>
         <div class="collapsible-body">
             <table class="striped responsive-table">
               <thead>
@@ -345,9 +346,9 @@ button:hover {
         <h4 style="color:#595959; margin-top: 50px;font-size: 28px;">Loan accounts</h4>
        <div class="divider" style="background-color:#f7c20a;height:3px;margin-bottom: 0px;padding-bottom: 0px;"></div>
 
-      <ul class="collapsible" data-collapsible="accordion" style="background-color: #fff;margin-top:0px;padding-top:0px;">
+      <ul class="collapsible" data-collapsible="accordion" style="background-color: #fff;margin-top:0px;padding-top:0px;border:solid;border-color:#dddddd;">
         <li>
-            <div class="collapsible-header" style="font-size: 20px;"><i class="fa fa-car" aria-hidden="true" style="font-size:20px;line-height:28px; vertical-align:middle;color:#999999;"></i>Auto Loan<span style="width: 80%;text-align: right;"></span></div>
+            <div class="collapsible-header" style="border:solid;border-color:#dddddd;font-size: 20px;"><i class="fa fa-car" aria-hidden="true" style="font-size:20px;line-height:28px; vertical-align:middle;color:#595959;"></i>Auto Loan<span style="width: 80%;text-align: right;"></span></div>
           <div class="collapsible-body">
             <table class="striped responsive-table">
               <thead>
@@ -363,7 +364,7 @@ button:hover {
           </div>
         </li>
         <li>
-        <div class="collapsible-header"  style="font-size: 20px;"><i class="fa fa-home" aria-hidden="true" style="font-size:20px;line-height:28px; vertical-align:middle;color:#999999;"></i>Mortgage Loan<span style="width: 70%;text-align: right;"></span></div>
+        <div class="collapsible-header"  style="border:solid;border-color:#dddddd;font-size: 20px;"><i class="fa fa-home" aria-hidden="true" style="font-size:20px;line-height:28px; vertical-align:middle;color:#595959;"></i>Mortgage Loan<span style="width: 70%;text-align: right;"></span></div>
         <div class="collapsible-body">
             <table class="striped responsive-table">
               <thead>

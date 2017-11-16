@@ -1,0 +1,113 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<title>Check to Saving transfer</title>
+<!-- for-mobile-apps -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Shopify Payment Form Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- //for-mobile-apps -->
+<link href="/static/account/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<!-- font-awesome icons -->
+<link href="/static/account/css/font-awesome.css" rel="stylesheet">
+<!-- //font-awesome icons -->
+<link href="//fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext" rel="stylesheet">
+</head>
+<style>
+    select{
+        font-family: 'Raleway', sans-serif;
+	    margin:0;
+        outline: none;
+        padding: 10px 0;
+        color: #fff;
+        font-size: 13px;
+        border: none;
+        border-bottom: 2px solid #f2f2f2;
+        background: none;
+        font-weight: 600;
+        width:100%;
+    }
+    input[type='number']{
+        outline: none;
+        padding: 10px 0;
+        color: #fff;
+        font-size: 13px;
+        border: none;
+        border-bottom: 2px solid #f2f2f2;
+        background: none;
+        font-weight: 600;
+        font-family: 'Raleway', sans-serif;
+        width:100%;
+        margin:0;
+    }
+.w3ls_main_grid_right_grid_form label {
+    color:#f7c20a;
+}
+</style>
+<body>
+	<div class="main">
+
+		<h1>Fund Transfers </h1>
+		<div class="w3_agile_main_grids">
+			<div class="agile_main_grid_left">
+				<div class="w3_agileits_main_grid_left_grid">
+					<h2>Check Account balance</h2>
+					<h3>{{ User.profile.account.checking_account.balance }} <span>USD</span></h3>
+					<p>transfer money to others please view/edit your recurring transfers.</p>
+				</div>
+				<div class="agileinfo_main_grid_left_grid" style="background-color: #666666;">
+					<h3>personal accounts</h3>
+					<p>enrolled since July 2010</p>
+					<ul>
+						<li><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>Cash Rewards - 1101</li>
+						<li><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>Travel Rewards - 4009</li>
+						<li><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>Better Balance - 8977</li>
+<!--						<li><i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i>Guidance & Support</li>-->
+					</ul>
+					<a href="#" class="agileits_questions">If you have any questions ?</a>
+					<div class="w3layouts_help_desk">
+						<a href="#">Contact Us</a>
+					</div>
+				</div>
+			</div>
+			<div class="agileits_w3layouts_main_grid_right">
+				<div class="wthree_main_grid_right_grid">
+					<h3 style="color: #f7c20a;">Between my accounts at Devoshire Lending</h3>
+                <div style="color: red;">
+                    {% for i in err_message %}
+                        {{ i }}
+                    {% endfor %}
+                </div>
+					<div class="w3ls_main_grid_right_grid_form" >
+						<form action="{% url 'check_to_saving' %}" method="POST">
+							<div class="w3l_main_grid_right_grid_form2" style="color: red;">
+        					{{ form }}
+        					</div>
+							<div class="clear"> </div>
+							<div class="w3layouts_check">
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i> </i>I agree to the terms of services</label>
+							</div>
+							<input type="submit" value="Continue Transfer">
+    						{% csrf_token %}
+    					</form>
+					</div>
+				</div>
+			</div>
+			<div class="clear"> </div>
+		</div>
+		<div class="agileits_copyright">
+			<p>© 2017 Shopify Payment Form. All rights reserved | Design by <a href="http://w3layouts.com/" target="_blank">W3layouts</a></p>
+		</div>
+	</div>
+
+</body>
+</html>
