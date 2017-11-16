@@ -10,7 +10,11 @@ from forms import *
 from account import views as account_views
 from account.forms import *
 from account.models import *
-
+import os
+from django.conf import settings
+from django.http import HttpResponse
+import unicodecsv
+import json
 
 def show_logs(request):
     return render(request, 'log.html', {})
@@ -263,3 +267,20 @@ def delete_log_internal(log_id):
 #     r = r + ']'
 #     #r = r[0: len(r) - 1] + ',{"username":"' + request.user.username + '"}]'
 #     return r
+
+
+def download(request):
+    logs = get_log_internal(request)+get_log_external(request)
+    csv = HttpResponse(content_type='text/csv')
+    csv['Content-Disposition'] = 'attachment; filename="online_statements.csv"'
+    writer = unicodecsv.writer(csv)
+    writer.writerow(['Type', 'deposit', 'withdraw', 'time'])
+
+    for log in logs:
+        data = []
+        data.append(str(log['category']))
+        data.append(str(log['deposit']))
+        data.append(str(log['withdraw']))
+        data.append(str(log['time']))
+        writer.writerow(data)
+    return csv

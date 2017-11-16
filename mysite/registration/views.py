@@ -11,6 +11,8 @@ from django.http import HttpResponseRedirect
 
 from account.forms import *
 from log.views import *
+from datetime import datetime
+from datetime import timedelta
 
 from log import views as log_views
 
@@ -136,6 +138,7 @@ def confirmed(request):
     context['checking'] = checking
     context['saving'] = saving
     context['description'] = description
+    context['log_time'] = (datetime.now() - timedelta(days=90)).strftime("%Y-%m-%d")
     return render(request, 'account.html', context)
 
 
@@ -191,4 +194,5 @@ def construct_json(request, user_profile):
     r = r + '"type": "' + user_profile.type + '"'
     r = r + ']'
     r = r[0: len(r) - 1] + ',{"username":"' + request.user.username + '"}]'
+
     return r
