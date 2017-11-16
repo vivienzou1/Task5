@@ -1,428 +1,62 @@
-<!DOCTYPE html>
-<!--[if IE 8 ]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"><!--<![endif]-->
-<head>
-    <!-- Basic Page Needs -->
-    <meta charset="utf-8">
-    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-    <title>Uni Construction - Construction Business, Building Company Template
-</title>
+{% extends 'base.html' %}
+{% block content %}
+    <!--Import jQuery before materialize.js-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
-    <meta name="author" content="themesflat.com">
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 
-    <!-- Mobile Specific Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-    <!-- Bootstrap  -->
-    <link rel="stylesheet" type="text/css" href="/static/stylesheets/bootstrap.css" >
-
-    <!-- Theme Style -->
-    <link rel="stylesheet" type="text/css" href="/static/stylesheets/style.css">
-
-    <!-- Responsive -->
-    <link rel="stylesheet" type="text/css" href="/static/stylesheets/responsive.css">
-
-    <!-- REVOLUTION LAYERS STYLES -->
-    <link rel="stylesheet" type="text/css" href="/static/revolution/css/layers.css">
-    <link rel="stylesheet" type="text/css" href="/static/revolution/css/settings.css">
-
-    <!-- Colors -->
-    <link rel="stylesheet" type="text/css" href="/static/stylesheets/colors/color1.css" id="colors">
-
-	<!-- Animation Style -->
-    <link rel="stylesheet" type="text/css" href="/static/stylesheets/animate.css">
-
-    <!-- Favicon and touch icons  -->
-    <link href="/static/icon/apple-touch-icon-48-precomposed.png" rel="apple-touch-icon-precomposed" sizes="48x48">
-    <link href="/static/icon/apple-touch-icon-32-precomposed.png" rel="apple-touch-icon-precomposed">
-    <link href="/static/icon/favicon.png" rel="shortcut icon">
-
-    <!--[if lt IE 9]>
-        <script src="/static/javascript/html5shiv.js"></script>
-        <script src="/static/javascript/respond.min.js"></script>
-    <![endif]-->
-</head>
-<body class="header_sticky">
-    <!-- Boxed -->
-    <div class="boxed">
-
-    <div class="top">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <ul class="flat-information">
-                        <li class="phone"><a href="+84905010025">Call us: +61 3 8376 6284</a></li>
-                        <li class="email"><a href="mailto:Themesflat@gmail.com">Email: support24-7@gmail.com</a></li>
-
-                    </ul>
-                </div><!-- /.col-md-6 -->
-                <div class="col-md-6">
-                    <div class="social-links">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-linkedin"></i></a>
-                        <a href="#"><i class="fa fa-rss"></i></a>
-                    </div>
-                </div>
-            </div><!-- /.row -->
-        </div><!-- /.container -->
-    </div><!-- /.top -->
-
-    <!-- Header -->
-    <header id="header" class="header clearfix">
-        <div class="container">
-            <div class="row">
-                <div class="header-wrap clearfix">
-                    <div class="col-md-4">
-                        <div id="logo" class="logo">
-                            <a href="index.html" rel="home">
-                                <img src="/static/images/logo.png" alt="image">
-                            </a>
-                        </div><!-- /.logo -->
-                        <div class="btn-menu">
-                            <span></span>
-                        </div><!-- //mobile menu button -->
-                    </div>
-                    <div class="col-md-8">
-                        <div class="nav-wrap">
-                            <nav id="mainnav" class="mainnav">
-                                <ul class="menu">
-                                    <li class="home">
-                                        <a href="index.html">Home</a>
-                                    </li>
-                                    <li><a href="about.html">About</a></li>
-                                    <li><a href="services.html">Services</a></li>
-                                    <li><a href="work.html">Work</a>
-                                        <ul class="submenu">
-                                            <li><a href="work-single.html">Work Single </a>
-                                            </li>
-                                        </ul><!-- /.submenu -->
-                                    </li>
-                                    <li><a href="contact.html">Contact Us</a></li>
-                                    <li><a href="blog.html">Blog</a>
-                                        <ul class="submenu right-sub-menu">
-                                            <li><a href="blog.html">Blog </a>
-                                            </li>
-                                            <li><a href="blog-single.html">Blog Single</a>
-                                            </li>
-                                        </ul><!-- /.submenu -->
-                                    </li>
-                                </ul><!-- /.menu -->
-                            </nav><!-- /.mainnav -->
-
-                            <ul class="menu menu-extra">
-                                <li class="off-canvas-toggle">
-                                    <a href="#"><i class="fa fa-search"></i></a>
-                                </li>
-                            </ul>
-                        </div><!-- /.nav-wrap -->
-
-                    </div>
-                </div><!-- /.header-inner -->
-            </div><!-- /.row -->
+        <!--Materializecss Slider-->
+        <script>
+            $(document).ready(function () {
+                $('.slider').slider({full_width: true});
+            });
+        </script>
+    <div class="container">
+    <div class="row">
+        <div class = "col s9">
+<div class="slider">
+    <ul class="slides">
+      <li>
+        <img src="/static/images/slides/slide1.jpg"> <!-- random image -->
+        <div class="caption center-align">
+          <h3>This is our big Tagline!</h3>
+          <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
         </div>
-    </header><!-- /.header -->
-
-    <div class="container" style="max-height: 380px;">
-        <div class="row">
-            <div class="col-lg-9" style="max-height: 380px;">
-                <div style="max-height: 380px;" class="rev_slider_wrapper fullwidthbanner-container" data-alias="classic4export" data-source="gallery" style="margin:0px auto;background-color:transparent;padding:0px;margin-top:0px;margin-bottom:0px;">
-                <!-- START REVOLUTION SLIDER 5.3.0.2 auto mode -->
-                    <div id="rev_slider_1078_1" class="rev_slider fullwidthabanner" style="display:none;" data-version="5.3.0.2">
-                        <ul><!-- SLIDE  -->
-                        <!-- SLIDE 3 -->
-                            <li style="max-height: 380px;">
-                            <!-- MAIN IMAGE -->
-                            <img src="/static/images/slides/3.jpg">
-                            </li>
-                            <li style="max-height: 380px;">
-                            <!-- MAIN IMAGE -->
-                            <img src="/static/images/slides/3.jpg">
-                            </li>
-                        </ul>
-                    </div>
-                </div><!-- END REVOLUTION SLIDER -->
-            </div>
-            <div class="col-lg-3">
-            <br>
-                <div class="widget widget-dowload brochure">
-{#                {% if user.is_authenticated %}#}
-{#                    <h3 style="padding-bottom: 10px;font-size: 24px;">Hello, {{ user.username }}</h3>#}
-{#                    <p style="padding-bottom: 10px;">#}
-{#                    <span>check your balance</span>#}
-{#                    <a href="#"><span style="float: right; color: #18ba60;">my account</span></a>#}
-{#                    </p>#}
-{#                    <p style="padding-bottom: 10px;">#}
-{#                    <span>Looking for competitive interest rates? Look no further -- You've found them</span><a href="#"><span style="float: right; color: #18ba60;">view detail</span></a>#}
-{#                    </p>#}
-{#                    <p>#}
-{#                    <a href="/logout/" style="font-size:14px;color: #18ba60;">log out</a>#}
-{#                    </p> -->#}
-{#                    <!-- {% else %} -->#}
-
-                    {% block content %}
-
-                    {% endblock %}
-                    <a href="#"><span style="font-size:14px;color: #f7c20a;"><strong>Forgot ID</strong> </span></a><span style="font-size:14px;"> | </span><a href="#"><span style="font-size:14px;color: #f7c20a;"> <strong>Password</strong></span></a>
-                    <a href="/register/"><span style="float: right;font-size:14px;color: #f7c20a;"><strong> Eroll</strong></span></a>
-                </select>
-            </div>
+      </li>
+        <li>
+        <img src="/static/images/slides/slide2.jpg"> <!-- random image -->
+        <div class="caption center-align">
+          <h3>This is our big Tagline!</h3>
+          <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
         </div>
-            </div>
+      </li>
+
+    </ul>
+  </div>
         </div>
+        <div class = "col s3">
+
+            <h3 style="font-size: 24px;">Secure Log-in</h3>
+    <form method="post" action="{% url 'login' %}" id="loginForm" style="max-wdith: 300px;" class="form-signin">
+    <div class="form-group" style="margin-top:20px;">
+        <input id="username" type="text" name="username"  style="height: 30px; margin-bottom: 0px;" placeholder="Enter your User ID" required class="form-control">
+    </div>
+    <div class="form-group">
+        <input id="password" type="password" name="password" style="height: 30px;" placeholder="Enter your passcode" required class="form-control">
+    </div>
+    <input type="checkbox" checked>
+        <span style="font-size: 14px; color: #f7c20a;"><strong>Save Info</strong></span>
+    <input type="submit" style="float: right; height: 40px; width: 70px; display: inline; color:#fff; padding-left: 14px; background-color: #404040;" value="Log in" class="btn btn-default btn-block">
+        <div  style="height:60px; line-height: 20px; padding-top:5px;">
+        {{ errors }}
     </div>
 
-    <!-- Offer -->
-    <section class="flat-row what-we-do offer" id="services" style="padding-top:0px;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="iconbox-item">
-                        <div class="iconbox left style3">
-                            <img src="/static/images/services/1.jpg" alt="serives">
-                        </div><!-- /.iconbox -->
-                    </div><!-- /.iconbox-item -->
-                </div>
+    {% csrf_token %}
+</form>
 
-                <div class="col-md-3">
-                    <div class="iconbox-item">
-                        <div class="iconbox left style3">
-                            <img src="/static/images/services/2.jpg" alt="serives">
-
-                        </div><!-- /.iconbox -->
-                    </div><!-- /.iconbox-item -->
-                </div>
-
-                <div class="col-md-3">
-                    <div class="iconbox-item">
-                        <div class="iconbox left style3">
-                            <img src="/static/images/services/3.jpg" alt="serives">
-
-                        </div><!-- /.iconbox -->
-                    </div><!-- /.iconbox-item -->
-                </div>
-
-                <div class="col-md-3">
-                    <div class="iconbox-item">
-                        <div class="iconbox left style3">
-                            <img src="/static/images/services/3.jpg" alt="serives">
-
-                        </div><!-- /.iconbox -->
-                    </div><!-- /.iconbox-item -->
-                </div>
-            </div>
-        </div><!-- /.container -->
-    </section>
-
-
-
-
-    <!-- Mail Chimp -->
-    <section class="flat-row mail-chimp">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-7">
-                    <div class="text">
-                        <h3>Need more information?</h3>
-                        <p>Please email us and our support staff will contact you back</p>
-                    </div>
-                </div>
-                <div class="col-sm-5">
-                    <div class="subscribe">
-                        <form method="post" id="subscribeForm" class="subscribe-form" action="./contact/subscribe-process.php">
-                            <label>
-                                <input type="email" id="emailsubscribe" name="email" placeholder="Enter you email..." value="" required="required" title="Enter your email">
-                            </label>
-                            <input type="submit" class="submit" value="Subscribe">
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div><!-- /.container -->
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-widgets">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="widget widget_text widget_info">
-                            <h4 class="widget-title">about us</h4>
-                            <div class="textwidget">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi elementum nibh </p>
-
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-
-                                <div class="social-links">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-linkedin"></i></a>
-                                    <a href="#"><i class="fa fa-rss"></i></a>
-                                </div>
-
-                            </div><!-- /.textwidget -->
-                        </div><!-- /.widget -->
-                    </div><!-- /.col-md-3 -->
-
-                    <div class="col-md-3">
-                        <div id="nav_menu-2" class="widget widget_nav_menu">
-                            <h2 class="widget-title">Quick Links</h2>
-                            <div class="menu-footer-container">
-                                <ul id="menu-footer" class="menu">
-                                    <li class="menu-item"><a href="#">Circuits & Wiring</a></li>
-                                    <li class="menu-item"><a href="#">Code compliance</a></li>
-                                    <li class="menu-item"><a href="#">Power audits</a></li>
-                                    <li class="menu-item"><a href="#">Remodels</a></li>
-                                    <li class="menu-item"><a href="#">Smoke detectors</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div><!-- /.col-md-3 -->
-
-                    <div class="col-md-3">
-                       <div class="widget widget_tweets">
-                            <h2 class="widget-title">Twitter</h2>
-                            <ul>
-                                <li><a class="author" href="#">@Unc</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis est sem.</li>
-                                <li><a class="author" href="#">@Unc</a> Donec sed congue elit. Suspendisse sed tincidunt libero <a href="#">http://bit.ly/58788998</a></li>
-
-                            </ul>
-                        </div>
-                    </div><!-- /.col-md-3 -->
-
-                    <div class="col-md-3">
-                        <div class="widget widget_instagram">
-                            <h2 class="widget-title">Instagram</h2>
-                            <ul class="clearfix">
-                                <li>
-                                    <div class="thumb">
-                                        <div class="flat-images-hover">
-                                        <div class="flat-hover-overlay"></div>
-                                        <a href="#">
-                                            <span><img src="/static/images/flickr/4.jpg" alt="image"></span>
-                                        </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="thumb">
-                                        <div class="flat-images-hover">
-                                            <div class="flat-hover-overlay"></div>
-                                            <a href="#">
-                                                <span><img src="/static/images/flickr/5.jpg" alt="image"></span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="last">
-                                    <div class="thumb">
-                                        <div class="flat-images-hover">
-                                            <div class="flat-hover-overlay"></div>
-                                            <a href="#">
-                                                <span><img src="/static/images/flickr/6.jpg" alt="image"></span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="last">
-                                    <div class="thumb">
-                                        <div class="flat-images-hover">
-                                            <div class="flat-hover-overlay"></div>
-                                            <a href="#">
-                                                <span><img src="/static/images/flickr/7.jpg" alt="image"></span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="last">
-                                    <div class="thumb">
-                                        <div class="flat-images-hover">
-                                            <div class="flat-hover-overlay"></div>
-                                            <a href="#">
-                                                <span><img src="/static/images/flickr/8.jpg" alt="image"></span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="last">
-                                    <div class="thumb">
-                                        <div class="flat-images-hover">
-                                            <div class="flat-hover-overlay"></div>
-                                            <a href="#">
-                                                <span><img src="/static/images/flickr/9.jpg" alt="image"></span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div><!-- /.col-md-3 -->
-                </div><!-- /.row -->
-            </div><!-- /.container -->
-        </div><!-- /.footer-widgets -->
-
-    </footer>
-
-    <!-- Bottom -->
-    <div class="bottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="copyright text-center">
-                        <p>© Copyright <a href="#">Themesflat</a> 2017. All Rights Reserved.
-                        </p>
-                    </div>
-                </div><!-- /.col-md-6 -->
-            </div><!-- /.row -->
-        </div><!-- /.container -->
+            
+        </div>
     </div>
-
-    <!-- Go Top -->
-    <a class="go-top">
-        <i class="fa fa-angle-up"></i>
-    </a>
-
-
-
     </div>
-
-    <!-- Javascript -->
-    <script type="text/javascript" src="/static/javascript/jquery.min.js"></script>
-    <script type="text/javascript" src="/static/javascript/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/javascript/jquery.easing.js"></script>
-    <script type="text/javascript" src="/static/javascript/imagesloaded.min.js"></script>
-    <script type="text/javascript" src="/static/javascript/jquery.isotope.min.js"></script>
-    <script type="text/javascript" src="/static/javascript/jquery-waypoints.js"></script>
-    <script type="text/javascript" src="/static/javascript/jquery.magnific-popup.min.js"></script>
-    <script type="text/javascript" src="/static/javascript/jquery.cookie.js"></script>
-    <script type="text/javascript" src="/static/javascript/jquery.fitvids.js"></script>
-    <script type="text/javascript" src="/static/javascript/parallax.js"></script>
-    <script type="text/javascript" src="/static/javascript/smoothscroll.js"></script>
-    <script type="text/javascript" src="/static/javascript/jquery.flexslider-min.js"></script>
-    <script type="text/javascript" src="/static/javascript/owl.carousel.js"></script>
-    <script type="text/javascript" src="/static/javascript/jquery-validate.js"></script>
-    <script type="text/javascript" src="/static/javascript/switcher.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHtWltCIolOgzpMEfi_GVZZHCkrXH10SM&region=GB"></script>
-    <script type="text/javascript" src="/static/javascript/gmap3.min.js"></script>
-    <script type="text/javascript" src="/static/javascript/main.js"></script>
-
-    <!-- Revolution Slider -->
-    <script type="text/javascript" src="/static/revolution/js/jquery.themepunch.tools.min.js"></script>
-    <script type="text/javascript" src="/static/revolution/js/jquery.themepunch.revolution.min.js"></script>
-    <script type="text/javascript" src="/static/revolution/js/slider.js"></script>
-
-    <!-- SLIDER REVOLUTION 5.0 EXTENSIONS  (Load Extensions only on Local File Systems !  The following part can be removed on Server for On Demand Loading) -->
-    <script type="text/javascript" src="/static/revolution/js/extensions/revolution.extension.actions.min.js"></script>
-    <script type="text/javascript" src="/static/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
-    <script type="text/javascript" src="/static/revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
-    <script type="text/javascript" src="/static/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
-    <script type="text/javascript" src="/static/revolution/js/extensions/revolution.extension.migration.min.js"></script>
-    <script type="text/javascript" src="/static/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
-    <script type="text/javascript" src="/static/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
-    <script type="text/javascript" src="/static/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
-    <script type="text/javascript" src="/static/revolution/js/extensions/revolution.extension.video.min.js"></script>
-    <script type="text/javascript" src="/static/revolution/js/extensions/revolution.extension.video.min.js"></script>
-
-</body>
-</html>
+{% endblock %}
