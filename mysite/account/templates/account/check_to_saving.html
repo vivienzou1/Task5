@@ -23,7 +23,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="//fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext" rel="stylesheet">
 </head>
 <style>
-    select{
+   select{
         font-family: 'Raleway', sans-serif;
 	    margin:0;
         outline: none;
@@ -46,12 +46,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         background: none;
         font-weight: 600;
         font-family: 'Raleway', sans-serif;
-        width:100%;
+        width:60%;
+        float: left;
         margin:0;
     }
+#id_balance_1{
+    margin-top:17px;
+    width:30%;
+    float: right;
+    font-size:16px;
+}
 .w3ls_main_grid_right_grid_form label {
     color:#f7c20a;
+    font-size:16px;
 }
+    .w3ls_main_grid_right_grid_form input[type=text],input[type=number] {
+    font-size:16px;
+}
+    #transfer:hover {
+        background-color: #666666;
+    }
 </style>
 <body>
 	<div class="main">
@@ -81,7 +95,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 			<div class="agileits_w3layouts_main_grid_right">
 				<div class="wthree_main_grid_right_grid">
-					<h3 style="color: #f7c20a;">Between my accounts at Devoshire Lending</h3>
+					<h3 style="color: #f7c20a;font-size:28px;">Between my accounts at Devoshire Lending</h3>
+                <h3 style="color: #e6e6e6;font-size:24px; padding-top:30px;">Checking account <i class="fa fa-arrow-right" aria-hidden="true" style="color: #f7c20a;"></i> Saving account</h3>
                 <div style="color: red;">
                     {% for i in err_message %}
                         {{ i }}
@@ -90,13 +105,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="w3ls_main_grid_right_grid_form" >
 						<form action="{% url 'check_to_saving' %}" method="POST">
 							<div class="w3l_main_grid_right_grid_form2" style="color: red;">
-        					{{ form }}
+        					<p> <label>amount</label></p>
+        					<p>{{ form.balance}}</p>
         					</div>
+
 							<div class="clear"> </div>
+							<div class="w3_main_grid_right_grid_form_textarea">
+                                <p style="padding-top:30px;"><label>Declaration:</label></p>
+								<textarea placeholder="Message..." required="" style="min-height:80px;font-size: 16px;"></textarea>
+							</div>
+							<div class="clear" style="margin-bottom: 73px;"> </div>
 							<div class="w3layouts_check">
 								<label class="checkbox"><input type="checkbox" name="checkbox"><i> </i>I agree to the terms of services</label>
 							</div>
-							<input type="submit" value="Continue Transfer">
+							<input type="submit" id="transfer" value="Continue Transfer">
     						{% csrf_token %}
     					</form>
 					</div>

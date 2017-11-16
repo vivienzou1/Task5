@@ -245,7 +245,8 @@ input[type="submit"],a{
 }
 .w3layouts_check label {
     font-size: 1em;
-    color: #00968f;
+	color:#f7c20a;
+    /*color: #00968f;*/
     margin: 1.5em 0 0 0em;
     text-transform: capitalize;
 }
@@ -290,7 +291,8 @@ input[type="submit"],a{
     height: 18px;
     font-family: FontAwesome;
     text-align: center;
-    color: #00968f;
+    color:#f7c20a;
+    /*color: #00968f;*/
 }
 .w3ls_main_grid_right_grid_form input[type="submit"]{
 	outline: none;
