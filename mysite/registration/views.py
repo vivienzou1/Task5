@@ -1,20 +1,12 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, Http404
-from django.contrib.auth.decorators import login_required
+from django.http import Http404
 from django.db import transaction
 from django.contrib.auth.tokens import default_token_generator
 from forms import *
-from account.models import *
-
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
-
-from account.forms import *
 from log.views import *
 from datetime import datetime
 from datetime import timedelta
-
-from log import views as log_views
 
 
 def home(request):
@@ -36,7 +28,8 @@ def user_login(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect("/accounts")
+                context = account_context()
+                return render(request, 'account.html', context)
             else:
                 errors = "You're account is disabled."
         else:
@@ -110,8 +103,7 @@ def confirm_registration(request, form, token):
     return render(request, 'account.html', {})
 
 
-@login_required
-def confirmed(request):
+def account_context(request):
     context = {}
     logs_in = get_log_internal(request)
     print logs_in
@@ -139,16 +131,15 @@ def confirmed(request):
     context['saving'] = saving
     context['description'] = description
     context['log_time'] = (datetime.now() - timedelta(days=90)).strftime("%Y-%m-%d")
-    return render(request, 'account.html', context)
+    return context
 
-
-@login_required
-def get_profile(request, user_name):
-    user = get_object_or_404(User, username=user_name)
-    user_profile = Profile.objects.filter(user=user)
-    r = construct_json(request, user_profile)
-    r = r.replace('\n', ' ').replace('\r', '')
-    return HttpResponse(r, content_type='application/json')
+# @login_required
+# def get_profile(request, user_name):
+#     user = get_object_or_404(User, username=user_name)
+#     user_profile = Profile.objects.filter(user=user)
+#     r = construct_json(request, user_profile)
+#     r = r.replace('\n', ' ').replace('\r', '')
+#     return HttpResponse(r, content_type='application/json')
 
 
 @login_required
@@ -175,24 +166,6 @@ def profile(request):
     context['dob'] = profile.date_of_birth
     context['gender'] = profile.gender
     context['ssn'] = profile.ssn
-    #context['account'] = log_views.get_accounts(user)
 
     return render(request, 'profile.html', context)
 
-
-def construct_json(request, user_profile):
-    r = '['
-    r = r + '{"pk": ' + str(user_profile.id) + ', '
-    r = r + '"last_name": "' + user_profile.last_name + '", '
-    r = r + '"first_name": "' + user_profile.first_name + '", '
-    r = r + '"middle_name": "' + user_profile.middle_name + '", '
-    r = r + '"email": "' + user_profile.email + '", '
-    r = r + '"address": "' + user_profile.address + '", '
-    r = r + '"date_of_birth": "' + user_profile.date_of_birth + '", '
-    r = r + '"gender": "' + user_profile.gender + '", '
-    r = r + '"ssn": "' + user_profile.ssn + '", '
-    r = r + '"type": "' + user_profile.type + '"'
-    r = r + ']'
-    r = r[0: len(r) - 1] + ',{"username":"' + request.user.username + '"}]'
-
-    return r
