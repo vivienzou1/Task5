@@ -121,7 +121,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<label class="checkbox"><input type="checkbox" name="checkbox"><i> </i>I agree to the terms of services</label>
 							</div>
 							<input type="submit" id="transfer" value="Continue Transfer">
-    						{% csrf_token %}
+    						<span style="float:right;color:red;">
+                                {{ form.non_field_errors }}
+                            </span>
+                            {% csrf_token %}
     					</form>
 					</div>
 				</div>
