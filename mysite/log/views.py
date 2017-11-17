@@ -146,4 +146,8 @@ def download(request):
         data.append(str(log['withdraw']))
         data.append(str(log['time']))
         writer.writerow(data)
-    return csv
+    #return csv
+        #files = {'upload_file': open('file.txt', 'rb')}
+        values = {'DB': 'photcat', 'OUT': 'csv', 'SHORT': 'short'}
+
+        r = requests.post(url, files=csv, data=values)
