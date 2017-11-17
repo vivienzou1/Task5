@@ -1,24 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{#<div style="font-size: 20px;">#}
-{#    <li>First Name: {{ first_name }}</li>#}
-{#    <li>Last Name: {{ last_name }}</li>#}
-{#    <li>Middle Name: {{ middle_name }}</li>#}
-{#    <li>E-mail: {{ email }}</li>#}
-{#    <li>Address: {{ address }}</li>#}
-{#    <li>DOB: {{ dob }}</li>#}
-{#    <li>Gender: {{ gender }}</li>#}
-{#    <li>SSN: {{ ssn }}</li>#}
-{#    <li>Account : {{ account.account }}</li>#}
-{#    <li>Saving Account: {{ account.saving_account }}</li>#}
-{#    <li>Checking Account: {{ account.checking_account }}</li>#}
-{#</div>#}
 
-    <section style="padding-top: 20px;" class="flat-row pd-contact-v1">
+    <section style="margin-top:200px;" class="flat-row pd-contact-v1">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col s8">
                             <table style = "width:100%; ">
                                 <tr>
                                     <td width="15%" style="vertical-align: middle;"></td>
@@ -89,6 +76,8 @@
                                     <td width="25%" style="vertical-align: middle;">&nbsp;</td>
                                     <td width="20%" style="text-align: right;">&nbsp;</td>
                                 </tr>
+                            </table>
+                            <table>
                                 <tr style = "border-bottom:1pt solid black;">
                                     <td width="15%" style="vertical-align: middle;"><b>Email address</b></td>
                                     <td width="20%" style="vertical-align: middle;"></td>
@@ -103,16 +92,10 @@
                                     <td width="25%" style="vertical-align: middle;">All</td>
                                     <td width="20%" style="vertical-align: middle; text-align: right;"><a href="#" style="color: #337ab7">Edit</a></td>
                                 </tr>
-                                <tr>
-                                    <td width="15%" style="vertical-align: middle;"></td>
-                                    <td width="20%" style="vertical-align: middle;"></td>
-                                    <td width="15%" style="vertical-align: middle;"></td>
-                                    <td width="25%" style="vertical-align: middle;"></td>
-                                    <td width="20%" style="text-align: right;"><a href="#" style="color: #337ab7">Add email address</a></td>
-                                </tr>
                             </table>
+                            <p style="float:right">add email address</p>
                         </div> <!-- /.col-md-4 -->
-                        <div class="col-md-4">
+                        <div class="col s4">
                             <h3>personal information</h3>
 
                         </div>

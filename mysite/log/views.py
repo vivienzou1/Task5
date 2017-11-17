@@ -16,25 +16,12 @@ from django.http import HttpResponse
 import unicodecsv
 import json
 
-def show_logs(request):
-    return render(request, 'log.html', {})
-
 
 # simulate opening account
 class AccountForm(forms.ModelForm):
     class Meta:
         model = Account
         fields = ['account_number']
-
-
-# simulate opening account
-def test_create(request):
-    form = AccountForm
-    if request.method == 'GET':
-        return render(request, 'create.html', {'form': form})
-    else:
-        request.account_number = request.POST['account_number']
-        return account_views.createAccount(request)
 
 
 # get the user's account numbers (account, checking, saving)
@@ -49,63 +36,6 @@ def get_accounts(user):
     context['saving_account'] = saving_account.account_number
     return context
 
-
-# simulate transferring to others
-def test_transfer(request):
-    form = TransferForm
-    if request.method == 'GET':
-        return render(request, 'test_transfer.html', {'form': form})
-    else:
-        type = 'transfer'
-        amount = request.POST['balance_0']
-        user = request.user
-        account = Account.objects.get(profile=user.profile)
-        account_1 = Checking_Account.objects.get(account=account)
-        account_number_1 = account_1.account_number
-        account_number_2 = request.POST['target_account']
-        context = account_views.add_log_external(type, amount, account_number_1, account_number_2)
-        return render(request, 'test_transfer.html', context)
-
-
-# simulate transfer from checking to saving
-class CheckToSavingForm(forms.Form):
-    amount = forms.IntegerField()
-
-
-# simulate transfer from checking to saving
-def test_check_to_saving(request):
-    form = CheckToSavingForm
-    if request.method == 'GET':
-        return render(request, 'test_transfer.html', {'form': form})
-    else:
-        type = 'toSaving'
-        amount = request.POST['amount']
-        user = request.user
-        context = account_views.add_log_internal(type, amount, user.username)
-        return render(request, 'test_transfer.html', {'context': context})
-
-
-# simulate deleting log
-class DeleteForm(forms.Form):
-    id = forms.IntegerField()
-
-
-def test_delete_external(request):
-    form = DeleteForm
-    if request.method == 'GET':
-        return render(request, 'delete_external.html', {'form': form})
-    else:
-        context = delete_log_external(request.POST['id'])
-        return render(request, 'delete_external.html', context)
-
-
-def test_delete_internal(request):
-    form = DeleteForm
-    if request.method == 'GET':
-        return render(request, 'delete_internal.html', {'form': form})
-    else:
-        context = delete_log_internal(request.POST['id'])
-        return render(request, 'delete_internal.html', context)
 
 
 # get external log (transfer to others)
