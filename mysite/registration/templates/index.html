@@ -1,5 +1,47 @@
+{#{% extends 'homepage.html' %}#}
+{##}
+{#{% block content %}#}
+{#    <h3 style="font-size: 24px;">Secure Log-in</h3>#}
+{#    <form method="post" action="{% url 'login' %}" id="loginForm" style="max-wdith: 300px;" class="form-signin">#}
+{#    <div class="form-group" style="margin-top:20px;">#}
+{#        <input id="username" type="text" name="username"  style="height: 30px; margin-bottom: 0px;" placeholder="Enter your User ID" required class="form-control">#}
+{#    </div>#}
+{#    <div class="form-group">#}
+{#        <input id="password" type="password" name="password" style="height: 30px;" placeholder="Enter your passcode" required class="form-control">#}
+{#    </div>#}
+{#    <input type="checkbox" checked>#}
+{#        <span style="font-size: 14px; color: #f7c20a;"><strong>Save Info</strong></span>#}
+{#    <input type="submit" style="float: right; height: 40px; width: 70px; display: inline; color:#fff; padding-left: 14px; background-color: #404040;" value="Log in" class="btn btn-default btn-block">#}
+{#        <div  style="height:60px; line-height: 20px; padding-top:5px;">#}
+{#        {{ errors }}#}
+{#    </div>#}
+{##}
+{#    {% csrf_token %}#}
+{#</form>#}
+{#{% endblock %}#}
+
 {% extends 'base.html' %}
 {% block content %}
+    <style>
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #999999;
+    opacity: 1; /* Firefox */
+}
+
+
+@-webkit-keyframes autofill {
+    to {
+        background: #fff;
+        padding-left:10px;
+    }
+}
+
+input:-webkit-autofill {
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+}
+    </style>
+
     <!--Import jQuery before materialize.js-->
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
@@ -19,44 +61,152 @@
     <ul class="slides">
       <li>
         <img src="/static/images/slides/slide1.jpg"> <!-- random image -->
-        <div class="caption center-align">
-          <h3>This is our big Tagline!</h3>
-          <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-        </div>
       </li>
         <li>
         <img src="/static/images/slides/slide2.jpg"> <!-- random image -->
-        <div class="caption center-align">
-          <h3>This is our big Tagline!</h3>
-          <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-        </div>
       </li>
 
     </ul>
   </div>
         </div>
-        <div class = "col s3">
-
-            <h3 style="font-size: 24px;">Secure Log-in</h3>
+        <div class = "col s3 card" style="margin-top:130px; height:270px;background-color: #f7f7f7;">
+            <h3 style="font-size: 20px;padding-left:5px;">Secure Log-in</h3>
     <form method="post" action="{% url 'login' %}" id="loginForm" style="max-wdith: 300px;" class="form-signin">
-    <div class="form-group" style="margin-top:20px;">
+    <div class="form-group" style="margin-top:0px;margin-left:20px;margin-right: 20px;">
         <input id="username" type="text" name="username"  style="height: 30px; margin-bottom: 0px;" placeholder="Enter your User ID" required class="form-control">
     </div>
-    <div class="form-group">
-        <input id="password" type="password" name="password" style="height: 30px;" placeholder="Enter your passcode" required class="form-control">
+    <div class="form-group" style="margin-left:20px;margin-right: 20px;">
+        <input id="password" type="password" name="password" style="height: 30px;margin-top:10px;" placeholder="Enter your passcode" required class="form-control">
     </div>
-    <input type="checkbox" checked>
-        <span style="font-size: 14px; color: #f7c20a;"><strong>Save Info</strong></span>
-    <input type="submit" style="float: right; height: 40px; width: 70px; display: inline; color:#fff; padding-left: 14px; background-color: #404040;" value="Log in" class="btn btn-default btn-block">
-        <div  style="height:60px; line-height: 20px; padding-top:5px;">
+        <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked"/>
+      <label for="filled-in-box" style="color:#333333;line-height: 20px;vertical-align: middle;padding-left: 25px;">Save Info</label>
+{#    <input type="filled-in-box" style="margin-left:20px;margin-right: 20px;" checked>#}
+{#        <span style="font-size: 14px; color: #f7c20a;"><strong>Save Info</strong></span>#}
+    <input type="submit" id="login-btn" style="float: right; height: 40px; width: 80px; display: inline; color:#fff; padding-left: 13px; background-color: #404040;" value="Log in" class="btn btn-default btn-block">
+        <div  style="height:50px; line-height: 20px; padding-top:5px; color:#666666;">
         {{ errors }}
     </div>
+
+
 
     {% csrf_token %}
 </form>
 
+            <div>
+            <a href="#" style="color:#f7c20a;">Forgot Password</a>
+            <a style="float:right;color:#f7c20a;">Enroll</a>
+            </div>
 
         </div>
     </div>
+    </div>
+
+    <div class="container">
+
+    <div class="row">
+        <div class="col s12 m3">
+          <div class="card">
+            <div class="card-image">
+              <img src="/static/images/home/p1.jpg">
+              </div>
+            <div class="card-content">
+              <p>See how your spending compare to others.</p>
+            </div>
+            <div class="card-action">
+              <a href="#">Get Started <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m3">
+          <div class="card">
+            <div class="card-image">
+              <img src="/static/images/home/p2.jpg">
+
+            </div>
+            <div class="card-content">
+              <p>Checked for customized credit card in 60 seconds.</p>
+            </div>
+            <div class="card-action">
+              <a href="#">Get Started <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m3">
+          <div class="card">
+            <div class="card-image">
+              <img src="/static/images/home/p3.jpg">
+
+            </div>
+            <div class="card-content">
+              <p>Apply for mortgage loan right now.</p>
+            </div>
+            <div class="card-action">
+                <a href="#">Get Started <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m3">
+          <div class="card">
+            <div class="card-image">
+              <img src="/static/images/home/p5.jpg">
+
+            </div>
+            <div class="card-content">
+              <p>Try our mobile banking features!</p>
+            </div>
+            <div class="card-action">
+              <a href="#">Get Started <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+        <div class="divider"></div>
+        <div class="row">
+          <div class="col s12 m7">
+              <p style="margin-top:50px;"><span style="font-size: 28px;">First featurette heading.</span> <span style="font-size:28px;color:#999999;">It'll blow your mind.</span></p>
+            <p style="color: #595959;">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+          </div>
+          <div class="col s12 m5">
+             <div class="card">
+            <div class="card-image">
+              <img style="margin-top:30px;" src="/static/images/home/p4.jpg">
+
+            </div>
+             </div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="row">
+            <div class="col s12 m5">
+             <div class="card">
+            <div class="card-image">
+              <img style="margin-top:30px;" src="/static/images/home/p6.jpg">
+
+            </div>
+             </div>
+          </div>
+          <div class="col s12 m7">
+              <p style="margin-top:50px;"><span style="font-size: 28px;">Oh yeah, it's that good.</span> <span style="font-size:28px;color:#999999;">See for yourself.</span></p>
+            <p style="color: #595959;">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+          </div>
+
+        </div>
+        <div class="divider"></div>
+    <div class="row">
+          <div class="col s12 m7">
+              <p style="margin-top:50px;"><span style="font-size: 28px;">And lastly, this one.</span> <span style="font-size:28px;color:#999999;"> Checkmate.</span></p>
+            <p style="color: #595959;">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+          </div>
+          <div class="col s12 m5">
+             <div class="card">
+            <div class="card-image">
+              <img style="margin-top:30px;" src="/static/images/home/p7.jpg">
+
+            </div>
+             </div>
+          </div>
+        </div>
     </div>
 {% endblock %}
