@@ -3,7 +3,6 @@ from django.db import transaction
 from django.contrib.auth.tokens import default_token_generator
 from forms import *
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponseRedirect
 from log.views import *
 from datetime import datetime
 from datetime import timedelta

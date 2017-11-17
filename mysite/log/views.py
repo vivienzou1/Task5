@@ -1,41 +1,10 @@
-from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from registration.models import Profile
-
-from models import *
-from account.models import Account, Checking_Account, Saving_Account
-from django.http import HttpResponse
 from forms import *
-from account import views as account_views
 from account.forms import *
 from account.models import *
-import os
-from django.conf import settings
 from django.http import HttpResponse
 import unicodecsv
-import json
-
-
-# simulate opening account
-class AccountForm(forms.ModelForm):
-    class Meta:
-        model = Account
-        fields = ['account_number']
-
-
-# get the user's account numbers (account, checking, saving)
-def get_accounts(user):
-    context = {}
-    profile = user.profile
-    account = Account.objects.get(profile=profile)
-    checking_account = Checking_Account.objects.get(account=account)
-    saving_account = Saving_Account.objects.get(account=account)
-    context['account'] = account.account_number
-    context['checking_account'] = checking_account.account_number
-    context['saving_account'] = saving_account.account_number
-    return context
-
 
 
 # get external log (transfer to others)
@@ -129,9 +98,6 @@ def get_log_internal(request):
     return ""
 
 
-
-
-
 # delete external log
 def delete_log_external(log_id):
     context = {}
@@ -164,39 +130,6 @@ def delete_log_internal(log_id):
     context['success'] = success
     context['errors'] = errors
     return context
-
-
-# # construct external logs to json
-# def construct_json_external(request, logs):
-#     r = '['
-#     for log in logs:
-#         r = r + '{"pk": ' + str(log.id) + ', '
-#         r = r + '"type": "' + log.type + '", '
-#         r = r + '"amount": ' + str(log.amount) + ', '
-#         r = r + '"account_1": ' + str(log.account_1.account_number) + ', '
-#         r = r + '"account_2": ' + str(log.account_2.account_number) + ', '
-#         r = r + '}, '
-#     if len(logs) != 0:
-#         r = r[0:len(r) - 2]
-#     r = r + ']'
-#     r = r[0: len(r) - 1] + ',{"username":"' + request.user.username + '"}]'
-#     return r
-#
-#
-# # construct internal logs to json
-# def construct_json_internal(request, logs):
-#     r = '['
-#     for log in logs:
-#         # r = r + '{"pk": ' + str(log.id) + ', '
-#         # r = r + '"type": "' + log.type + '", '
-#         # r = r + '"amount": ' + str(log.amount) + ', '
-#         # r = r + '}, '
-#         r= r+str("sdfg")+', '
-#     if len(logs) != 0:
-#         r = r[0:len(r) - 2]
-#     r = r + ']'
-#     #r = r[0: len(r) - 1] + ',{"username":"' + request.user.username + '"}]'
-#     return r
 
 
 def download(request):
