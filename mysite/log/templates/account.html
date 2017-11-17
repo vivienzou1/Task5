@@ -5,7 +5,8 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Parallax Template - Materialize</title>
+  <title>Devenshire Lending</title>
+    <link href="/static/icon/apple-touch-icon-48-precomposed.png" rel="apple-touch-icon-precomposed">
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -262,13 +263,13 @@ button:hover {
           </div>
 {#          <form action={% url 'download' all_logs %} method="post">#}
 
-      <a id="online_statement" href={% url "download" %} style="width:200px;"><i class="fa fa-file-text" aria-hidden="true" style="line-height:20px; vertical-align: middle;"></i>&nbsp;&nbsp;<span style="font-size: 14px;line-height:20px; vertical-align: middle;">Online Statements</span></a>
+      <a id="online_statement" href={% url "download" %} style="width:200px;margin-top:10px;"><i class="fa fa-file-text" aria-hidden="true" style="line-height:20px; vertical-align: middle;"></i>&nbsp;&nbsp;<span style="font-size: 14px;line-height:20px; vertical-align: middle;">Online Statements</span></a>
 
 {#          </form>#}
               <br>
       <br>
           <div>
-          <h5 style="color: #595959; font-size:20px;margin-top:20px;">Transfer Founds</h5>
+          <h5 style="color: #595959; font-size:20px;margin-top:30px;">Transfer Founds</h5>
           <select class="browser-default" style="width:200px; border-color: #999999; border-width:2px; color:#999999;" name="" onchange="self.location.href=options[selectedIndex].value" >
               <option value="#">Transfer Options</option>
               <option value="/account/saving_to_check">Saving to Checking</option>
@@ -316,7 +317,7 @@ button:hover {
         <li>
         <div class="collapsible-header" style="font-size: 20px;border:solid;border-color:#dddddd;"><i class="fa fa-archive" aria-hidden="true" style="font-size:20px;line-height:28px; vertical-align:middle;color:#595959;"></i>Saving&nbsp;&nbsp;&nbsp;&nbsp;<span style="width: 80%;text-align: right;">{{ saving }}</span></div>
         <div class="collapsible-body">
-            <table class="striped responsive-table">
+            <table class="responsive-table">
               <thead>
                 <tr>
                   <th>Date</th>
@@ -346,7 +347,7 @@ button:hover {
           </div>
         </li>
         </ul>
-        <h4 style="color:#595959; margin-top: 50px;font-size: 28px;">Loan accounts</h4>
+        <h4 style="color:#595959; margin-top: 40px;font-size: 28px;">Loan accounts</h4>
        <div class="divider" style="background-color:#f7c20a;height:5px;margin-bottom: 0px;padding-bottom: 0px;"></div>
 
       <ul class="collapsible" data-collapsible="accordion" style="background-color: #fff;margin-top:0px;padding-top:0px;border:solid;border-color:#dddddd;">

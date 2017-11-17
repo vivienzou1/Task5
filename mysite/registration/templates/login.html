@@ -22,8 +22,24 @@
 
 {% extends 'base.html' %}
 {% block content %}
-    <style> z-index: 1;
+    <style>
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #333333;
+    opacity: 1; /* Firefox */
+}
+
+
+@-webkit-keyframes autofill {
+    to {
+        background: #fff;
+        padding-left:10px;
     }
+}
+
+input:-webkit-autofill {
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+}
     </style>
 
     <!--Import jQuery before materialize.js-->

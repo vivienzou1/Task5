@@ -7,7 +7,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html>
 <head>
-<title>Transfer to Others</title>
+<title>Pay Bill</title>
+    <link href="/static/icon/apple-touch-icon-48-precomposed.png" rel="apple-touch-icon-precomposed">
+
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -124,7 +126,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<label class="checkbox"><input id="checkbox-1" type="checkbox" name="checkbox"><i> </i>I agree to the terms of services</label>
 							</div>
 							<input type="submit" id="transfer" value="Continue Transfer">
+                            <span style="float:right;color:red;">
+                                {{ form.non_field_errors }}
+                            </span>
     						{% csrf_token %}
+
     					</form>
 					</div>
 				</div>
