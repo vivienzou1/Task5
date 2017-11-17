@@ -41,6 +41,9 @@
         word-wrap: break-word;
         width: 100px;
       }
+      tbody tr:nth-child(odd) {
+          background: #e6e6e6;
+      }
       .page-title {
 	position: relative;
 	padding: 55px 0;
@@ -280,7 +283,7 @@ button:hover {
         <li>
             <div class="collapsible-header" style="font-size: 20px;border:solid;border-color:#dddddd;"><i class="fa fa-money" aria-hidden="true" style="font-size:20px;line-height:28px; vertical-align:middle;color:#595959;"></i>Checking<span style="width: 80%;text-align: right;">{{ checking }}</span></div>
           <div class="collapsible-body">
-            <table class="striped responsive-table">
+            <table class="responsive-table">
               <thead>
                 <tr>
                   <th>Date</th>
