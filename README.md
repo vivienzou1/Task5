@@ -1,4 +1,9 @@
 # Task5
 
-## homepage
+## Virtualenv
+
+- django
+- django-money
+- unicodecsv
+- ​
 

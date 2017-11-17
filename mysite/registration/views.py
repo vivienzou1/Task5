@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login
 from log.views import *
 from datetime import datetime
 from datetime import timedelta
+from django.shortcuts import render, get_object_or_404
 
 
 def home(request):
@@ -27,7 +28,7 @@ def user_login(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                context = account_context()
+                context = account_context(request)
                 return render(request, 'account.html', context)
             else:
                 errors = "You're account is disabled."
@@ -37,6 +38,12 @@ def user_login(request):
     context['errors'] = errors
 
     return render(request, 'login.html', context)
+
+
+@login_required
+def view_accounts(request):
+    context = account_context(request)
+    return render(request, 'account.html', context)
 
 
 @transaction.atomic

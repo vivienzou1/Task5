@@ -3,8 +3,45 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from forms import *
 import random
+from datetime import *
 from log.views import *
 
+
+def account_context(request):
+    context = {}
+    logs_in = get_log_internal(request)
+    print logs_in
+    logs_ex = get_log_external(request)
+    print logs_ex
+    profile = request.user.profile
+    account = Account.objects.get(profile=profile)
+    checking = account.checking_account.balance
+    saving = account.saving_account.balance
+    logs = logs_in + logs_ex
+    description = []
+    print logs
+    for log in logs:
+        print log
+        if log['type'] == 'C':
+            log['description'] = "Saving to Checking"
+        if log['type'] == 'S':
+            log['description'] = "Checking to Saving"
+        if log['type'] == 'T':
+            log['description'] = log['account_2']
+
+    context['checking_logs'] = logs
+    context['saving_logs'] = logs_in
+    context['checking'] = checking
+    context['saving'] = saving
+    context['description'] = description
+    context['log_time'] = (datetime.now() - timedelta(days=90)).strftime("%Y-%m-%d")
+    return context
+
+
+@login_required
+def view_accounts(request):
+    context = account_context(request)
+    return render(request, 'account.html', context)
 
 # add external log
 def add_log_external(type, amount, account_number_1, account_number_2):
@@ -143,7 +180,9 @@ def transfer(request):
                              account_number_2=getter.account_number)
             message.append("you successfully transfer money to " + str(form.cleaned_data['target_account']))
             context = {'message': message, 'err_message': err_message, 'User': request.user}
-            return render(request, 'account/suceed.html', context)
+            #return render(request, 'account/suceed.html', context)
+            return view_accounts(request)
+
 
 @login_required
 @transaction.atomic
@@ -183,7 +222,9 @@ def check_to_saving(request):
                              user_name=request.user.username)
             message.append("you successfully transfer money from check to saving account")
             context = {'message': message, 'err_message': err_message, 'User': request.user}
-            return render(request, 'account/suceed.html', context)
+            #return render(request, 'account/suceed.html', context)
+            return view_accounts(request)
+
 
 @login_required
 @transaction.atomic
@@ -223,7 +264,9 @@ def saving_to_check(request):
                                        user_name=request.user.username)
             message.append("you successfully transfer money from saving to check account")
             context = {'message': message, 'err_message': err_message, 'User': request.user}
-            return render(request, 'account/suceed.html', context)
+            #return render(request, 'account/suceed.html', context)
+            return view_accounts(request)
+
 
 @login_required
 def freeze_account(request, user_id):
