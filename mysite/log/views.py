@@ -5,6 +5,7 @@ from account.forms import *
 from account.models import *
 from django.http import HttpResponse
 import unicodecsv
+from django.shortcuts import render
 
 
 # get external log (transfer to others)
@@ -146,8 +147,4 @@ def download(request):
         data.append(str(log['withdraw']))
         data.append(str(log['time']))
         writer.writerow(data)
-    #return csv
-        #files = {'upload_file': open('file.txt', 'rb')}
-        values = {'DB': 'photcat', 'OUT': 'csv', 'SHORT': 'short'}
-
-        r = requests.post(url, files=csv, data=values)
+    return csv
