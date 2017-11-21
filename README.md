@@ -7,6 +7,9 @@
 - unicodecsv
 - asyncio
 - django-model-utils
+- django-userena
+- Django==1.4.6
+- geoip2
 
 
 ## Problems
