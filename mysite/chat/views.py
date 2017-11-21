@@ -1,68 +1,76 @@
-from django.shortcuts import render, get_object_or_404, HttpResponse
-from .models import Message
+from django.views import generic
+from django.shortcuts import HttpResponse
+
+try:
+    from django.urls import reverse
+except ImportError:
+    from django.core.urlresolvers import reverse
+from . import models
+from . import utils
+from django.shortcuts import get_object_or_404
+from django.contrib.auth import get_user_model
+from django.conf import settings
+from django.db.models import Q
 from django.contrib.auth.models import User
-from django.http import Http404
+
 import json
 
 
-def make_room(request, receiver_id):
-    user_visited = get_object_or_404(User, id=receiver_id)
-    if request.user == user_visited:
-        render(request, 'chat/alone.html')
-    messages = Message.get_10_message(request.user, user_visited)
-    context = {
-        'messages': messages,
-        'user_visited': user_visited
-    }
-    return render(request, 'chat/room.html', context)
+class DialogListView(generic.ListView):
+    template_name = 'dialogs.html'
+    model = models.Dialog
+    ordering = 'modified'
+
+    def get_queryset(self):
+        dialogs = models.Dialog.objects.filter(Q(owner=self.request.user) | Q(opponent=self.request.user))
+        return dialogs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        if self.kwargs.get('username'):
+            # TODO: show alert that user is not found instead of 404
+            user = get_object_or_404(get_user_model(), username=self.kwargs.get('username'))
+            dialog = utils.get_dialogs_with_user(self.request.user, user)
+            if len(dialog) == 0:
+                dialog = models.Dialog.objects.create(owner=self.request.user, opponent=user)
+            else:
+                dialog = dialog[0]
+            context['active_dialog'] = dialog
+        else:
+            context['active_dialog'] = self.object_list[0]
+        if self.request.user == context['active_dialog'].owner:
+            context['opponent_username'] = context['active_dialog'].opponent.username
+        else:
+            context['opponent_username'] = context['active_dialog'].owner.username
+        context['ws_server_path'] = 'ws://{}:{}/'.format(
+            settings.CHAT_WS_SERVER_HOST,
+            settings.CHAT_WS_SERVER_PORT,
+        )
+        return context
 
 
-def message_not_view(request, receiver_id):
-    if request.is_ajax():
-        user_visited = get_object_or_404(User, id=receiver_id)
-        if request.user == user_visited:
-            return render(request, 'chat/alone.html')
-        messages = Message.get_messages_not_view(request.user, user_visited)
-        return HttpResponse(json.dumps(messages), content_type="application/json")
-    raise Http404
+def set_read_message(request, username):
+    other = User.objects.get (username=username)
+    dialog = models.Dialog.objects.filter (
+        Q (owner=request.user, opponent=other) | Q (owner=other, opponent=request.user)
+    )
+    messages = models.Message.objects.filter (dialog=dialog[0], sender=other, visualized=False)
+    for message in messages:
+        message.visualized = True
+        message.save()
 
-
-def read_message(request, receiver_id):
-    if request.is_ajax():
-        user_visited = get_object_or_404(User, id=receiver_id)
-        if request.user == user_visited:
-            return render(request, 'chat/alone.html')
-        result = Message.set_read_message(request.user, user_visited)
-        return HttpResponse(json.dumps(result), content_type="application/json")
-    raise Http404
-
-
-def send_message(request, receiver_id):
-    if request.method == 'POST' and request.is_ajax():
-        message = request.POST.get('content')
-        instance_message = Message()
-        user_visited = get_object_or_404(User, id=receiver_id)
-        if request.user == user_visited:
-            return render(request, 'chat/alone.html')
-        result = Message.send_message(instance_message, request.user, user_visited, message)
-        return HttpResponse(json.dumps(result), content_type="application/json")
-    return HttpResponse(json.dumps(False), content_type="application/json")
+    return HttpResponse("success")
 
 
 def unread_message(request):
     if request.is_ajax():
         user_logged = request.user
-        json_list = Message.get_unread_message(user_logged)
+        json_list = models.Message.get_unread_message(user_logged)
         if not bool(json_list):
             return HttpResponse(json.dumps(False), content_type="application/json")
         else:
             print(json_list)
             return HttpResponse(json.dumps(json_list), content_type="application/json")
     else:
-        raise Http404
-
-
-
-
-
+        pass
 

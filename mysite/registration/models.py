@@ -32,5 +32,5 @@ class Profile(TimeStampedModel):
     type = models.CharField(max_length=1, choices=USER_CHOICES, blank=False)
 
 
-    def __unicode__(self):
+    def __str__(self):
         return 'Profile(id=' + str(self.id) + ')'

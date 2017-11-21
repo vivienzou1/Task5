@@ -1,7 +1,7 @@
 from django.http import Http404
 from django.db import transaction
 from django.contrib.auth.tokens import default_token_generator
-from forms import *
+from .forms import *
 from django.contrib.auth import authenticate, login
 from log.views import *
 from datetime import datetime
@@ -112,18 +112,14 @@ def confirm_registration(request, form, token):
 def account_context(request):
     context = {}
     logs_in = get_log_internal(request)
-    print logs_in
     logs_ex = get_log_external(request)
-    print logs_ex
     profile = request.user.profile
     account = Account.objects.get(profile=profile)
     checking = account.checking_account.balance
     saving = account.saving_account.balance
     logs = logs_in + logs_ex
     description = []
-    print logs
     for log in logs:
-        print log
         if log['type'] == 'C':
             log['description'] = "Saving to Checking"
         if log['type'] == 'S':

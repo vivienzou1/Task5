@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from forms import *
+from log.forms import *
 import random
 from datetime import *
 from log.views import *
@@ -10,18 +10,14 @@ from log.views import *
 def account_context(request):
     context = {}
     logs_in = get_log_internal(request)
-    print logs_in
     logs_ex = get_log_external(request)
-    print logs_ex
     profile = request.user.profile
     account = Account.objects.get(profile=profile)
     checking = account.checking_account.balance
     saving = account.saving_account.balance
     logs = logs_in + logs_ex
     description = []
-    print logs
     for log in logs:
-        print log
         if log['type'] == 'C':
             log['description'] = "Saving to Checking"
         if log['type'] == 'S':

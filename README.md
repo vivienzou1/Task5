@@ -5,6 +5,6 @@
 - django
 - django-money
 - unicodecsv
-- requests
+- asyncio
 
 

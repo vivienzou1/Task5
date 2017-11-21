@@ -1,14 +1,27 @@
-from . import views
-
+# -*- coding: utf-8 -*-
 from django.conf.urls import url
 
-app_name = 'chat'
+from . import views
 
 urlpatterns = [
-    url(r'^(?P<receiver_id>[0-9]+)/$', views.make_room, name="make_room"),
-    url(r'^(?P<receiver_id>[0-9]+)/new_messages/$', views.message_not_view, name="message_not_view"),
-    url(r'^(?P<receiver_id>[0-9]+)/read/$', views.read_message, name="read_message"),
-    url(r'^(?P<receiver_id>[0-9]+)/send/$', views.send_message, name="send_message"),
-
-    url(r'^unread/$', views.unread_message, name="unread_message"),
+    url(
+        regex=r'^(?P<username>[\w.@+-]+)/$',
+        view=views.DialogListView.as_view(),
+        name='dialogs_detail'
+    ),
+    url(
+        regex=r'^$',
+        view=views.DialogListView.as_view(),
+        name='dialogs'
+    ),
+    url(
+        regex=r'^(?P<username>[\w.@+-]+)/read/$',
+        view=views.set_read_message,
+        name='set_read_message'
+    ),
+    url(
+        regex=r'^unread/message/$',
+        view=views.unread_message,
+        name='unread_message'
+    ),
 ]
