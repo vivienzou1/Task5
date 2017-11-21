@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from forms import *
+from .forms import *
 from account.forms import *
 from account.models import *
 from django.http import HttpResponse
@@ -29,7 +29,6 @@ def get_log_external(request):
         # if type is "withdraw":
         #     logs = logs.filter(type="W")
         for log in logs_1:
-            print log
             l = {}
             l['pk'] = log.id
             l['type'] = log.type
@@ -53,7 +52,6 @@ def get_log_external(request):
             l['deposit'] = log.amount
             l['category'] = "receive"
             r.append(l)
-        print len(r)
         return r
     except:
         errors.append("error")
@@ -90,7 +88,6 @@ def get_log_internal(request):
                 l['withdraw'] = log.amount
                 l['deposit'] = ""
             r.append(l)
-        print r
         return r
     except:
         errors.append("error")
