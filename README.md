@@ -10,6 +10,10 @@
 - django-userena
 - Django==1.4.6
 - geoip2
+- channels
+- asgi_redis
+- dj-database-url
+- haikunator
 
 
 ## Problems

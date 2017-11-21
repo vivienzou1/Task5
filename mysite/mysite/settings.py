@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'channels',
     'registration',
     'log',
     'account',
@@ -125,5 +126,4 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/confirmed/'
 LOGIN_URL = '/login/'
 
-CHAT_WS_SERVER_HOST = 'localhost'
-CHAT_WS_SERVER_PORT = 5002
+

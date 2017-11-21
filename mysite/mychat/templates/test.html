@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+   <head>
+   <meta charset="utf-8">
+   <title></title>
+
+      <script type="text/javascript">
+         function WebSocketTest()
+         {
+            if ("WebSocket" in window)
+            {
+
+                socket = new WebSocket("ws://" + "localhost:8000");
+                alert(socket.readyState);
+                socket.onmessage = function(e) {
+                    alert(e.data);
+                }
+                socket.onopen = function() {
+                    socket.send("hello world");
+                }
+                // Call onopen directly if socket is already open
+                if (socket.readyState == WebSocket.OPEN) socket.onopen();
+            }
+
+            else
+            {
+               alert("WebSocket no supported!");
+            }
+         }
+      </script>
+
+   </head>
+   <body>
+
+      <div id="sse">
+         <button onclick="WebSocketTest();">Run WebSocket</button>
+      </div>
+
+   </body>
+</html>
