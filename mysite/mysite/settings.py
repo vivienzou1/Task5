@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'registration',
     'log',
     'account',
-    'chat',
+    'mychat',
 ]
 
 MIDDLEWARE_CLASSES = [
