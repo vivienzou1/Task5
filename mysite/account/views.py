@@ -39,7 +39,7 @@ def account_context(request):
 
 
 @login_required
-def view_accounts(request):
+def view_accounts(request,context):
     context = account_context(request)
     return render(request, 'account.html', context)
 
@@ -223,7 +223,7 @@ def check_to_saving(request):
             message.append("you successfully transfer money from check to saving account")
             context = {'message': message, 'err_message': err_message, 'User': request.user}
             #return render(request, 'account/suceed.html', context)
-            return view_accounts(request)
+            return view_accounts(request, context)
 
 
 @login_required
@@ -250,7 +250,7 @@ def saving_to_check(request):
         owner_saving = request.user.profile.account.saving_account
 
         amount = form.cleaned_data['balance']
-        if owner_check.balance < amount:
+        if owner_saving.balance < amount:
             err_message.append("you don't have enough money")
             context = {'message': message, 'err_message': err_message, 'User': request.user, 'form': csForm()}
             return render(request, 'account/saving_to_check.html', context)
@@ -265,7 +265,7 @@ def saving_to_check(request):
             message.append("you successfully transfer money from saving to check account")
             context = {'message': message, 'err_message': err_message, 'User': request.user}
             #return render(request, 'account/suceed.html', context)
-            return view_accounts(request)
+            return view_accounts(request,context)
 
 
 @login_required
