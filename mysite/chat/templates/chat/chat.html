@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+</head>
+<body>
+<input id ="sta" value="{{ online }}" hidden>
+{% if towhom %}
+    <input id="toWhom" value="{{ towhom.id }}" type="hidden"/>
+{% endif %}
+<input type="text" id="message" value="Hello, World!" />
+<button type="button" id="send_message">Send message</button>
+<button type="button" id="close_websocket">Close websocket</button>
+<span class="pull-right" hidden id="typing-text">
+    <strong style="color: blue;">{{ towhom.username }} "is typing..." </strong>
+</span>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<span class="pull-right" >
+    <strong id ="online_status" ></strong>
+</span>
+<div id="result"></div>
+<h1>Chatting with {{ towhom.username }}</h1>
+<div id="messagecontainer">
+    {% for i in history %}
+        {% if i.to_whom == towhom %}
+            <p align="right">{{ i.content }}&nbsp;&nbsp;&nbsp;&nbsp;{{ i.created }}
+        {% else %}
+            <p align="left">{{ i.content }}&nbsp;&nbsp;&nbsp;&nbsp;{{ i.created }}
+        {% endif %}
+        <br>
+        <br>
+    {% endfor %}
+</div>
+ <script type="text/javascript">//<![CDATA[
+    connect();
+    if (document.getElementById("sta").value=== "0") {
+        document.getElementById("online_status").style.color = "red";
+        document.getElementById("online_status").innerText = "offline";
+    } else {
+        document.getElementById("online_status").style.color = "green";
+        document.getElementById("online_status").innerText = "online";
+    }
+    function connect() {
+        if(window.s){
+            window.s.close()
+        }
+        var a = document.getElementById('toWhom');
+        var text = 0;
+        console.log(a);
+        if (a !== null) {
+            text = Number(a.value);
+        }
+
+        var s = new WebSocket("ws://" + window.location.host + "/chat/connect/" + text);
+        s.onopen = function () {
+            console.log('WebSocket open');
+        };
+        s.onmessage = function (e) {
+            handle_message(e);
+        };
+        window.s = s;
+        console.log(window.s);
+    }
+
+    function handle_message(e){
+        var tem = e.data;
+        if (tem === "<nibabashangxianle>") {
+            document.getElementById("online_status").style.color = "green";
+            document.getElementById("online_status").innerText = "online";
+
+        } else if (tem === "<nibabaxiaxianle>") {
+            document.getElementById("online_status").style.color = "red";
+            document.getElementById("online_status").innerText = "offline";
+        } else if (tem === "<this_is_notification>") {
+
+        } else if (tem === "<is_typing>") {
+            var typing_elem = $('#typing-text');
+            if (!typing_elem.is(":visible")) {
+                typing_elem.fadeIn(500);
+            } else {
+                typing_elem.stop(true);
+                typing_elem.fadeIn(0);
+            }
+            typing_elem.fadeOut(3000);
+        } else {
+            var time = gettime();
+            $('#messagecontainer').append('<p>' + tem + '&nbsp;&nbsp;&nbsp;&nbsp;' + time + '</p><br><br>');
+        }
+    }
+
+    function gettime (){
+        var time = Date.parse(new Date());
+        var datetime = new Date();
+        datetime.setTime(time);
+        var year = datetime.getFullYear();
+        var month = datetime.getMonth() + 1;
+        var date = datetime.getDate();
+        var hour = datetime.getHours();
+        var minute = datetime.getMinutes();
+        if (month === 1) month = "Jan. ";
+        else if (month === 2) month = "Feb. ";
+        else if (month === 3) month = "Mar. ";
+        else if (month === 4) month = "Apr. ";
+        else if (month === 5) month = "May. ";
+        else if (month === 6) month = "Jun. ";
+        else if (month === 7) month = "Jul. ";
+        else if (month === 8) month = "Aug. ";
+        else if (month === 9) month = "Sep. ";
+        else if (month === 10) month = "Oct. ";
+        else if (month === 11) month = "Nov. ";
+        else if (month === 12) month = "Dec. ";
+        if (hour > 12) hour = hour - 12 + minute +" p.m.";
+        else hour = hour + minute + " a.m.";
+        return month + date+"," +year+"," + hour;
+    }
+
+
+    function empty(str) {
+        if ( str === "" ) return true;
+        var regu = "^[ ]+$";
+        var re = new RegExp(regu);
+        return re.test(str);
+    }
+
+    function send(a) {
+        if(!window.s){
+            alert("Please connect server.");
+        }else{
+            window.s.send(a);
+        }
+    }
+
+    $(function () {
+        $('#send_message').click(function () {
+            a = $('#message').val();
+            if (a === null || a === "<this_is_notification>" || a === "<is_typing>" || empty(a) || a==="<nibabaxiaxianle>" || a==="<nibabashangxianle>") {
+                alert("illegal typing");
+            } else {
+                send(a);
+            }
+        });
+        $('#close_websocket').click(function () {
+            if(window.s){
+                window.s.close();
+            }
+        });
+        $('#message').bind('input propertychange', function() {
+            send("<is_typing>");
+        });
+    });
+    </script>
+</body>
+</html>
