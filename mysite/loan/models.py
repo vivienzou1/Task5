@@ -3,7 +3,6 @@ from djmoney.models.fields import MoneyField
 from registration.models import TimeStampedModel
 from registration.models import Profile
 
-
 class Loan(TimeStampedModel):
     profile = models.ForeignKey(
         Profile,
@@ -33,11 +32,19 @@ class Loan(TimeStampedModel):
         default_currency='USD',
         max_digits=11,
     )
-    period = models.TimeField(max_length=20, blank=False, null=False)
-    interest = models.DecimalField(max_length=20, blank=False, null=False)
+    period = models.IntegerField(
+        blank=False,
+        null=False)
+    interest = models.DecimalField(
+        decimal_places=5,
+        max_digits=10,
+        blank=False,
+        null=False)
 
-    def __unicode__(self):
-        return 'Loan(id=' + str(self.id) + ')'
+    def __str__(self):
+        return 'Loan(' + 'type=' + str(self.type) + " "\
+               + 'amount=' + str(self.amount) + " "\
+               + 'period=' + str(self.period) + ")"
 
 
 class LoanLog(TimeStampedModel):
@@ -53,7 +60,11 @@ class LoanLog(TimeStampedModel):
         default_currency='USD',
         max_digits=11,
     )
-    interest = models.DecimalField(max_length=20, blank=False, null=False)
+    interest = models.DecimalField(
+        decimal_places=5,
+        max_digits=10,
+        blank=False,
+        null=False)
 
     def __unicode__(self):
         return 'LoanLog(id=' + str(self.id) + ')'
