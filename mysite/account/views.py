@@ -184,6 +184,14 @@ def transfer(request):
             return view_accounts(request)
 
 
+def transfer_2(request):
+    return render(request, "account/transfer_2.html", {})
+def transfer_3(request):
+    return render(request, "account/transfer_3.html", {})
+def transfer_4(request):
+    return render(request, "account/transfer_4.html", {})
+
+
 @login_required
 @transaction.atomic
 def check_to_saving(request):

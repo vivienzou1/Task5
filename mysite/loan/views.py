@@ -88,7 +88,7 @@ def repay(request):
 
     loan.cur_amount = loan.cur_amount - form.cleaned_data['amount']
     loan.save()
-    
+
     new_loan_log = LoanLog(
         loan=loan,
         amount=form.cleaned_data['amount'],
