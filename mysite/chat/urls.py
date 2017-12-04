@@ -4,6 +4,7 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^$', views.chat, name="chat"),
+    url(r'^$', views.chat),
+    url('^chat/(?P<user_id>\d+)',views.chatwith),
     url(r'^connect/(?P<user_id>\d+)', views.connect),
 ]

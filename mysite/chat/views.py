@@ -18,13 +18,15 @@ def chat(request):
             user = get_object_or_404(User, id = i)
             on_line.append(user)
         return render(request, 'chat/choose.html', {"on_line":on_line})
-    else:
-        towhom = get_object_or_404(User, id = request.POST['towhom'])
-        history = Chat.objects.filter(Q(from_whom=request.user)|Q(to_whom=request.user)).order_by('created')
-        a = "0"
-        if int(request.POST['towhom']) in clients:
-            a = "1"
-        return render(request, 'chat/chat.html',{"towhom":towhom, "history":history,"online":a})
+
+
+def chatwith(request, user_id):
+    towhom = get_object_or_404(User, id=user_id)
+    history = Chat.objects.filter(Q(from_whom=request.user) | Q(to_whom=request.user)).order_by('created')
+    a = "0"
+    if int(user_id) in clients:
+        a = "1"
+    return render(request, 'chat/chat.html', {"towhom": towhom, "history": history, "online": a})
 
 @accept_websocket
 def connect(request, user_id):
@@ -44,30 +46,39 @@ def connect(request, user_id):
             delete_clients(request, key, to_whom)
 
 def check_off_line_message(key):
+    list = []
+    for i in clients[key]:
+        for j in clients[key][i]:
+            list.append(j)
+
     if (key in off_line):
-        for i in clients[key][0]:
-            i.send("<this_is_notification>")
+        for i in list:
+            for j in off_line[key]:
+                i.send("<this_is_notification>")
+                i.send(str(j))
         off_line.pop(key)
 
 
-def send_message(list, message):
+def send_message(sender, list, message):
     for client in list:
         client.send(message)
+        if message == "<this_is_notification>":
+            client.send(str(sender))
 
 def find_socket(uid1, uid2, message, is_message):
     if (uid2 in clients):
         if (uid1 in clients[uid2]):
-            send_message(clients[uid2][uid1], message)
+            send_message(uid1, clients[uid2][uid1], message)
         elif (is_message):
             all = []
             for i in clients[uid2]:
                 for j in clients[uid2][i]:
                     all.append(j)
-            send_message(all, "<this_is_notification>")
+            send_message(uid1,all, "<this_is_notification>")
     elif (is_message):
         if uid2 not in off_line:
-            off_line[uid2] = []
-        off_line[uid2].append(message)
+            off_line[uid2] = {}
+        off_line[uid2][uid1] = "";
 
 
 

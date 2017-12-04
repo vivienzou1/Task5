@@ -89,7 +89,7 @@
             typing_elem.fadeOut(3000);
         } else {
             var time = gettime();
-            $('#messagecontainer').append('<p>' + tem + '&nbsp;&nbsp;&nbsp;&nbsp;' + time + '</p><br><br>');
+            $('#messagecontainer').append('<p align ="left">' + tem + '&nbsp;&nbsp;&nbsp;&nbsp;' + time + '</p><br>');
         }
     }
 
@@ -114,9 +114,10 @@
         else if (month === 10) month = "Oct. ";
         else if (month === 11) month = "Nov. ";
         else if (month === 12) month = "Dec. ";
-        if (hour > 12) hour = hour - 12 + minute +" p.m.";
-        else hour = hour + minute + " a.m.";
-        return month + date+"," +year+"," + hour;
+        hour = (hour + 5 )%24;
+        if (hour > 12) hour = hour - 12 +":" + minute +" p.m. ";
+        else hour = hour + ":" + minute + " a.m. ";
+        return month + date+", " +year+", " + hour;
     }
 
 
@@ -142,7 +143,10 @@
                 alert("illegal typing");
             } else {
                 send(a);
+                var time = gettime();
+                $('#messagecontainer').append('<p align ="right">' + a + '&nbsp;&nbsp;&nbsp;&nbsp;' + time + '</p><br>');
             }
+
         });
         $('#close_websocket').click(function () {
             if(window.s){

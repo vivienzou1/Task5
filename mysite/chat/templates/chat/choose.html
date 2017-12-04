@@ -6,8 +6,8 @@
 
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script type="text/javascript">//<![CDATA[
-    console.log(1231);
     connect();
+    var notified = false;
     function connect() {
         if(window.s){
             window.s.close()
@@ -23,39 +23,32 @@
             console.log('WebSocket open');
         };
         s.onmessage = function (e) {
-            console.log('message: ' + e.data);
-            $('#messagecontainer').prepend('<p>' + e.data + '</p>');
+            if (!notified) {
+                if (e.data === "<this_is_notification>") notified = true;
+            } else{
+                if (document.getElementById(e.data) === null) {
+                    $('#notification').prepend('<a href = "/chat/chat/' + e.data + '"><img id ="n' + e.data + '" src = "http://www.100hero.com/d/file/news/tongzhi/2017-09-19/4d4fabcfb7210f21f5499056777d1657.gif?size=177x206"></a></p>');
+                    notified = false;
+                }
+
+            }
         };
         window.s = s;
         console.log(window.s);
     }
 
 
-    $(function () {
-        $('#send_message').click(function () {
-            if(!window.s){
-                alert("Please connect server.");
-            }else{
-                window.s.send($('#message').val());
-            }
-        });
-        $('#close_websocket').click(function () {
-            if(window.s){
-                window.s.close();
-            }
-        });
-        $('#message').bind('input propertychange', function() {
-        });
-    });
     </script>
 
 </head>
 <body>
     {% for i in on_line %}
-        <form action="{% url 'chat' %}" method="POST">
-        <button type="submit" name="towhom" value="{{ i.id }}">{{ i.username }}</button>
+        <form action="/chat/chat/{{ i.id }}" method="POST">
+        <button type="submit">{{ i.username }}</button>
         {% csrf_token %}
         </form>
     {% endfor %}
+    <div id = "notification">
+    </div>
 </body>
 </html>

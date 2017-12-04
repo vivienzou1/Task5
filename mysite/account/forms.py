@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from models import *
+from .models import *
 from django.forms import widgets as Fwidgets
 from djmoney.models.fields import MoneyField
 
