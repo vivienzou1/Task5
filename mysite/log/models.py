@@ -22,7 +22,7 @@ class LogExternal(TimeStampedModel):
     account_1 = models.ForeignKey(Checking_Account, related_name='external_account_1', blank=False, null=False)
     account_2 = models.ForeignKey(Checking_Account, related_name='external_account_2', blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return 'LogExternal(id=' + str(self.id) + ')'
 
 
@@ -41,5 +41,5 @@ class LogInternal(TimeStampedModel):
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='external_user', blank=False, null=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return 'LogInternal(id=' + str(self.id) + ')'

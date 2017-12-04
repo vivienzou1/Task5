@@ -20,7 +20,7 @@ class Account(TimeStampedModel):
     account_status = models.CharField(max_length= 100, default="active")
 
 
-    def __unicode__(self):
+    def __str__(self):
         return 'id = ' + str(self.id) + " user = " + str(self.profile.user.username)
 
 class Saving_Account(models.Model):
@@ -50,5 +50,5 @@ class Checking_Account(models.Model):
                                    on_delete=models.CASCADE,
                                    unique=True,
                                    related_name="checking_account")
-    def __unicode__(self):
+    def __str__(self):
         return str(self.account.profile.user.username) + "'s check account"
