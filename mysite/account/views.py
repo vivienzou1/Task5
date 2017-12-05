@@ -180,6 +180,27 @@ def transfer(request):
             return view_accounts(request)
 
 
+def transfer_1(request):
+    err_message = []
+    message = []
+    context = {}
+    if request.method == 'GET':
+        context['form'] = TransferForm1()
+        context['User'] = request.user
+        return render(request, 'account/transfer.html', context)
+    else:
+        form = TransferForm1(request.POST)
+        if request.user.profile.account.account_status == 'frozen':
+            err_message.append("your account has already been frozen, plz connect us to deal with this")
+            context = {'message': message, 'err_message': err_message, 'User': request.user, 'form': form}
+            return render(request, 'account/transfer.html', context)
+
+        context['form'] = form
+        context['User'] = request.user
+        if not form.is_valid():
+            return render(request, 'account/transfer.html', context)
+        return transfer_2(request)
+
 def transfer_2(request):
     return render(request, "account/transfer_2.html", {})
 def transfer_3(request):
