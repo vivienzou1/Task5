@@ -142,6 +142,13 @@ button:hover {
             background-color: transparent;
             color:#f7c20a;
         }
+
+      .sub {
+          display: none;
+      }
+      input:checked ~ .sub {
+          display: block;
+      }
   </style>
 </head>
 <body>
@@ -199,37 +206,46 @@ button:hover {
                     <br>
                     <div class="row">
                         <div class="col s6">
-                            <p>
-                                <input type="checkbox"/>
-                                <label style="font-size: 20px; color: #595959;">To Devenshire's account</label>
-                            </p>
                             <br>
+                            <input id="cb1" type="checkbox" checked>
+                            <label for="cb1" style="font-size: 20px; color: #595959;">To Devenshire's account</label>
                             <div class="row">
+                                <br>
                                 <div class="col s6">
-                                    <label style="font-size: 16px; color: #595959;">First name: </label><br/>
-                                    <input type="text" style="width: 150px;">
+                                    <p>
+                                        <label style="font-size: 16px; color: #595959;">First name: </label><br/>
+                                        <input type="text" style="width: 150px;">
+                                    </p>
                                 </div>
                                 <div class="col s6">
-                                    <label style="font-size: 16px; color: #595959;">Last name: </label><br/>
-                                    <input type="text" style="width: 150px;">
+                                    <p>
+                                        <label style="font-size: 16px; color: #595959;">Last name: </label><br/>
+                                        <input type="text" style="width: 150px;">
+                                    </p>
                                 </div>
                             </div>
                             <label style="font-size: 16px; color: #595959;">Account Number: </label>
                             <input type="text" style="width: 250px;">
                         </div>
                         <div class="col s6">
-                            <p>
-                                <input type="checkbox"/>
-                                <label style="font-size: 20px; color: #595959;">To other bank's account</label>
-                            </p>
-                            <br>
-
-                                <label style="font-size: 16px; color: #595959;">Bank Name: </label><br/>
-                                <input type="text" style="width: 250px;">
-                            <p>
-                                <label style="font-size: 16px; color: #595959;">Bank Address: </label><br/>
-                                <input type="text" style="width: 250px;">
-                            </p>
+                            <div>
+                                <br>
+                                <input id="cb2" type="checkbox">
+                                <label for="cb2" style="font-size: 20px; color: #595959;">To other bank's account</label>
+                                <div class="sub">
+                                    <div class="row">
+                                        <br>
+                                        <div class="col s6">
+                                            <p>
+                                                <label style="font-size: 16px; color: #595959;">Bank Name: </label><br/>
+                                                <input type="text" style="width: 250px;">
+                                            </p>
+                                        </div>
+                                    </div>
+                                        <label style="font-size: 16px; color: #595959;">Routing Number: </label><br/>
+                                        <input type="text" style="width: 250px;">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <button type="submit" style="padding-left: 10px; padding-right: 10px; background-color: #999999;" class="btn waves-effect waves-light"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>&nbsp;Previous</button>
@@ -279,6 +295,16 @@ button:hover {
         </div>
     </footer>
     <!--  Scripts-->
+    <script>
+        var cb1 = document.getElementById('cb1');
+        var cb2 = document.getElementById('cb2');
+        cb1.onchange = function() {
+            cb2.checked = !this.checked;
+        };
+        cb2.onchange = function() {
+            cb1.checked = !this.checked;
+        };
+    </script>
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="/static/js/materialize.js"></script>
     <script src="/static/js/init.js"></script>
