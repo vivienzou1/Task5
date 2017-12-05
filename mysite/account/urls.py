@@ -2,6 +2,7 @@ from django.conf.urls import url, include
 from . import views
 
 urlpatterns = [
+    url(r'^test$', views.test, name="test"),
     url(r'^transfer$', views.transfer_1, name="transfer_1"),
     url(r'^transfer_2$', views.transfer_2, name="transfer_2"),
     url(r'^transfer_3$', views.transfer_3, name="transfer_3"),

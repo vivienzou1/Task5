@@ -66,11 +66,23 @@ class TransferForm1(forms.Form):
         return cleaned_data
 
 
+class TransferForm3(forms.ModelForm):
+    class Meta:
+        model = Checking_Account
+        fields = ('balance',)
+        labels = {
+            'balance': 'Amount'
+        }
+
+    def clean(self):
+        cleaned_data = super(TransferForm3, self).clean()
+        return cleaned_data
+
 
 class csForm(forms.ModelForm):
     class Meta:
         model = Checking_Account
-        fields = {'balance',}
+        fields = ('balance',)
         labels = {
             'balance': 'Amount'
         }

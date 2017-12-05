@@ -187,27 +187,53 @@ def transfer_1(request):
     if request.method == 'GET':
         context['form'] = TransferForm1()
         context['User'] = request.user
-        return render(request, 'account/transfer.html', context)
+        return render(request, 'account/transfer_1.html', context)
     else:
         form = TransferForm1(request.POST)
         if request.user.profile.account.account_status == 'frozen':
             err_message.append("your account has already been frozen, plz connect us to deal with this")
             context = {'message': message, 'err_message': err_message, 'User': request.user, 'form': form}
-            return render(request, 'account/transfer.html', context)
+            return render(request, 'account/transfer_1.html', context)
 
         context['form'] = form
         context['User'] = request.user
         if not form.is_valid():
-            return render(request, 'account/transfer.html', context)
-        return transfer_2(request)
+            return render(request, 'account/transfer_1.html', context)
+        return render(request, 'account/transfer_2.html', context)
 
 def transfer_2(request):
-    return render(request, "account/transfer_2.html", {})
-def transfer_3(request):
+    err_message = []
+    message = []
+    context = {}
+    value = request.GET['select_account']
+    main_account = request.user.profile.account
+    if value == 1:
+        account = main_account.checking_account
+    else:
+        account = main_account.saving_account
     return render(request, "account/transfer_3.html", {})
+
+
+def transfer_3(request):
+    err_message = []
+    message = []
+    context = {}
+    form = TransferForm3(request.POST)
+    context['form'] = form
+    context['User'] = request.user
+    if not form.is_valid():
+        return render(request, 'account/transfer_3.html', context)
+    return render(request, 'account/transfer_4.html', context)
+
 def transfer_4(request):
     return render(request, "account/transfer_4.html", {})
 
+
+def test(request):
+    context = {}
+    form = TransferForm3()
+    context['form'] = form
+    return render(request, "account/test.html", context)
 
 @login_required
 @transaction.atomic
