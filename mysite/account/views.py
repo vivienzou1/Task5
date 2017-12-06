@@ -180,6 +180,8 @@ def transfer(request):
             return view_accounts(request)
 
 
+@login_required
+@transaction.atomic
 def transfer_1(request):
     context = {}
     err_message = []
@@ -215,6 +217,8 @@ def transfer_1(request):
         return render(request, 'account/transfer_2.html', context)
 
 
+@login_required
+@transaction.atomic
 def transfer_2(request):
     context = {}
     err_message = []
@@ -243,6 +247,8 @@ def transfer_2(request):
     return render(request, "account/transfer_3.html", context)
 
 
+@login_required
+@transaction.atomic
 def transfer_3(request):
     context = {}
     err_message = []
@@ -296,6 +302,8 @@ def transfer_3(request):
     return render(request, 'account/transfer_4.html', context)
 
 
+@login_required
+@transaction.atomic
 def transfer_4(request):
     context = {}
     context['target_account'] = request.POST['target_account']
@@ -309,12 +317,6 @@ def transfer_4(request):
 
     return render(request, "account/transfer_confirm.html", context)
 
-
-def test(request):
-    context = {}
-    form = TransferForm3()
-    context['form'] = form
-    return render(request, "account/test.html", context)
 
 @login_required
 @transaction.atomic

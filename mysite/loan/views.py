@@ -20,18 +20,18 @@ def mortgage_loan(request):
     return render(request, 'mortgage_loan.html', {})
 
 
-def auto_apply(request):
+def auto_apply_1(request):
     context = {}
     errors = []
     context['errors'] = errors
     form = AutoLoanForm(request.POST)
     context['form'] = form
     if request.method == 'GET':
-        return render(request, 'auto_apply.html', context)
+        return render(request, 'loan/auto_apply_1.html', context)
 
     if not form.is_valid():
         context['message'] = form.errors
-        return render(request, 'auto_apply.html', context)
+        return render(request, 'loan/auto_apply_1.html', context)
 
     profile = request.user.profile
     new_loan = Loan(
@@ -45,6 +45,57 @@ def auto_apply(request):
     new_loan.save()
     return render(request, 'auto_confirm.html', context)
 
+
+def auto_apply_2(request):
+    context = {}
+    errors = []
+    context['errors'] = errors
+    form = AutoLoanForm(request.POST)
+    context['form'] = form
+    if request.method == 'GET':
+        return render(request, 'loan/auto_apply_2.html', context)
+
+    if not form.is_valid():
+        context['message'] = form.errors
+        return render(request, 'loan/auto_apply_2.html', context)
+
+    profile = request.user.profile
+    new_loan = Loan(
+        profile=profile,
+        type='A',
+        amount=form.cleaned_data['amount'],
+        cur_amount=form.cleaned_data['amount'],
+        period=form.cleaned_data['period'],
+        interest=0.001,
+    )
+    new_loan.save()
+    return render(request, 'auto_confirm.html', context)
+
+
+def auto_apply_3(request):
+    context = {}
+    errors = []
+    context['errors'] = errors
+    form = AutoLoanForm(request.POST)
+    context['form'] = form
+    if request.method == 'GET':
+        return render(request, 'loan/auto_apply_3.html', context)
+
+    if not form.is_valid():
+        context['message'] = form.errors
+        return render(request, 'loan/auto_apply_3.html', context)
+
+    profile = request.user.profile
+    new_loan = Loan(
+        profile=profile,
+        type='A',
+        amount=form.cleaned_data['amount'],
+        cur_amount=form.cleaned_data['amount'],
+        period=form.cleaned_data['period'],
+        interest=0.001,
+    )
+    new_loan.save()
+    return render(request, 'auto_confirm.html', context)
 
 def mortgage_apply(request):
     context = {}
