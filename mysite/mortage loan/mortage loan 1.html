@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mortage Loan</title>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+    <nav>
+        <div class="nav-wrapper" style="background-color: gold">
+            <a href="" class="brand-logo" style="color: black">Mortage Loan</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="" style="color: black">Personal</a></li>
+                <li><a href="" style="color: black">Financing</a></li>
+                <li><a href="" style="color: black">Property</a></li>
+            </ul>
+        </div>
+    </nav>
+
+<br >
+    <div class="row">
+        <!--<form class="col s10">-->
+            <div class="row">
+                <div class="col s1"></div>
+                <div class="input-field col s6">
+                    <input id="first_name" type="text" class="validate" style="width: 150px; margin-right: 30px;">
+                    <label class="active" for="first_name">First Name</label>
+                    <input id="middle_name" type="text" class="validate" style="width: 100px; margin-right: 30px;">
+                    <label class="active" for="middle_name" style="margin-left: 185px;">Middle (optional)</label>
+                    <input id="last_name" type="text" class="validate" style="width: 150px; margin-right: 30px;">
+                    <label class="active" for="last_name" style="margin-left: 315px;">Last Name</label>
+
+                    <span style="float:right; display: block; padding-right: 35px;">
+                        <label class="active" style = "margin-left: 500px;">Suffix (optional)</label>
+                        <select class="browser-default" style="height: 30px; margin-top: 13px;">
+                            <option value="0">Mr.</option>
+                            <option value="1">Mrs.</option>
+                            <option value="2">Miss.</option>
+                            <option value="3">Dr.</option>
+                        </select>
+                    </span>
+                </div>
+                <div class="col s1"></div>
+                <div class="col s3 ">
+                    <blockquote>
+                        You are requiring:<br><br>A personal consultant with Devonshire Lending home mortage consultant.
+                    </blockquote>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s1"></div>
+                <div class="input-field col s6">
+                    <input id="email_address" type="text" class="validate">
+                    <label class="active" for="email_address">Email Address</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s1"></div>
+                <div class="input-field col s6">
+                    <input id="home_address" type="text" class="validate">
+                    <label class="active" for="home_address">Current Home Address</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s1"></div>
+                <div class="input-field col s6">
+                    <input id="home_address_2" type="text" class="validate">
+                    <label class="active" for="home_address_2">Current Home Address Line 2 (optional)</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s1"></div>
+                <div class="input-field col s6">
+                    <input id="city" type="text" class="validate" style="width: 150px; margin-right: 30px;">
+                    <label class="active" for="city">City (optional)</label>
+                    <input id="zip" type="text" class="validate" style="width: 100px; margin-right: 30px;">
+                    <label class="active" for="zip" style="margin-left: 185px;">Current Home ZIP Code</label>
+
+                    <span style="float:right; display: block; padding-right: 140px;">
+                        <label class="active" style = "margin-left: 350px;">State (optional)</label>
+                        <select class="browser-default" style="width: 120px; display: block; height: 30px; margin-top: 13px;">
+                            <option value="" disabled selected>Pennsylvania</option>
+                            <option value="1">Hawaii</option>
+                            <option value="2">Boston</option>
+                            <option value="3">Arizona</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s1"></div>
+                <div class="input-field col s6">
+                    <input id="phone_number" type="text" class="validate" style="width: 200px;">
+                    <label class="active" for="phone_number">Phone Number</label>
+
+                    <span style="float:right; display: block; padding-right: 260px;">
+                        <label class="active" style = "margin-left: 250px;">Phone Type</label>
+                        <select class="browser-default" style="width: 100px; display: block; height: 30px; margin-top: 13px;">
+                            <option value="0">Home</option>
+                            <option value="1">Mobile</option>
+                            <option value="2">Work</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s1"></div>
+                <div class="col s6">
+                    <label class="active" >How would you like to discuss your home financing needs with us?</label>
+                    <p>
+                        <input class="with-gap" name="group3" type="radio" id="choice1" checked />
+                        <label for="choice1">With a local consultant in nearby branch</label>
+                        <input class="with-gap" name="group3" type="radio" id="choice2" unchecked />
+                        <label for="choice2">By phone with a national consultant </label>
+                    </p>
+                </div>
+            </div>
+        <!--</form>-->
+    </div>
+
+</body>
+</html>
