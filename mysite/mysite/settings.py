@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'registration',
     'log',
     'account',
+    'loan',
 ]
 
 MIDDLEWARE_CLASSES = [
