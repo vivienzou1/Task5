@@ -194,7 +194,58 @@ button:hover {
     </div><!-- /.page-title -->
     <div class="container">
         <div class="section">
-            Payment succeed.
+            <div class="card-panel" style="background-color: #f7f7f7;">
+                <div class="row">
+                    <div class="col s6">
+                        <p>
+                            Pay To:
+                        </p>
+                        <p>
+                            Account Number:
+                        </p>
+                        <p>
+                            Amount:
+                        </p>
+                        <p>
+                            Bank Name:
+                        </p>
+                        <p>
+                            Pay From:
+                        </p>
+                        <p>
+                            Bill Description:
+                        </p>
+                        <p>
+                            Transfer Time:
+                        </p>
+                    </div>
+                    <div class="col s6">
+                        <p>
+                            {{ target_first_name}} &nbsp; {{ target_last_name}}
+                        </p>
+                        <p>
+                            {{ target_account }}
+                        </p>
+                        <p>
+                            {{ amount }}
+                        </p>
+                        <p>
+                            Devenshire.
+                        </p>
+                        <p>
+                            {{ profile.first_name }}'s {{ select }} account.
+                        </p>
+                        <p>
+                            {{ description }}
+                        </p>
+                        <p>
+                            {{ time }}
+                        </p>
+                    </div>
+                </div>
+                <a href="#">Go to account</a>
+                <a href="#" style="float:right;">view more details</a>
+            </div>
         </div>
     </div>
 

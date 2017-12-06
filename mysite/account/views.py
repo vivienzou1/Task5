@@ -255,8 +255,17 @@ def transfer_3(request):
     return render(request, 'account/transfer_4.html', context)
 
 
-def transfer_confirm(request):
-    return render(request, "account/transfer_confirm.html", {})
+def transfer_4(request):
+    context = {}
+    context['target_account'] = request.POST['target_account']
+    context['target_first_name'] = request.POST['target_first_name']
+    context['target_last_name'] = request.POST['target_last_name']
+    context['account'] = request.POST['account']
+    context['select'] = request.POST['select']
+    context['amount'] = request.POST['amount']
+    context['description'] = request.POST['description']
+    context['time'] = request.POST['time']
+    return render(request, "account/transfer_confirm.html", context)
 
 
 def test(request):
