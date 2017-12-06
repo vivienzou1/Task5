@@ -198,6 +198,17 @@ def transfer_1(request):
         if not form.is_valid():
             return render(request, 'account/transfer_1.html', context)
 
+        target_account = form.cleaned_data['target_account']
+        getter = Checking_Account.objects.filter(account_number=target_account)
+        if len(getter) == 0:
+            getter = Saving_Account.objects.filter(account_number=target_account)
+
+        getter = getter[0]
+
+        if getter.account.account_status == 'frozen':
+            err_message.append("the target account has already been frozen, plz connect us to deal with this")
+            return render(request, 'account/transfer_1.html', context)
+
         context['target_account'] = form.cleaned_data['target_account']
         context['target_first_name'] = form.cleaned_data['target_first_name']
         context['target_last_name'] = form.cleaned_data['target_last_name']
@@ -243,12 +254,42 @@ def transfer_3(request):
     if not form.is_valid():
         return render(request, 'account/transfer_3.html', context)
 
+    owner_account = request.POST['account']
+    owner = Saving_Account.objects.filter(account_number=owner_account)
+    if len(owner) == 0:
+        owner = Checking_Account.objects.filter(account_number=owner_account)
+
+    owner = owner[0]
+    amount = form.cleaned_data['balance']
+
+    if owner.balance < amount:
+        err_message.append("you don't have enough money")
+        return render(request, 'account/transfer_3.html', context)
+
+    owner.balance = owner.balance - amount
+    owner.save()
+
+    target_account = request.POST['target_account']
+    getter = Checking_Account.objects.filter(account_number=target_account)
+    if len(getter) == 0:
+        getter = Saving_Account.objects.filter(account_number=target_account)
+
+    getter = getter[0]
+
+    getter.balance = getter.balance + amount
+
+    getter.save()
+    add_log_external(type='T',
+                     amount=form.cleaned_data['balance'],
+                     account_number_1=owner.account_number,
+                     account_number_2=getter.account_number)
+
     context['target_account'] = request.POST['target_account']
     context['target_first_name'] = request.POST['target_first_name']
     context['target_last_name'] = request.POST['target_last_name']
     context['account'] = request.POST['account']
     context['select'] = request.POST['select']
-    context['amount'] = form.cleaned_data['balance']
+    context['amount'] = amount
     context['description'] = request.POST['description']
     context['profile'] = request.user.profile
     context['time'] = datetime.now()
@@ -265,6 +306,7 @@ def transfer_4(request):
     context['amount'] = request.POST['amount']
     context['description'] = request.POST['description']
     context['time'] = request.POST['time']
+
     return render(request, "account/transfer_confirm.html", context)
 
 

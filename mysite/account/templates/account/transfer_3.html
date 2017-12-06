@@ -217,6 +217,12 @@
                             <textarea name="description" style="height: 100px;"></textarea>
                         </p>
                     </div>
+                    <div style="position:fixed; height: 20px;font-size:12px; color:red; padding-top: 0px; margin-top: 0px; padding-bottom: 0px; margin-bottom: 0px;">
+                        {{ form.non_field_errors }}
+                        {% for i in err_message %}
+                            {{ i }}
+                        {% endfor %}
+                        </div>
                     <a href="javascript:history.back()" class="btn waves-effect waves-light" style="padding-left: 10px; padding-right: 10px; background-color: #999999;"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>&nbsp;Previous</a>
                     <button type="submit" style="float: right; padding-left: 10px; padding-right: 10px; background-color: #f7c20a;" class="btn waves-effect waves-light">Continue&nbsp;<i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
                         <a href="/accounts" class="btn waves-effect waves-light" style="float: right; padding-left: 10px; padding-right: 10px; margin-right: 20px; background-color: #999999;">Cancel</a>
