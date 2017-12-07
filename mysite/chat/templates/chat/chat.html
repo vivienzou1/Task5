@@ -69,8 +69,9 @@
     function handle_message(e){
         if (notified) {
             if (document.getElementById(e.data) === null) {
-                    $('#notification').prepend('<a href = "/chat/chat/' + e.data + '"><img id ="n' + e.data + '" src = "http://www.100hero.com/d/file/news/tongzhi/2017-09-19/4d4fabcfb7210f21f5499056777d1657.gif?size=177x206"></a></p>');
-                    notified = false;
+                    var token = getCSRFToken();
+                    $('#notification').prepend('<form name="form" action="/chat/chat/' + e.data + '" method ="POST"><img onClick="document.all.form.submit();" id ="n' + e.data + '" src = "http://www.100hero.com/d/file/news/tongzhi/2017-09-19/4d4fabcfb7210f21f5499056777d1657.gif?size=177x206">'+
+                        '<input type="hidden" name="csrfmiddlewaretoken" value="'+ token +'"></form>');
                     return;
                 }
         }
@@ -173,6 +174,16 @@
             send("<is_typing>");
         });
     });
+
+    function getCSRFToken() {
+        var cookies = document.cookie.split(";");
+        for (var i = 0; i < cookies.length; i++) {
+            if (cookies[i].startsWith(" csrftoken=")) {
+                return cookies[i].substring(" csrftoken=".length, cookies[i].length);
+            }
+        }
+        return "unknown";
+    }
     </script>
 </body>
 </html>

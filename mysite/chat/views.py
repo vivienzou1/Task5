@@ -21,12 +21,14 @@ def chat(request):
 
 
 def chatwith(request, user_id):
-    towhom = get_object_or_404(User, id=user_id)
-    history = Chat.objects.filter(Q(from_whom=request.user) | Q(to_whom=request.user)).filter(Q(from_whom=towhom) | Q(to_whom=towhom)).order_by('created')
-    a = "0"
-    if int(user_id) in clients:
-        a = "1"
-    return render(request, 'chat/chat.html', {"towhom": towhom, "history": history, "online": a})
+    if request.method == 'POST':
+        towhom = get_object_or_404(User, id=user_id)
+        history = Chat.objects.filter(Q(from_whom=request.user) | Q(to_whom=request.user)).filter(Q(from_whom=towhom) | Q(to_whom=towhom)).order_by('created')
+        a = "0"
+        if int(user_id) in clients:
+            a = "1"
+
+        return render(request, 'chat/chat.html', {"towhom": towhom, "history": history, "online": a})
 
 @accept_websocket
 def connect(request, user_id):
