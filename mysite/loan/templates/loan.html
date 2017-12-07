@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="auto">auto</a>
+<a href="mortgage">mortgage</a>
+{% for loan in loans %}
+    <p>{{ loan }}</p> <a href="repay?loan={{ loan.id }}">Repay</a>
+{% endfor %}
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Pay Bill</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="/static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="/static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+
+      .page-title {
+	position: relative;
+	padding: 55px 0;
+	background-color: #f7f7f7;
+}
+      .breadcrumbs ul {
+	padding-top: 0;
+}
+
+.breadcrumbs ul li {
+	display: inline-block;
+	position: relative;
+	margin-right: 25px;
+	color: #2e363a;
+}
+
+.breadcrumbs ul li a {
+    color: #2e363a;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+}
+
+.breadcrumbs ul li a:hover {
+	color: #f7c20a;
+}
+
+.breadcrumbs ul li:before {
+	position: absolute;
+	right: -14px;
+    top: 0;
+	font-family: "FontAwesome";
+	content: "\f105";
+	color: #2e363a;
+}
+
+.breadcrumbs ul li:last-child::before {
+	width: 0;
+	height: 0;
+	background-color: transparent;
+	content: "";
+}
+      .page-title-heading h1 {
+    text-align: left;
+    color: #2e363a;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 40px;
+    margin-bottom: 0;
+          margin-top: 0px;
+}
+/* The navigation bar */
+.navbar {
+{#    overflow: hidden;#}
+    background-color: #333;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+    z-index: 10;
+}
+
+/* Links inside the navbar */
+.navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+
+}
+.page-title {
+}
+.boxshadow
+{
+    background-color: rgba(255, 255, 255, 1);
+    border-bottom: 1px solid #f1f1f1;
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.01), 0 1px 5px 0 rgba(0, 0, 0, 0.01), 0 3px 1px -2px rgba(0, 0, 0, 0.01);
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.01), 0 1px 5px 0 rgba(0, 0, 0, 0.01), 0 3px 1px -2px rgba(0, 0, 0, 0.01);
+
+  border-radius: 2px;
+  background-color: #fff;
+}
+        #online_statement {
+    position: relative;
+    display: inline-block;
+    font-size: 13px;
+    color: #fff;
+    padding: 9px 33px 7px 21px;
+    border-radius: 3px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    background-color: #eab702;
+            border:none;
+    position: absolute;
+    z-index: 0;
+}
+
+button:hover {
+	background-color: #333333;
+	color: #fff;
+}
+        .footer-link a {
+            color: #f7c20a;
+        }
+
+ .nav-wrapper li a {
+     background-color: transparent;
+     color: #333333;
+     position: relative;
+     z-index: 0;
+ }
+      .nav-wrapper li a:hover {
+          background-color: transparent;
+          position: relative;
+          z-index: 0;
+      }
+          .nav-wrapper li a .menu:hover {
+    background-color: transparent;
+    color:#f7c20a;
+    position: relative;
+    z-index:0;
+}
+      #dropdown1 li:hover {
+            background-color: transparent;
+        }
+        #dropdown1 li a:hover {
+            background-color: transparent;
+            color:#f7c20a;
+        }
+  </style>
+</head>
+<body>
+    <div class="navbar" style="height: 130px; padding-top:0px;">
+        <nav style="height: 50px;background-color: #333333;">
+            <div class="container" style="color: #f7c20a;font-size:12px;vertical-align:top">
+                <i class="fa fa-phone" style="line-height:50px;vertical-align:top;" aria-hidden="true"></i>&nbsp;
+                <span style="line-height:50px;vertical-align:top;color:#bfbfbf">Call us: +61 3 8376 6284</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <i class="fa fa-envelope" style="line-height:50px;vertical-align:top;" aria-hidden="true"></i>&nbsp;
+                <span style="line-height:50px;vertical-align:top;color:#bfbfbf">Email: support24-7@gmail.com</span>
+                <span style="line-height:50px;vertical-align:top;float:right; font-size:14px;color:#bfbfbf;">
+                    <i class="fa fa-facebook-official" aria-hidden="true">&nbsp;&nbsp;</i>
+                    <i class="fa fa-instagram" aria-hidden="true">&nbsp;&nbsp;</i>
+                    <i class="fa fa-linkedin-square" aria-hidden="true">&nbsp;&nbsp;</i>
+                    <i class="fa fa-twitter" aria-hidden="true">&nbsp;&nbsp;</i>
+                    <i class="fa fa-youtube-play" aria-hidden="true">&nbsp;&nbsp;</i>
+                </span>
+            </div>
+        </nav>
+        <ul id="dropdown1" class="dropdown-content" style="; margin-top:80px;position: fixed;z-index: 10;">
+            <li class="divider" style="height:3px; background-color: #f7c20a;"></li>
+            <li><a href="/account/saving_to_check" style="font-size:14px;">Saving to Checking</a></li>
+            <li class="divider"></li>
+            <li><a href="/account/check_to_saving" style="font-size:14px;">Checking to Saving</a></li>
+        </ul>
+        <nav class="boxshadow" style = "height:80px;">
+            <div class="container nav-wrapper" style="line-height:55px;vertical-align:middle;">
+                <a href="#" class="brand-logo" style="color: #f7c20a;padding-left:0px;"><i class="fa fa-university" aria-hidden="true" style="line-height:50px; vertical-align: middle; font-size:24px;"></i></a><a href="#" class="brand-logo" style="color: #666666; padding-left:40px; font-size:20px;">Devenshire</a>
+                <ul style="margin-left:500px;position: fixed;z-index:2;">
+                    <li><a href="/accounts" style="height:80px;color:#333333;"><span class="menu">Accounts</span></a></li>
+                    <li><a href="/account/transfer" style="height:80px;color:#333333;"><span class="menu">Bill Pay</span></a></li>
+                    <li><a class="dropdown-button" href="#" data-activates="dropdown1" data-constrainwidth="false" style="height:80px;color:#333333;"><span class="menu">Transfer</span></a></li>
+                    <li><a href="#" style="color:#333333;height:80px;"><span class="menu">Loan</span></a></li>
+                    <li><a href="#" style="color:#333333;height:80px;"><span class="menu">Help & Support</span></a></li>
+                    <li><a href="#" style="float:right;color:#333333;height:80px;"><span class="menu"><i class="fa fa-search" aria-hidden="true" style="line-height:55px;vertical-align: middle;"></i></span></a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="page-title"  style="height: 100px; margin-top: 131px;margin-bottom: 20px;">
+        <div class="container">
+            <div class="page-title-heading">
+                <h1 class="title" style="color: #595959;padding-top:0px; line-height:0px; font-size:36px;">Transfer Succeded!   </h1>
+{#                <span style="margin-left:20px;font-size: 16px; color:#808080;"> <a href="#" style="color:#f7c20a;font-weight: 500;">Customer Service</a> <span style="font-weight: 500;">|</span> <a href="#" style="color:#f7c20a;font-weight: 400;">Security Center</a></span>#}
+
+                <span style="float: right; color: #595959; line-height:0px; vertical-align: middle;"><strong><i class="fa fa-angle-right" aria-hidden="true" style="color: #f7c20a;"></i>&nbsp;&nbsp;Bill Pay&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true" style="color: #f7c20a;"></i>&nbsp;&nbsp;Pay To &nbsp;<i class="fa fa-angle-right" aria-hidden="true" style="color: #f7c20a;"></i>&nbsp;&nbsp;Pay From&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true" style="color: #f7c20a;"></i>&nbsp;&nbsp;Additional Info&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true" style="color: #f7c20a;"></i>&nbsp;&nbsp;Review&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true" style="color: #f7c20a;"></i>&nbsp;&nbsp;Confirm</strong></span>
+            </div><!-- /.page-title-captions -->
+        </div><!-- /.col-md-12 -->
+    </div><!-- /.page-title -->
+    <div class="container">
+        <div class="section">
+            <div class="card-panel" style="background-color: #f7f7f7;">
+                <div class="row">
+                    <div class="col s6">
+                        <p>
+                            Pay To:
+                        </p>
+                        <p>
+                            Account Number:
+                        </p>
+                        <p>
+                            Amount:
+                        </p>
+                        <p>
+                            Bank Name:
+                        </p>
+                        <p>
+                            Pay From:
+                        </p>
+                        <p>
+                            Bill Description:
+                        </p>
+                        <p>
+                            Transfer Time:
+                        </p>
+                    </div>
+                    <div class="col s6">
+                        <p>
+                            {{ target_first_name}} &nbsp; {{ target_last_name}}
+                        </p>
+                        <p>
+                            {{ target_account }}
+                        </p>
+                        <p>
+                            {{ amount }}
+                        </p>
+                        <p>
+                            Devenshire.
+                        </p>
+                        <p>
+                            {{ profile.first_name }}'s {{ select }} account.
+                        </p>
+                        <p>
+                            {{ description }}
+                        </p>
+                        <p>
+                            {{ time }}
+                        </p>
+                    </div>
+                </div>
+                <a href="#">Go to account</a>
+                <a href="#" style="float:right;">view more details</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class = "page-footer" style="background-color: #333333; color: #f7c20a; margin-top: 30px;">
+        <div class="container">
+            <div class = "row">
+                <div class = "col s12">
+                    <div class="footer-link" style="color:#bfbfbf; padding-top:10px;">
+                        <a href="#">Locations</a> | <a href="#">Contact Us</a> | <a href="#">Help</a> | <a href="#">Privacy & Security</a> | <a href="#">Careers</a> | <a href="#">Site Map</a>
+                        <span style="float:right; font-size:20px;">
+                            <i class="fa fa-facebook-official" aria-hidden="true">&nbsp;&nbsp;</i>
+                            <i class="fa fa-instagram" aria-hidden="true">&nbsp;&nbsp;</i>
+                            <i class="fa fa-linkedin-square" aria-hidden="true">&nbsp;&nbsp;</i>
+                            <i class="fa fa-twitter" aria-hidden="true">&nbsp;&nbsp;</i>
+                            <i class="fa fa-youtube-play" aria-hidden="true">&nbsp;&nbsp;</i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class = "footer-copyright" style="background-color: #262626;">
+            <div class = "container">
+                © 2017 Devenshire Lending LLC. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="/static/js/materialize.js"></script>
+    <script src="/static/js/init.js"></script>
+</body>
+</html>

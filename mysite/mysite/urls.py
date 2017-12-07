@@ -7,5 +7,6 @@ urlpatterns = [
     url(r'^', include('registration.urls')),
     url(r'^log/', include('log.urls')),
     url(r'^account/', include('account.urls')),
+    url(r'^loan/', include('loan.urls')),
     url(r'^chat/', include('chat.urls'))
 ]

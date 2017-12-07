@@ -17,7 +17,7 @@ def chat(request):
                 continue
             user = get_object_or_404(User, id = i)
             on_line.append(user)
-        return render(request, 'chat/choose.html', {"on_line":on_line})
+        return render(request, 'chat/choose.html', {"on_line": on_line})
 
 
 def chatwith(request, user_id):
