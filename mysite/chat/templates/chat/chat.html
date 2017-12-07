@@ -15,7 +15,6 @@
 {% endif %}
 <input type="text" id="message" value="Hello, World!" />
 <button type="button" id="send_message">Send message</button>
-<button type="button" id="close_websocket">Close websocket</button>
 <span class="pull-right" hidden id="typing-text">
     <strong style="color: blue;">{{ towhom.username }} "is typing..." </strong>
 </span>
@@ -36,6 +35,8 @@
         <br>
     {% endfor %}
 </div>
+<div id = "notification">
+    </div>
  <script type="text/javascript">//<![CDATA[
     connect();
     if (document.getElementById("sta").value=== "0") {
@@ -51,7 +52,6 @@
         }
         var a = document.getElementById('toWhom');
         var text = 0;
-        console.log(a);
         if (a !== null) {
             text = Number(a.value);
         }
@@ -64,11 +64,18 @@
             handle_message(e);
         };
         window.s = s;
-        console.log(window.s);
     }
-
+    var notified = false;
     function handle_message(e){
+        if (notified) {
+            if (document.getElementById(e.data) === null) {
+                    $('#notification').prepend('<a href = "/chat/chat/' + e.data + '"><img id ="n' + e.data + '" src = "http://www.100hero.com/d/file/news/tongzhi/2017-09-19/4d4fabcfb7210f21f5499056777d1657.gif?size=177x206"></a></p>');
+                    notified = false;
+                    return;
+                }
+        }
         var tem = e.data;
+
         if (tem === "<nibabashangxianle>") {
             document.getElementById("online_status").style.color = "green";
             document.getElementById("online_status").innerText = "online";
@@ -77,7 +84,9 @@
             document.getElementById("online_status").style.color = "red";
             document.getElementById("online_status").innerText = "offline";
         } else if (tem === "<this_is_notification>") {
-
+            if (!notified) {
+                notified = true;
+            }
         } else if (tem === "<is_typing>") {
             var typing_elem = $('#typing-text');
             if (!typing_elem.is(":visible")) {
@@ -137,7 +146,7 @@
     }
 
     $(function () {
-        $('#send_message').click(function () {
+        $('#send_message').bind('click' , function () {
             a = $('#message').val();
             if (a === null || a === "<this_is_notification>" || a === "<is_typing>" || empty(a) || a==="<nibabaxiaxianle>" || a==="<nibabashangxianle>") {
                 alert("illegal typing");
@@ -153,7 +162,14 @@
                 window.s.close();
             }
         });
-        $('#message').bind('input propertychange', function() {
+        $('#message').bind('input propertychange, keypress', function(event) {
+
+            if(event.type === "keypress"){
+                console.log(event.keyCode);
+                if (event.keyCode === 13) {
+                    document.getElementById("send_message").click();
+                }
+            }
             send("<is_typing>");
         });
     });

@@ -22,7 +22,7 @@ def chat(request):
 
 def chatwith(request, user_id):
     towhom = get_object_or_404(User, id=user_id)
-    history = Chat.objects.filter(Q(from_whom=request.user) | Q(to_whom=request.user)).order_by('created')
+    history = Chat.objects.filter(Q(from_whom=request.user) | Q(to_whom=request.user)).filter(Q(from_whom=towhom) | Q(to_whom=towhom)).order_by('created')
     a = "0"
     if int(user_id) in clients:
         a = "1"
@@ -78,15 +78,13 @@ def find_socket(uid1, uid2, message, is_message):
     elif (is_message):
         if uid2 not in off_line:
             off_line[uid2] = {}
-        off_line[uid2][uid1] = "";
+        off_line[uid2][uid1] = ""
 
 
 
 
 def message_handler(user1, user2, message):
     message = message.decode()
-    print (message)
-    print (message == "<is_typing>")
     if (message == "<is_typing>"):
         find_socket(user1, user2, message, False)
     else:
