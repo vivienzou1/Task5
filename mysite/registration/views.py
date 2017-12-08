@@ -9,6 +9,10 @@ from datetime import timedelta
 from django.shortcuts import render, get_object_or_404
 
 
+
+def base(request):
+    return  render(request, 'base.html',{})
+
 def home(request):
     return render(request, 'index.html', {})
 

@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+
+{% block head %}
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -137,44 +138,11 @@
         }
     </style>
 </head>
+{% endblock %}
+
 <body>
-    <div class="navbar" style="height: 130px; padding-top:0px;">
-        <nav style="height: 50px;background-color: #333333;">
-            <div class="container" style="color: #f7c20a;font-size:12px;vertical-align:top">
-                <i class="fa fa-phone" style="line-height:50px;vertical-align:top;" aria-hidden="true"></i>&nbsp;
-                <span style="line-height:50px;vertical-align:top;color:#bfbfbf">Call us: +61 3 8376 6284</span>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <i class="fa fa-envelope" style="line-height:50px;vertical-align:top;" aria-hidden="true"></i>&nbsp;
-                <span style="line-height:50px;vertical-align:top;color:#bfbfbf">Email: support24-7@gmail.com</span>
-                <span style="line-height:50px;vertical-align:top;float:right; font-size:14px;color:#bfbfbf;">
-                    <i class="fa fa-facebook-official" aria-hidden="true">&nbsp;&nbsp;</i>
-                    <i class="fa fa-instagram" aria-hidden="true">&nbsp;&nbsp;</i>
-                    <i class="fa fa-linkedin-square" aria-hidden="true">&nbsp;&nbsp;</i>
-                    <i class="fa fa-twitter" aria-hidden="true">&nbsp;&nbsp;</i>
-                    <i class="fa fa-youtube-play" aria-hidden="true">&nbsp;&nbsp;</i>
-                </span>
-            </div>
-        </nav>
-        <ul id="dropdown1" class="dropdown-content" style="; margin-top:80px;position: fixed;z-index: 10;">
-            <li class="divider" style="height:3px; background-color: #f7c20a;"></li>
-            <li><a href="/account/saving_to_check" style="font-size:14px;">Saving to Checking</a></li>
-            <li class="divider"></li>
-            <li><a href="/account/check_to_saving" style="font-size:14px;">Checking to Saving</a></li>
-        </ul>
-        <nav class="boxshadow" style = "height:80px;">
-            <div class="container nav-wrapper" style="line-height:55px;vertical-align:middle;">
-                <a href="#" class="brand-logo" style="color: #f7c20a;padding-left:0px;"><i class="fa fa-university" aria-hidden="true" style="line-height:50px; vertical-align: middle; font-size:24px;"></i></a><a href="#" class="brand-logo" style="color: #666666; padding-left:40px; font-size:20px;">Devenshire</a>
-                <ul style="margin-left:500px;position: fixed;z-index:2;">
-                    <li><a href="/accounts" style="height:80px;color:#333333;"><span class="menu">Accounts</span></a></li>
-                    <li><a href="/account/transfer" style="height:80px;color:#333333;"><span class="menu">Bill Pay</span></a></li>
-                    <li><a class="dropdown-button" href="#" data-activates="dropdown1" data-constrainwidth="false" style="height:80px;color:#333333;"><span class="menu">Transfer</span></a></li>
-                    <li><a href="#" style="color:#333333;height:80px;"><span class="menu">Loan</span></a></li>
-                    <li><a href="#" style="color:#333333;height:80px;"><span class="menu">Help & Support</span></a></li>
-                    <li><a href="#" style="float:right;color:#333333;height:80px;"><span class="menu"><i class="fa fa-search" aria-hidden="true" style="line-height:55px;vertical-align: middle;"></i></span></a></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
+
+{% block content %}
     <div class="page-title"  style="height: 100px; margin-top: 131px;margin-bottom: 20px;">
         <div class="container">
             <div class="page-title-heading">
@@ -284,30 +252,6 @@
     </div>
         {% csrf_token %}
     </form>
-
-    <footer class = "page-footer" style="background-color: #333333; color: #f7c20a; margin-top: 30px;">
-        <div class="container">
-            <div class = "row">
-                <div class = "col s12">
-                    <div class="footer-link" style="color:#bfbfbf; padding-top:10px;">
-                        <a href="#">Locations</a> | <a href="#">Contact Us</a> | <a href="#">Help</a> | <a href="#">Privacy & Security</a> | <a href="#">Careers</a> | <a href="#">Site Map</a>
-                        <span style="float:right; font-size:20px;">
-                            <i class="fa fa-facebook-official" aria-hidden="true">&nbsp;&nbsp;</i>
-                            <i class="fa fa-instagram" aria-hidden="true">&nbsp;&nbsp;</i>
-                            <i class="fa fa-linkedin-square" aria-hidden="true">&nbsp;&nbsp;</i>
-                            <i class="fa fa-twitter" aria-hidden="true">&nbsp;&nbsp;</i>
-                            <i class="fa fa-youtube-play" aria-hidden="true">&nbsp;&nbsp;</i>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class = "footer-copyright" style="background-color: #262626;">
-            <div class = "container">
-                © 2017 Devenshire Lending LLC. All Rights Reserved.
-            </div>
-        </div>
-    </footer>
     <!--  Scripts-->
     <script>
         var cb1 = document.getElementById('cb1');
@@ -322,5 +266,6 @@
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="/static/js/materialize.js"></script>
     <script src="/static/js/init.js"></script>
+{% endblock %}
 </body>
 </html>

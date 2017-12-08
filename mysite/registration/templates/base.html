@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+
+{% block head %}
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -10,6 +12,10 @@
   <link href="/static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="/static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+  <script src="/static/js/materialize.js"></script>
+  <script src="/static/js/init.js"></script>
     <style>
       table {
         table-layout:fixed;
@@ -171,7 +177,9 @@ button:hover {
         }
   </style>
 </head>
+{% endblock %}
 <body>
+{% block header %}
     <div class="navbar" style="height: 130px; padding-top:0px;">
         <nav style="height: 50px;background-color: #333333;">
             <div class="container" style="color: #f7c20a;font-size:12px;vertical-align:top">
@@ -210,6 +218,9 @@ button:hover {
         </nav>
     </div>
 
+{% endblock %}
+    <div id = "notification">
+    </div>
 
 
 {% block content %}
@@ -218,6 +229,9 @@ button:hover {
     </div>
 {% endblock %}
 
+
+
+{% block footer %}
     <footer class = "page-footer" style="background-color: #333333; color: #f7c20a; margin-top: 30px;">
         <div class="container">
         <div class = "row">
@@ -243,11 +257,51 @@ button:hover {
             </div>
          </div>
        </footer>
+{% endblock %}
 
+{% block socket %}
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript">//<![CDATA[
+    connect();
+    var notified = false;
+    function connect() {
+        if(window.s){
+            window.s.close()
+        }
+        var s = new WebSocket("ws://" + window.location.host + "/chat/connect/" + 0);
+        s.onopen = function () {
+            console.log('WebSocket open');
+        };
+        s.onmessage = function (e) {
+            if (!notified) {
+                if (e.data === "<this_is_notification>") notified = true;
+            } else{
+                if (document.getElementById(e.data) === null) {
+                    var token = getCSRFToken();
+                    $('#notification').prepend('<form name="form" action="/chat/chat/' + e.data + '" method ="POST"><img onClick="document.all.form.submit();" id ="n' + e.data + '" src = "http://www.100hero.com/d/file/news/tongzhi/2017-09-19/4d4fabcfb7210f21f5499056777d1657.gif?size=177x206">'+
+                        '<input type="hidden" name="csrfmiddlewaretoken" value="'+ token +'"></form>');
+                }
+                notified = false;
+            }
+        };
+        window.s = s;
+        console.log(window.s);
+    }
 
-  <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="/static/js/materialize.js"></script>
-  <script src="/static/js/init.js"></script>
-  </body>
+    function getCSRFToken() {
+        var cookies = document.cookie.split(";");
+        for (var i = 0; i < cookies.length; i++) {
+            if (cookies[i].startsWith(" csrftoken=")) {
+                return cookies[i].substring(" csrftoken=".length, cookies[i].length);
+            }
+            if (cookies[i].startsWith("csrftoken=")) {
+                return cookies[i].substring("csrftoken=".length, cookies[i].length);
+            }
+        }
+        return "unknown";
+    }
+
+    </script>
+{% endblock %}
+</body>
 </html>

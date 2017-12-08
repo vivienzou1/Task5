@@ -33,6 +33,8 @@ def chatwith(request, user_id):
 @accept_websocket
 def connect(request, user_id):
     if request.is_websocket:
+        if (str(request.user) == 'AnonymousUser'):
+            return
         ## prepare
         key = int(request.user.id)
         to_whom = int(user_id)
@@ -107,7 +109,10 @@ def add_clients(request, key, to_whom):
     clients[key][to_whom].append(request.websocket)
 
 def delete_clients(request, key, to_whom):
-    clients[key][to_whom].remove(request.websocket)
+    try:
+        clients[key][to_whom].remove(request.websocket)
+    except:
+        pass
     if (len(clients[key][to_whom]) == 0):
         clients[key].pop(to_whom)
     if (not any(clients[key])):
