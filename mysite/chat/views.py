@@ -10,14 +10,15 @@ clients = {}
 off_line = {}
 @login_required
 def chat(request):
-    if request.method == 'GET':
-        on_line = []
-        for i in clients:
-            if (i == request.user.id):
-                continue
-            user = get_object_or_404(User, id = i)
-            on_line.append(user)
-        return render(request, 'chat/choose.html', {"on_line": on_line})
+    on_line = []
+    for i in clients:
+        if (i == request.user.id):
+            continue
+        user = get_object_or_404(User, id = i)
+        on_line.append(user)
+
+    return on_line
+        #return render(request, 'chat/choose.html', {"on_line": on_line})
 
 
 def chatwith(request, user_id):
@@ -131,3 +132,4 @@ def offline_notification(key):
         if (key in clients[i]):
             for j in clients[i][key]:
                 j.send("<nibabaxiaxianle>")
+

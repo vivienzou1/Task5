@@ -5,6 +5,7 @@ from .forms import *
 import random
 from datetime import *
 from log.views import *
+from chat.views import chat
 
 
 def account_context(request):
@@ -93,6 +94,7 @@ def createAccount(request):
         form = createForm(request.POST)
         context['form'] = form
         context['User'] = request.user
+        context['on_line'] = chat(request)
         if not form.is_valid():
             return render(request, 'account/create_account.html', context)
         else:
@@ -134,6 +136,7 @@ def transfer(request):
     err_message = []
     message = []
     context = {}
+    context['on_line'] = chat(request)
     if request.method == 'GET':
         context['form'] = TransferForm()
 
@@ -187,6 +190,7 @@ def transfer_1(request):
     err_message = []
     context['err_message'] = err_message
     context['User'] = request.user
+    context['on_line'] = chat(request)
     if request.method == 'GET':
         context['form'] = TransferForm1()
         return render(request, 'account/transfer_1.html', context)
@@ -224,6 +228,7 @@ def transfer_2(request):
     err_message = []
     context['err_message'] = err_message
     context['User'] = request.user
+    context['on_line'] = chat(request)
     if 'select_account' not in request.GET:
         err_message.append("Please select an account.")
         return render(request, "account/transfer_2.html", context)
@@ -256,7 +261,7 @@ def transfer_3(request):
     context['User'] = request.user
     form = TransferForm3(request.POST)
     context['form'] = form
-
+    context['on_line'] = chat(request)
     if not form.is_valid():
         return render(request, 'account/transfer_3.html', context)
 
@@ -314,7 +319,7 @@ def transfer_4(request):
     context['amount'] = request.POST['amount']
     context['description'] = request.POST['description']
     context['time'] = request.POST['time']
-
+    context['on_line'] = chat(request)
     return render(request, "account/transfer_confirm.html", context)
 
 
@@ -324,6 +329,7 @@ def check_to_saving(request):
     err_message = []
     message = []
     context = {}
+    context['on_line'] = chat(request)
     if request.method == 'GET':
         context = {'message': message, 'err_message': err_message, 'User': request.user, 'form': csForm()}
         return render(request, 'account/check_to_saving.html', context)
@@ -366,6 +372,7 @@ def saving_to_check(request):
     err_message = []
     message = []
     context = {}
+    context['on_line'] = chat(request)
     if request.method == 'GET':
         context = {'message': message, 'err_message': err_message, 'User': request.user, 'form': csForm()}
         return render(request, 'account/saving_to_check.html', context)

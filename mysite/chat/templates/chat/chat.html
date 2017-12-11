@@ -1,43 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+{% extends 'base.html' %}
 
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-
-
-</head>
-<body>
+{% block content %}
 <input id ="sta" value="{{ online }}" hidden>
 {% if towhom %}
     <input id="toWhom" value="{{ towhom.id }}" type="hidden"/>
 {% endif %}
-<input type="text" id="message" value="Hello, World!" />
-<button type="button" id="send_message">Send message</button>
-<span class="pull-right" hidden id="typing-text">
-    <strong style="color: blue;">{{ towhom.username }} "is typing..." </strong>
-</span>
-&nbsp;&nbsp;&nbsp;&nbsp;
-<span class="pull-right" >
-    <strong id ="online_status" ></strong>
-</span>
+
 <div id="result"></div>
-<h1>Chatting with {{ towhom.username }}</h1>
-<div id="messagecontainer">
-    {% for i in history %}
-        {% if i.to_whom == towhom %}
-            <p align="right">{{ i.content }}&nbsp;&nbsp;&nbsp;&nbsp;{{ i.created }}
-        {% else %}
-            <p align="left">{{ i.content }}&nbsp;&nbsp;&nbsp;&nbsp;{{ i.created }}
-        {% endif %}
-        <br>
-        <br>
-    {% endfor %}
-</div>
-<div id = "notification">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+<h3>Chatting with {{ towhom.username }}</h3>
+    <span class="pull-left" hidden id="typing-text">
+        <strong style="color: blue;">{{ towhom.username }} "is typing..." </strong>
+    </span>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="pull-left" >
+        <strong id ="online_status" ></strong>
+    </span>
+<div>
+    <div class="chat-content scrollingDiv">
+        <ol class="chat" id="messagecontainer">
+            {% for i in history %}
+                {% if i.to_whom == towhom %}
+                    <li class="self">
+                {% else %}
+                    <li class="other">
+                {% endif %}
+                <div class="msg">
+                    <p>{{ i.content }}</p><time>{{ i.created }}</time>
+                </div>
+            </li>
+            {% endfor %}
+        </ol>
+
+        <ol class="chat" id="new-message"></ol>
     </div>
- <script type="text/javascript">//<![CDATA[
+
+
+    <div class="input-field col s6">
+        <i class="material-icons prefix">mode_edit</i>
+        <textarea id="message" class="materialize-textarea"></textarea>
+        <label for="field">Message</label>
+        <button class="waves-effect waves-light btn" id = "send_message">Send</button>
+    </div>
+    <div id = "notification">
+    </div>
+</div>
+{% endblock %}
+{% block socket %}
+     <script type="text/javascript">//<![CDATA[
     connect();
     if (document.getElementById("sta").value=== "0") {
         document.getElementById("online_status").style.color = "red";
@@ -70,7 +84,7 @@
         if (notified) {
             if (document.getElementById(e.data) === null) {
                     var token = getCSRFToken();
-                    $('#notification').prepend('<form name="form" action="/chat/chat/' + e.data + '" method ="POST"><img onClick="document.all.form.submit();" id ="n' + e.data + '" src = "http://www.100hero.com/d/file/news/tongzhi/2017-09-19/4d4fabcfb7210f21f5499056777d1657.gif?size=177x206">'+
+                    $('#notification').prepend('<form name="form" action="/chat/chat/' + e.data + '" method ="POST"><img onClick="document.all.form.submit();" id ="n' + e.data + '" src = "http://www.vietnammarcom.edu.vn/Portals/0/callbuttonvnmc02.gif">'+
                         '<input type="hidden" name="csrfmiddlewaretoken" value="'+ token +'"></form>');
                     return;
                 }
@@ -99,7 +113,7 @@
             typing_elem.fadeOut(3000);
         } else {
             var time = gettime();
-            $('#messagecontainer').append('<p align ="left">' + tem + '&nbsp;&nbsp;&nbsp;&nbsp;' + time + '</p><br>');
+            $('#messagecontainer').append('<li class="self"><div class="msg"><p>' + tem + '</p><time>' + time + '</time></div></li>');
         }
     }
 
@@ -154,7 +168,8 @@
             } else {
                 send(a);
                 var time = gettime();
-                $('#messagecontainer').append('<p align ="right">' + a + '&nbsp;&nbsp;&nbsp;&nbsp;' + time + '</p><br>');
+                $('#messagecontainer').append('<li class="self"><div class="msg"><p>' + a + '</p><time>' + time + '</time></div></li>');
+                document.getElementById('message').value = '';
             }
 
         });
@@ -166,7 +181,6 @@
         $('#message').bind('input propertychange, keypress', function(event) {
 
             if(event.type === "keypress"){
-                console.log(event.keyCode);
                 if (event.keyCode === 13) {
                     document.getElementById("send_message").click();
                 }
@@ -185,5 +199,4 @@
         return "unknown";
     }
     </script>
-</body>
-</html>
+{% endblock %}

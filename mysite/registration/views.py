@@ -7,6 +7,7 @@ from log.views import *
 from datetime import datetime
 from datetime import timedelta
 from django.shortcuts import render, get_object_or_404
+from chat.views import chat
 
 
 
@@ -14,13 +15,15 @@ def base(request):
     return  render(request, 'base.html',{})
 
 def home(request):
-    return render(request, 'index.html', {})
+    on_line = chat(request)
+    return render(request, 'index.html', {"on_line": on_line})
 
 
 def user_login(request):
     context = {}
     errors = ""
     context['errors'] = errors
+    context['on_line'] = chat(request)
 
     if request.method == 'GET':
         return render(request, 'login.html', context)
@@ -47,6 +50,7 @@ def user_login(request):
 @login_required
 def view_accounts(request):
     context = account_context(request)
+    context['on_line'] = chat(request)
     return render(request, 'account.html', context)
 
 
@@ -55,6 +59,7 @@ def register(request):
     context = {}
     errors = []
     context['errors'] = errors
+    context['on_line'] = chat(request)
 
     # Just display the registration form if this is a GET request
     if request.method == 'GET':
@@ -109,8 +114,9 @@ def confirm_registration(request, form, token):
                           type="client",
                           )
     new_profile.save()
-
-    return render(request, 'account.html', {})
+    context = {}
+    context['on_line'] = chat(request)
+    return render(request, 'account.html', context)
 
 
 def account_context(request):
@@ -172,6 +178,6 @@ def profile(request):
     context['dob'] = profile.date_of_birth
     context['gender'] = profile.gender
     context['ssn'] = profile.ssn
-
+    context['on_line'] = chat(request)
     return render(request, 'profile.html', context)
 

@@ -8,6 +8,7 @@
   <title>Parallax Template - Materialize</title>
 
   <!-- CSS  -->
+    <link rel="stylesheet" href="/static/css/chat.css" type="text/css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="/static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="/static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
@@ -203,6 +204,14 @@ button:hover {
   <li class="divider"></li>
   <li><a href="/account/check_to_saving" style="font-size:14px;">Checking to Saving</a></li>
 </ul>
+        <ul id="dropdown2" class="dropdown-content" style="; margin-top:80px;position: fixed;z-index: 10;">
+  <li class="divider" style="height:3px; background-color: #f7c20a;"></li>
+            {% for i in on_line %}
+                <li><form name="form" action="/chat/chat/{{ i.id }}" method ="POST"><input type="submit" value="{{ i.username }}">
+                        {% csrf_token %}</form></li>
+                <li class="divider"></li>
+            {% endfor %}
+</ul>
         <nav class="boxshadow" style = "height:80px;">
             <div class="container nav-wrapper" style="line-height:55px;vertical-align:middle;">
                 <a href="#" class="brand-logo" style="color: #f7c20a;padding-left:0px;"><i class="fa fa-university" aria-hidden="true" style="line-height:50px; vertical-align: middle; font-size:24px;"></i></a><a href="#" class="brand-logo" style="color: #666666; padding-left:40px; font-size:20px;">Devonshire</a>
@@ -212,15 +221,17 @@ button:hover {
                     <li><a class="dropdown-button" href="#" data-activates="dropdown1" data-constrainwidth="false" style="height:80px;color:#333333;"><span class="menu">Transfer</span></a></li>
                     <li><a href="#" style="color:#333333;height:80px;"><span class="menu">Loan</span></a></li>
                     <li><a href="/chat" style="color:#333333;height:80px;"><span class="menu">Help & Support</span></a></li>
+                    <li><a class="dropdown-button" href="#" data-activates="dropdown2" data-constrainwidth="false" style="height:80px;color:#333333;"><span class="menu">Online Consulting</span></a></li>
                     <li><a href="#" style="float:right;color:#333333;height:80px;"><span class="menu"><i class="fa fa-search" aria-hidden="true" style="line-height:55px;vertical-align: middle;"></i></span></a></li>
                 </ul>
             </div>
         </nav>
+    <span id = "notification">
+    </span>
     </div>
 
 {% endblock %}
-    <div id = "notification">
-    </div>
+
 
 
 {% block content %}
@@ -278,7 +289,7 @@ button:hover {
             } else{
                 if (document.getElementById(e.data) === null) {
                     var token = getCSRFToken();
-                    $('#notification').prepend('<form name="form" action="/chat/chat/' + e.data + '" method ="POST"><img onClick="document.all.form.submit();" id ="n' + e.data + '" src = "http://www.100hero.com/d/file/news/tongzhi/2017-09-19/4d4fabcfb7210f21f5499056777d1657.gif?size=177x206">'+
+                    $('#notification').prepend('<form name="form" action="/chat/chat/' + e.data + '" method ="POST"><img onClick="document.all.form.submit();" id ="n' + e.data + '" src = "http://www.vietnammarcom.edu.vn/Portals/0/callbuttonvnmc02.gif">'+
                         '<input type="hidden" name="csrfmiddlewaretoken" value="'+ token +'"></form>');
                 }
                 notified = false;
