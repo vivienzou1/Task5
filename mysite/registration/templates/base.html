@@ -207,7 +207,7 @@ button:hover {
         <ul id="dropdown2" class="dropdown-content" style="; margin-top:80px;position: fixed;z-index: 10;">
   <li class="divider" style="height:3px; background-color: #f7c20a;"></li>
             {% for i in on_line %}
-                <li><form name="form" action="/chat/chat/{{ i.id }}" method ="POST"><input type="submit" value="{{ i.username }}">
+                <li><form action="/chat/chat/{{ i.id }}" method ="POST"><input type="submit" value="{{ i.username }}">
                         {% csrf_token %}</form></li>
                 <li class="divider"></li>
             {% endfor %}
@@ -226,13 +226,13 @@ button:hover {
                 </ul>
             </div>
         </nav>
-    <span id = "notification">
-    </span>
+
     </div>
 
 {% endblock %}
 
-
+<div id = "notification">
+    </div>
 
 {% block content %}
     <div class="container" style="margin-top: 200px;">
