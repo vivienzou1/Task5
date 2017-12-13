@@ -5,7 +5,7 @@
 {% if towhom %}
     <input id="toWhom" value="{{ towhom.id }}" type="hidden"/>
 {% endif %}
-
+<div style="background-color: #f7f7f7;">
 <div id="result"></div>
     <br>
     <br>
@@ -13,6 +13,8 @@
     <br>
     <br>
 <h4 align="center">Chatting with {{ towhom.username }}</h4>
+
+    <div style="margin: 0 auto;width: 700px;">
     <span class="pull-left" hidden id="typing-text">
         <strong style="color: blue;">{{ towhom.username }} "is typing..." </strong>
     </span>
@@ -21,7 +23,7 @@
         <strong id ="online_status" ></strong>
     </span>
 <div>
-    <div class="chat-content scrollingDiv">
+    <div class="chat-content scrollingDiv" style="background-color: white;width: 700px;height: 500px;overflow: scroll;">
         <ol class="chat" id="messagecontainer">
             {% for i in history %}
                 {% if i.to_whom == towhom %}
@@ -49,6 +51,9 @@
     <div id = "notification">
     </div>
 </div>
+    </div>
+
+    </div>
 {% endblock %}
 {% block socket %}
      <script type="text/javascript">//<![CDATA[

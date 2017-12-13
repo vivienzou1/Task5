@@ -11,11 +11,15 @@ off_line = {}
 @login_required
 def chat(request):
     on_line = []
-    for i in clients:
-        if (i == request.user.id):
+    for i in User.objects.all():
+        if (i.id == request.user.id):
             continue
-        user = get_object_or_404(User, id = i)
-        on_line.append(user)
+        on_line.append(i)
+    #for i in clients:
+     #   if (i == request.user.id):
+      #      continue
+       # user = get_object_or_404(User, id = i)
+        #on_line.append(user)
     return on_line
         #return render(request, 'chat/choose.html', {"on_line": on_line})
 
