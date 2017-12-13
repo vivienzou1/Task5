@@ -1,0 +1,42 @@
+Run Guide
+**************************************
+We provide three ways of testing the prototype. The recommanded way is to set up a running environment on local machine with virtual env or docker. The prototype is also deployed on the cloud and can be accessed through browser.
+
+1. virtualenv
+
+Make Sure "python 3.6" is successfully installed on your machine.
+
+run "pip3 install virtualenv"
+run "virtualenv env3"
+copy the "site-packages" folder into "./env3/lib/python3.6/" and cover the original one
+cd into env3 folder
+run "source ./bin/activate"
+cd into mysite
+run "python3 manage.py runserver"
+visit the prototype on localhost:8000
+
+2. docker
+
+Make Sure "docker" is successfully installed on your machine.
+
+cd into the folder which contains the Dockerfile
+run "docker build --rm --tag task6:latest ."
+run "docker run -p 8000:8000 task6:latest"
+visit the prototype on localhost:8000
+
+3. cloud
+
+The prototype can be visited on "ec2-54-86-74-206.compute-1.amazonaws.com"
+
+
+
+Versions
+**************************************
+Python==3.6
+Django==1.10
+django-money==0.12.1
+unicodecsv==0.14.1
+six==1.11.0
+setuptools
+dwebsocket
+pytz
