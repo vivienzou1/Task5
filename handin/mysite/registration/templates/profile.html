@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <section style="margin-top:200px;" class="flat-row pd-contact-v1">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s8">
+                            <table style = "width:100%; ">
+                                <tr>
+                                    <td width="15%" style="vertical-align: middle;"></td>
+                                    <td width="20%" style="vertical-align: middle;"></td>
+                                    <td width="15%" style="vertical-align: middle;"></td>
+                                    <td width="25%" style="vertical-align: middle;"></td>
+                                    <td width="20%" style="text-align: right;"><a href="#" style="color: #337ab7">Set contact properties</a></td>
+                                </tr>
+                                <tr style = "border-bottom:1pt solid black;">
+                                    <td width="15%" style="vertical-align: middle;"><b>Address</b></td>
+                                    <td width="20%" style="vertical-align: middle;"></td>
+                                    <td width="15%" style="vertical-align: middle;"></td>
+                                    <td width="25%" style="vertical-align: middle;"><b>Associated Accounts</b></td>
+                                    <td width="20%" style="vertical-align: middle;"></td>
+                                </tr>
+                                <tr style = "border-bottom:1pt solid black; height: 90px">
+                                    <td width="15%" style="vertical-align: middle;">Primary Residence</td>
+                                    <td width="20%" style="vertical-align: middle;">{{ address }}</td>
+                                    <td width="15%" style="vertical-align: middle;"></td>
+                                    <td width="25%" style="vertical-align: middle;">All</td>
+                                    <td width="20%" style="vertical-align: middle; text-align: right;"><a href="#" style="color: #337ab7">Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td width="15%" style="vertical-align: middle;"></td>
+                                    <td width="20%" style="vertical-align: middle;"></td>
+                                    <td width="15%" style="vertical-align: middle;"></td>
+                                    <td width="25%" style="vertical-align: middle;"></td>
+                                    <td width="20%" style="text-align: right;"><a href="#" style="color: #337ab7">Add mailing address</a></td>
+                                </tr>
+                                <tr>
+                                    <td width="15%" style="vertical-align: middle;">&nbsp;</td>
+                                    <td width="20%" style="vertical-align: middle;">&nbsp;</td>
+                                    <td width="15%" style="vertical-align: middle;">&nbsp;</td>
+                                    <td width="25%" style="vertical-align: middle;">&nbsp;</td>
+                                    <td width="20%" style="text-align: right;">&nbsp;</td>
+                                </tr>
+                                <tr style = "border-bottom:1pt solid black;">
+                                    <td width="15%" style="vertical-align: middle;"><b>Phone/Mobile number</b></td>
+                                    <td width="20%" style="vertical-align: middle;"></td>
+                                    <td width="15%" style="vertical-align: middle;"><b>Contact me here</b></td>
+                                    <td width="25%" style="vertical-align: middle;"><b>Use with</b></td>
+                                    <td width="20%" style="vertical-align: middle;"></td>
+                                </tr>
+                                <tr>
+                                    <td width="15%" style="vertical-align: middle;"><b>Phone 1</b></td>
+                                    <td width="20%" style="vertical-align: middle;" rowspan="3">{{ phone }}</td>
+                                    <td width="15%" style="vertical-align: middle;" rowspan="3"></td>
+                                    <td width="25%" style="vertical-align: middle;" rowspan="3">All</td>
+                                    <td width="20%" style="vertical-align: middle; text-align: right;" rowspan="3"><a href="#" style="color: #337ab7">Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td width="15%" style="vertical-align: middle;">Okay to call and text.</td>
+                                </tr>
+                                <tr>
+                                    <td width="15%" style="vertical-align: middle;"><a href="#" style="color: #337ab7">Change preference</a>
+                                </tr>
+                                <tr style = "border-top:1pt solid black;">
+                                    <td width="15%" style="vertical-align: middle;"></td>
+                                    <td width="20%" style="vertical-align: middle;"></td>
+                                    <td width="15%" style="vertical-align: middle;"></td>
+                                    <td width="25%" style="vertical-align: middle;"></td>
+                                    <td width="20%" style="text-align: right;"><a href="#" style="color: #337ab7">Add phone/mobile number</a></td>
+                                </tr>
+                                <tr>
+                                    <td width="15%" style="vertical-align: middle;">&nbsp;</td>
+                                    <td width="20%" style="vertical-align: middle;">&nbsp;</td>
+                                    <td width="15%" style="vertical-align: middle;">&nbsp;</td>
+                                    <td width="25%" style="vertical-align: middle;">&nbsp;</td>
+                                    <td width="20%" style="text-align: right;">&nbsp;</td>
+                                </tr>
+                            </table>
+                            <table>
+                                <tr style = "border-bottom:1pt solid black;">
+                                    <td width="15%" style="vertical-align: middle;"><b>Email address</b></td>
+                                    <td width="20%" style="vertical-align: middle;"></td>
+                                    <td width="15%" style="vertical-align: middle;"><b>Contact me here</b></td>
+                                    <td width="25%" style="vertical-align: middle;"><b>Use with</b></td>
+                                    <td width="20%" style="vertical-align: middle;"></td>
+                                </tr>
+                                <tr style = "border-bottom:1pt solid black; height: 90px">
+                                    <td width="15%" style="vertical-align: middle;"><b>Primary Email</b></td>
+                                    <td width="20%" style="vertical-align: middle;">{{ email }}</td>
+                                    <td width="15%" style="vertical-align: middle;">--</td>
+                                    <td width="25%" style="vertical-align: middle;">All</td>
+                                    <td width="20%" style="vertical-align: middle; text-align: right;"><a href="#" style="color: #337ab7">Edit</a></td>
+                                </tr>
+                            </table>
+                            <p style="float:right">add email address</p>
+                        </div> <!-- /.col-md-4 -->
+                        <div class="col s4">
+                            <h3>personal information</h3>
+
+                        </div>
+                    </div><!-- /.row -->
+                </div><!-- /.container -->
+            </section><!-- /.flat-row-iconbox -->
+
+{% endblock %}
