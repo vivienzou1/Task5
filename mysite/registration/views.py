@@ -6,8 +6,10 @@ from django.contrib.auth import authenticate, login
 from log.views import *
 from datetime import datetime
 from datetime import timedelta
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
+from django.core.urlresolvers import reverse
 from chat.views import chat
+from account.views import account_context
 
 
 
@@ -56,6 +58,7 @@ def view_accounts(request):
 
 @transaction.atomic
 def register(request):
+
     context = {}
     errors = []
     context['errors'] = errors
@@ -66,19 +69,20 @@ def register(request):
         context['form'] = RegistrationForm()
         return render(request, 'register.html', context)
 
+    print(12312312312312312312)
     form = RegistrationForm(request.POST)
     context['form'] = form
-
+    print(form)
     if not form.is_valid():
         context['message'] = ["ERR: username exist or password don't match"]
         return render(request, 'register.html', context)
-
+    print(123)
     new_user = User.objects.create_user(username=form.cleaned_data['Username'],
                                         password=form.cleaned_data['Password'],
                                         first_name=form.cleaned_data['first_name'],
                                         last_name=form.cleaned_data['last_name'],
                                         email=form.cleaned_data['email'],)
-
+    print(12333)
     new_user.is_active = False
     new_user.save()
 
@@ -109,41 +113,15 @@ def confirm_registration(request, form, token):
                           middle_name=form.cleaned_data['middle_name'],
                           address=form.cleaned_data['address'],
                           date_of_birth=form.cleaned_data['date_of_birth'],
-                          gender=form.cleaned_data['gender'],
+                          gender='Male',
                           ssn=form.cleaned_data['ssn'],
-                          type="client",
                           )
     new_profile.save()
     context = {}
     context['on_line'] = chat(request)
-    return render(request, 'account.html', context)
+    return redirect(reverse('create_account'))
 
 
-def account_context(request):
-    context = {}
-    logs_in = get_log_internal(request)
-    logs_ex = get_log_external(request)
-    profile = request.user.profile
-    account = Account.objects.get(profile=profile)
-    checking = account.checking_account.balance
-    saving = account.saving_account.balance
-    logs = logs_in + logs_ex
-    description = []
-    for log in logs:
-        if log['type'] == 'C':
-            log['description'] = "Saving to Checking"
-        if log['type'] == 'S':
-            log['description'] = "Checking to Saving"
-        if log['type'] == 'T':
-            log['description'] = log['account_2']
-
-    context['checking_logs'] = logs
-    context['saving_logs'] = logs_in
-    context['checking'] = checking
-    context['saving'] = saving
-    context['description'] = description
-    context['log_time'] = (datetime.now() - timedelta(days=90)).strftime("%Y-%m-%d")
-    return context
 
 # @login_required
 # def get_profile(request, user_name):

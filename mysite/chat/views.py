@@ -16,7 +16,6 @@ def chat(request):
             continue
         user = get_object_or_404(User, id = i)
         on_line.append(user)
-
     return on_line
         #return render(request, 'chat/choose.html', {"on_line": on_line})
 
@@ -41,6 +40,7 @@ def connect(request, user_id):
         to_whom = int(user_id)
         ## add to clients
         add_clients(request, key, to_whom)
+
         check_off_line_message(key)
         try:
             for message in request.websocket:

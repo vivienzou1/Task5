@@ -101,7 +101,15 @@ class createForm(forms.Form):
             raise forms.ValidationError("Username is wrong")
         else:
             user = users[0]
-            if user.first_name.lower() != cleaned_data.get('first_name') or user.last_name != cleaned_data.get('last_name') or user.profile.middle_name != cleaned_data.get('middle_name'):
+            print(user.first_name != cleaned_data.get('first_name'))
+            print(user.last_name != cleaned_data.get('last_name'))
+            print(user.profile.middle_name == None)
+            print(cleaned_data.get('middle_name') == "")
+            if user.first_name.lower() != cleaned_data.get('first_name') or user.last_name != cleaned_data.get('last_name'):
+                raise forms.ValidationError('name is wrong')
+            if cleaned_data.get('middle_name') == "" and user.profile.middle_name != None:
+                raise forms.ValidationError('name is wrong')
+            if cleaned_data.get('middle_name') != "" and cleaned_data.get('middle_name') ==  user.profile.middle_name:
                 raise forms.ValidationError('name is wrong')
             if Account.objects.filter(account_number=cleaned_data.get('account_number')):
                 raise forms.ValidationError('account number has already been occupied')

@@ -12,7 +12,7 @@
     <br>
     <br>
     <br>
-<h3>Chatting with {{ towhom.username }}</h3>
+<h4 align="center">Chatting with {{ towhom.username }}</h4>
     <span class="pull-left" hidden id="typing-text">
         <strong style="color: blue;">{{ towhom.username }} "is typing..." </strong>
     </span>
@@ -84,7 +84,7 @@
         if (notified) {
             if (document.getElementById(e.data) === null) {
                     var token = getCSRFToken();
-                    $('#notification').prepend('<form name="form" action="/chat/chat/' + e.data + '" method ="POST"><img onClick="document.all.form.submit();" id ="n' + e.data + '" src = "http://www.vietnammarcom.edu.vn/Portals/0/callbuttonvnmc02.gif">'+
+                    $('#notification').prepend('<form name="form" action="/chat/chat/' + e.data + '" method ="POST"><img onClick="document.all.form.submit();" id ="' + e.data + '" src = "http://www.vietnammarcom.edu.vn/Portals/0/callbuttonvnmc02.gif">'+
                         '<input type="hidden" name="csrfmiddlewaretoken" value="'+ token +'"></form>');
                     return;
                 }
@@ -113,7 +113,7 @@
             typing_elem.fadeOut(3000);
         } else {
             var time = gettime();
-            $('#messagecontainer').append('<li class="self"><div class="msg"><p>' + tem + '</p><time>' + time + '</time></div></li>');
+            $('#messagecontainer').append('<li class="other"><div class="msg"><p>' + tem + '</p><time>' + time + '</time></div></li>');
         }
     }
 

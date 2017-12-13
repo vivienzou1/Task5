@@ -6,6 +6,7 @@ import random
 from datetime import *
 from log.views import *
 from chat.views import chat
+from utility.views import *
 
 
 def account_context(request):
@@ -26,18 +27,23 @@ def account_context(request):
         if log['type'] == 'T':
             log['description'] = log['account_2']
 
+    context['on_line'] = chat(request)
     context['checking_logs'] = logs
     context['saving_logs'] = logs_in
     context['checking'] = checking
     context['saving'] = saving
     context['description'] = description
     context['log_time'] = (datetime.now() - timedelta(days=90)).strftime("%Y-%m-%d")
+    context['checknumber'] = account.checking_account.account_number
+    context['savingnumber'] = account.saving_account.account_number
+    context['number'] = account.account_number
     return context
 
 
 @login_required
 def view_accounts(request,context):
     context = account_context(request)
+
     return render(request, 'account.html', context)
 
 # add external log
@@ -123,7 +129,7 @@ def createAccount(request):
 
             message.append("create " + request.POST['account_number'] + " successfully!" )
             context = {'message': message, 'err_message': err_message, 'User': request.user}
-            return render(request, 'account/home.html', context)
+            return view_accounts(request,context)
 
     else:
         form = createForm()
@@ -145,7 +151,7 @@ def transfer(request):
         return render(request, 'account/transfer.html', context)
     else:
         form = TransferForm(request.POST)
-        if request.user.profile.account.account_status == 'frozen':
+        if is_frozen(request.user.profile):
             err_message.append("your account has already been frozen, plz connect us to deal with this")
             context = {'message': message, 'err_message': err_message, 'User': request.user, 'form': form}
             return render(request, 'account/transfer.html', context)
@@ -156,7 +162,8 @@ def transfer(request):
             return render(request, 'account/transfer.html', context)
 
         owner = request.user.profile.account.checking_account
-        if owner.balance < form.cleaned_data['balance']:
+        amount = form.cleaned_data['balance']
+        if not is_enough(owner, amount):
             err_message.append("you don't have enough money")
             context = {'message': message, 'err_message': err_message, 'User': request.user, 'form':form}
             return render(request, 'account/transfer.html', context)
@@ -165,7 +172,7 @@ def transfer(request):
             owner.save()
             getter = get_object_or_404(Checking_Account, account_number=form.cleaned_data['target_account'])
 
-            if getter.account.account_status == 'frozen':
+            if is_frozen(getter):
                 err_message.append("the target account has already been frozen, plz connect us to deal with this")
                 context = {'message': message, 'err_message': err_message, 'User': request.user, 'form': form}
                 return render(request, 'account/transfer.html', context)
@@ -197,7 +204,7 @@ def transfer_1(request):
     else:
         form = TransferForm1(request.POST)
         context['form'] = form
-        if request.user.profile.account.account_status == 'frozen':
+        if is_frozen(request.user.profile):
             err_message.append("your account has already been frozen, plz connect us to deal with this")
             return render(request, 'account/transfer_1.html', context)
 
@@ -211,7 +218,7 @@ def transfer_1(request):
 
         getter = getter[0]
 
-        if getter.account.account_status == 'frozen':
+        if is_frozen(getter):
             err_message.append("the target account has already been frozen, plz connect us to deal with this")
             return render(request, 'account/transfer_1.html', context)
 
@@ -273,7 +280,7 @@ def transfer_3(request):
     owner = owner[0]
     amount = form.cleaned_data['balance']
 
-    if owner.balance < amount:
+    if not is_enough(owner, amount):
         err_message.append("you don't have enough money")
         return render(request, 'account/transfer_3.html', context)
 
@@ -335,7 +342,7 @@ def check_to_saving(request):
         return render(request, 'account/check_to_saving.html', context)
     else:
         form = csForm(request.POST)
-        if request.user.profile.account.account_status == 'frozen':
+        if is_frozen(request.user.profile):
             err_message.append("your account has already been frozen, plz connect us to deal with this")
             context = {'message': message, 'err_message': err_message, 'User': request.user, 'form': form}
             return render(request, 'account/check_to_saving.html', context)
@@ -348,7 +355,7 @@ def check_to_saving(request):
         owner_saving = request.user.profile.account.saving_account
 
         amount = form.cleaned_data['balance']
-        if owner_check.balance < amount:
+        if not is_enough(owner_check, amount):
             err_message.append("you don't have enough money")
             context = {'message': message, 'err_message': err_message, 'User': request.user, 'form': csForm()}
             return render(request, 'account/check_to_saving.html', context)
@@ -378,7 +385,7 @@ def saving_to_check(request):
         return render(request, 'account/saving_to_check.html', context)
     else:
         form = csForm(request.POST)
-        if request.user.profile.account.account_status == 'frozen':
+        if is_frozen(request.user.profile):
             err_message.append("your account has already been frozen, plz connect us to deal with this")
             context = {'message': message, 'err_message': err_message, 'User': request.user, 'form': form}
             return render(request, 'account/saving_to_check.html', context)
@@ -391,7 +398,7 @@ def saving_to_check(request):
         owner_saving = request.user.profile.account.saving_account
 
         amount = form.cleaned_data['balance']
-        if owner_saving.balance < amount:
+        if not is_enough(owner_saving, amount):
             err_message.append("you don't have enough money")
             context = {'message': message, 'err_message': err_message, 'User': request.user, 'form': csForm()}
             return render(request, 'account/saving_to_check.html', context)

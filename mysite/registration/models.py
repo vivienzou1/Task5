@@ -23,13 +23,13 @@ class Profile(TimeStampedModel):
         ('M', 'Male'),
         ('F', 'Female'),
     )
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=False)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, null=True)
     ssn = models.CharField(max_length=9, blank=False)
     USER_CHOICES = (
-        ('C', 'client'),
         ('E', 'employee'),
+        ('C', 'client'),
     )
-    type = models.CharField(max_length=1, choices=USER_CHOICES, blank=False)
+    type = models.CharField(max_length=1, choices=USER_CHOICES, blank=True, default='employee')
 
 
     def __str__(self):

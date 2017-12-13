@@ -15,7 +15,7 @@ class RegistrationForm(forms.ModelForm):
                   'address',
                   'date_of_birth',
                   'gender',
-                  'ssn']
+                  'ssn',]
 
     Username = forms.CharField(max_length=20)
     Password = forms.CharField(max_length=200,
