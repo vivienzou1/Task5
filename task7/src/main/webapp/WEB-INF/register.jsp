@@ -23,15 +23,15 @@
                     <form:input path="username" required="required" />
                     <form:errors path="username"/>
 
-                    <form:label path="firstName">Username</form:label>
+                    <form:label path="firstName">FirstName</form:label>
                     <form:input path="firstName" required="required" />
                     <form:errors path="firstName"/>
 
-                    <form:label path="lastName">Username</form:label>
+                    <form:label path="lastName">LastName</form:label>
                     <form:input path="lastName" required="required" />
                     <form:errors path="lastName"/>
 
-                    <form:label path="type">Username</form:label>
+                    <form:label path="type">Type</form:label>
                     <form:input path="type" required="required" />
                     <form:errors path="type"/>
 

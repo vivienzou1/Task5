@@ -14,7 +14,7 @@
 
 <body>
                 <!-- Login Form -->
-                <form:form action="${pageContext.request.contextPath}/login" method="POST" class="form-horizontal">
+                <form:form action="${pageContext.request.contextPath}/login_process" method="POST" class="form-horizontal">
 
                     <!-- Place for messages: error, alert etc ... -->
                     <div class="form-group">
@@ -28,17 +28,14 @@
                                 </c:if>
                     </div>
 
-                    <!-- User name -->
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 
                         <input type="text" name="username" placeholder="username" class="form-control">
 
-                    <!-- Password -->
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 
                         <input type="password" name="password" placeholder="password" class="form-control" >
 
-                    <!-- Login/Submit Button -->
                     <button type="submit" class="btn btn-success">Login</button>
 
                 </form:form>
